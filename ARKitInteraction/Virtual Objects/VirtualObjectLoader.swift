@@ -29,11 +29,9 @@ class VirtualObjectLoader {
 		
 		// Load the content asynchronously.
         DispatchQueue.global(qos: .userInitiated).async {
-            
-            if (!object.isText) {
-                object.reset()
-                object.load()
-            }
+            object.reset()
+            object.load()
+
             self.isLoading = false
             loadedHandler(object)
         }

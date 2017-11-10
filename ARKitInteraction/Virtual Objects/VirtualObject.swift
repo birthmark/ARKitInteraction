@@ -10,14 +10,9 @@ import SceneKit
 import ARKit
 
 class VirtualObject: SCNReferenceNode {
-    var isText: Bool = false
-    var contentText = "拓天伟业"
     
     /// The model name derived from the `referenceURL`.
     var modelName: String {
-        if (isText) {
-            return "Text"
-        }
         return referenceURL.lastPathComponent.replacingOccurrences(of: ".scn", with: "")
     }
     
@@ -110,25 +105,13 @@ extension VirtualObject {
 
         let fileEnumerator = FileManager().enumerator(at: modelsURL, includingPropertiesForKeys: [])!
 
-        var arrObjects: [VirtualObject] = fileEnumerator.flatMap { element in
+        return fileEnumerator.flatMap { element in
             let url = element as! URL
 
             guard url.pathExtension == "scn" else { return nil }
 
             return VirtualObject(url: url)
         }
-        
-        var textObject = VirtualObject()
-        textObject.isText = true
-        arrObjects.append(textObject)
-        
-        var text: SCNText = SCNText(string:"拓天伟业",extrusionDepth:1.0)
-        var material: SCNMaterial = SCNMaterial()
-        material.diffuse.contents = UIColor.green
-        text.materials = [material]
-        textObject.geometry = text
-        
-        return arrObjects;
     }()
     
     /// Returns a `VirtualObject` if one exists as an ancestor to the provided node.
