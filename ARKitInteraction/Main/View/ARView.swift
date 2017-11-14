@@ -8,7 +8,7 @@ A custom `ARSCNView` configured for the requirements of this project.
 import Foundation
 import ARKit
 
-class VirtualObjectARView: ARSCNView {
+class ARView: ARSCNView {
 
     // MARK: - Types
 
@@ -64,12 +64,12 @@ class VirtualObjectARView: ARSCNView {
     // MARK: Position Testing
     
     /// Hit tests against the `sceneView` to find an object at the provided point.
-    func virtualObject(at point: CGPoint) -> VirtualObject? {
+    func virtualObject(at point: CGPoint) -> BaseNode? {
         let hitTestOptions: [SCNHitTestOption: Any] = [.boundingBoxOnly: true]
         let hitTestResults = hitTest(point, options: hitTestOptions)
         
         return hitTestResults.lazy.flatMap { result in
-            return VirtualObject.existingObjectContainingNode(result.node)
+            return BaseNode.existingObjectContainingNode(result.node)
         }.first
     }
 
@@ -236,10 +236,10 @@ extension SCNView {
     }
 }
 
-extension VirtualObjectARView.FeatureHitTestResult {
+extension ARView.FeatureHitTestResult {
     /// Add a convenience initializer to `FeatureHitTestResult` for `HitTestRay`.
     /// By adding the initializer in an extension, we also get the default initializer for `FeatureHitTestResult`.
-    init(featurePoint: float3, ray: VirtualObjectARView.HitTestRay) {
+    init(featurePoint: float3, ray: ARView.HitTestRay) {
         self.featureHit = featurePoint
         
         let originToFeature = featurePoint - ray.origin

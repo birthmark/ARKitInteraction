@@ -27,15 +27,15 @@ class ObjectCell: UITableViewCell {
 
 /// A protocol for reporting which objects have been selected.
 protocol VirtualObjectSelectionViewControllerDelegate: class {
-    func virtualObjectSelectionViewController(_ selectionViewController: VirtualObjectSelectionViewController, didSelectObject: VirtualObject)
-    func virtualObjectSelectionViewController(_ selectionViewController: VirtualObjectSelectionViewController, didDeselectObject: VirtualObject)
+    func virtualObjectSelectionViewController(_ selectionViewController: EmojiSelectionVC, didSelectObject: BaseNode)
+    func virtualObjectSelectionViewController(_ selectionViewController: EmojiSelectionVC, didDeselectObject: BaseNode)
 }
 
 /// A custom table view controller to allow users to select `VirtualObject`s for placement in the scene.
-class VirtualObjectSelectionViewController: UITableViewController {
+class EmojiSelectionVC: UITableViewController {
     
     /// The collection of `VirtualObject`s to select from.
-    var virtualObjects = [VirtualObject]()
+    var virtualObjects = [BaseNode]()
     
     /// The rows of the currently selected `VirtualObject`s.
     var selectedVirtualObjectRows = IndexSet()

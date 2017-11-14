@@ -1,42 +1,40 @@
-/*
-See LICENSE folder for this sample’s licensing information.
+//
+//  MainVC.swift
+//  ARKitInteraction
+//
+//  Created by alankong on 2017/11/14.
+//  Copyright © 2017年 Apple. All rights reserved.
+//
 
-Abstract:
-Main view controller for the AR experience.
-*/
-
+import UIKit
 import ARKit
 import SceneKit
-import UIKit
 
-class ViewController: UIViewController {
-    
+class MainVC: BaseVC {
+
     // MARK: IBOutlets
     
-    @IBOutlet var sceneView: VirtualObjectARView!
+    var sceneView: ARView!
+    var addObjectButton: UIButton!
+    var blurView: UIVisualEffectView!
+    var spinner: UIActivityIndicatorView!
     
-    @IBOutlet weak var addObjectButton: UIButton!
-    
-    @IBOutlet weak var blurView: UIVisualEffectView!
-    
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-
     // MARK: - UI Elements
     
-    var focusSquare = FocusSquare()
+    var focusSquare = FocusSquareNode()
     
     /// The view controller that displays the status and "restart experience" UI.
-    lazy var statusViewController: StatusViewController = {
-        return childViewControllers.lazy.flatMap({ $0 as? StatusViewController }).first!
+    lazy var statusViewController: StatusVC = {
+        return childViewControllers.lazy.flatMap({ $0 as? StatusVC }).first!
     }()
     
     // MARK: - ARKit Configuration Properties
     
     /// A type which manages gesture manipulation of virtual content in the scene.
-    lazy var virtualObjectInteraction = VirtualObjectInteraction(sceneView: sceneView)
+    lazy var virtualObjectInteraction = NodeInteraction(sceneView: sceneView)
     
     /// Coordinates the loading and unloading of reference nodes for virtual objects.
-    let virtualObjectLoader = VirtualObjectLoader()
+    let virtualObjectLoader = EmojiNodeLoader()
     
     /// Marks if the AR experience is available for restart.
     var isRestartAvailable = true
@@ -58,14 +56,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideNavigationBar()
+        self.view.backgroundColor = UIColor.white
         
         sceneView.delegate = self
         sceneView.session.delegate = self
-
+        
         // Set up scene content.
         setupCamera()
         sceneView.scene.rootNode.addChildNode(focusSquare)
-
+        
         /*
          The `sceneView.automaticallyUpdatesLighting` option creates an
          ambient light source and modulates its intensity. This sample app
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         if let environmentMap = UIImage(named: "Models.scnassets/sharedImages/environment_blur.exr") {
             sceneView.scene.lightingEnvironment.contents = environmentMap
         }
-
+        
         // Hook up status view controller callback(s).
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
@@ -87,30 +87,30 @@ class ViewController: UIViewController {
         tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
     }
-
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		// Prevent the screen from being dimmed to avoid interuppting the AR experience.
-		UIApplication.shared.isIdleTimerDisabled = true
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         // Start the `ARSession`.
         resetTracking()
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         session.pause()
-	}
-
+    }
+    
     // MARK: - Scene content setup
-
+    
     func setupCamera() {
         guard let camera = sceneView.pointOfView?.camera else {
             fatalError("Expected a valid `pointOfView` from the scene.")
         }
-
+        
         /*
          Enable HDR camera settings for the most realistic appearance
          with environmental lighting and physically based materials.
@@ -120,21 +120,21 @@ class ViewController: UIViewController {
         camera.minimumExposure = -1
         camera.maximumExposure = 3
     }
-
+    
     // MARK: - Session management
     
     /// Creates a new AR configuration to run on the `session`.
-	func resetTracking() {
+    func resetTracking() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-		session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-
+        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
         statusViewController.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .planeEstimation)
-	}
-
+    }
+    
     // MARK: - Focus Square
-
-	func updateFocusSquare() {
+    
+    func updateFocusSquare() {
         let isObjectVisible = virtualObjectLoader.loadedObjects.contains { object in
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
@@ -168,9 +168,9 @@ class ViewController: UIViewController {
         }
         addObjectButton.isHidden = false
         statusViewController.cancelScheduledMessage(for: .focusSquare)
-	}
+    }
     
-	// MARK: - Error handling
+    // MARK: - Error handling
     
     func displayErrorMessage(title: String, message: String) {
         // Blur the background.
@@ -186,5 +186,4 @@ class ViewController: UIViewController {
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
     }
-
 }

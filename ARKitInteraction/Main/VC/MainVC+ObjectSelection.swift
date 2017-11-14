@@ -8,7 +8,7 @@ Methods on the main view controller for handling virtual object loading and move
 import UIKit
 import SceneKit
 
-extension ViewController: VirtualObjectSelectionViewControllerDelegate {
+extension MainVC: VirtualObjectSelectionViewControllerDelegate {
     /**
      Adds the specified virtual object to the scene, placed using
      the focus square's estimate of the world-space position
@@ -16,7 +16,7 @@ extension ViewController: VirtualObjectSelectionViewControllerDelegate {
      
      - Tag: PlaceVirtualObject
      */
-    func placeVirtualObject(_ virtualObject: VirtualObject) {
+    func placeVirtualObject(_ virtualObject: BaseNode) {
         guard let cameraTransform = session.currentFrame?.camera.transform,
             let focusSquarePosition = focusSquare.lastPosition else {
             statusViewController.showMessage("CANNOT PLACE OBJECT\nTry moving left or right.")
@@ -33,8 +33,8 @@ extension ViewController: VirtualObjectSelectionViewControllerDelegate {
     
     // MARK: - VirtualObjectSelectionViewControllerDelegate
     
-    func virtualObjectSelectionViewController(_: VirtualObjectSelectionViewController, didSelectObject object: VirtualObject) {
-        virtualObjectLoader.loadVirtualObject(object, loadedHandler: { [unowned self] loadedObject in
+    func virtualObjectSelectionViewController(_: EmojiSelectionVC, didSelectObject object: BaseNode) {
+        virtualObjectLoader.loadEmojiObject(object, loadedHandler: { [unowned self] loadedObject in
             DispatchQueue.main.async {
                 self.hideObjectLoadingUI()
                 self.placeVirtualObject(loadedObject)
@@ -44,7 +44,7 @@ extension ViewController: VirtualObjectSelectionViewControllerDelegate {
         displayObjectLoadingUI()
     }
     
-    func virtualObjectSelectionViewController(_: VirtualObjectSelectionViewController, didDeselectObject object: VirtualObject) {
+    func virtualObjectSelectionViewController(_: EmojiSelectionVC, didDeselectObject object: BaseNode) {
         guard let objectIndex = virtualObjectLoader.loadedObjects.index(of: object) else {
             fatalError("Programmer error: Failed to lookup virtual object in scene.")
         }

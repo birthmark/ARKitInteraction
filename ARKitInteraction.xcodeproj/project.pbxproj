@@ -7,50 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11BD822A1F09D750003F11C8 /* ViewController+ObjectSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147D76491EFC36070000FEBF /* ViewController+ObjectSelection.swift */; };
-		147062641F06FA790003EE03 /* VirtualObjectSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147062631F06FA790003EE03 /* VirtualObjectSelection.swift */; };
-		1488323F1EFC378A0043E0AB /* ViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488323E1EFC378A0043E0AB /* ViewController+Actions.swift */; };
-		148832411EFC3B250043E0AB /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148832401EFC3B250043E0AB /* FocusSquareSegment.swift */; };
+		11BD822A1F09D750003F11C8 /* MainVC+ObjectSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */; };
+		147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147062631F06FA790003EE03 /* EmojiSelectionVC.swift */; };
+		1488323F1EFC378A0043E0AB /* MainVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */; };
+		148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */; };
+		2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB791FBAC89C008D69D9 /* BaseVC.swift */; };
+		2810DB7C1FBAC91A008D69D9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB7B1FBAC91A008D69D9 /* MainVC.swift */; };
+		2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB801FBAD150008D69D9 /* Text3DNode.swift */; };
+		2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB821FBAD162008D69D9 /* EmojiNode.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
-		3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48D1E89EC2C00E00B60 /* ViewController.swift */; };
-		3929C4911E89EC2C00E00B60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3929C48F1E89EC2C00E00B60 /* Main.storyboard */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C0B9581E9C6B1F003FCA0C /* Utilities.swift */; };
-		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
-		C41366B91EB80DD400EC054A /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* StatusViewController.swift */; };
-		C42A71BD1E9C0AF200944367 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquare.swift */; };
-		C46356671EF9CC500080C8D9 /* VirtualObjectARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356661EF9CC480080C8D9 /* VirtualObjectARView.swift */; };
-		C46356681EF9CC530080C8D9 /* VirtualObjectLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356651EF9CB1A0080C8D9 /* VirtualObjectLoader.swift */; };
+		C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* StatusVC.swift */; };
+		C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */; };
+		C46356671EF9CC500080C8D9 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356661EF9CC480080C8D9 /* ARView.swift */; };
+		C46356681EF9CC530080C8D9 /* EmojiNodeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */; };
 		C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812D8671F47628300344E73 /* ThresholdPanGesture.swift */; };
-		C8C12A711F29277B00B011FE /* ViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C12A701F29277B00B011FE /* ViewController+ARSCNViewDelegate.swift */; };
-		C8C2AC521F3A545C00E86BA3 /* VirtualObjectInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2AC511F3A545C00E86BA3 /* VirtualObjectInteraction.swift */; };
-		C8D71A001F3B7D3D0086AD64 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D719FF1F3B7D3D0086AD64 /* VirtualObject.swift */; };
+		C8C12A711F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */; };
+		C8C2AC521F3A545C00E86BA3 /* NodeInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */; };
+		C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		11063F3B1EBE651B0033EE6D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		147062631F06FA790003EE03 /* VirtualObjectSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObjectSelection.swift; sourceTree = "<group>"; };
-		147D76491EFC36070000FEBF /* ViewController+ObjectSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ObjectSelection.swift"; sourceTree = "<group>"; };
-		1488323E1EFC378A0043E0AB /* ViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Actions.swift"; sourceTree = "<group>"; };
-		148832401EFC3B250043E0AB /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
+		147062631F06FA790003EE03 /* EmojiSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionVC.swift; sourceTree = "<group>"; };
+		147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ObjectSelection.swift"; sourceTree = "<group>"; };
+		1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Actions.swift"; sourceTree = "<group>"; };
+		148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusSquare+Segment.swift"; sourceTree = "<group>"; };
+		2810DB791FBAC89C008D69D9 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		2810DB7B1FBAC91A008D69D9 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		2810DB801FBAD150008D69D9 /* Text3DNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text3DNode.swift; sourceTree = "<group>"; };
+		2810DB821FBAD162008D69D9 /* EmojiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNode.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3929C48D1E89EC2C00E00B60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3929C4901E89EC2C00E00B60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3929C49E1E89EE4400E00B60 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		39C0B9581E9C6B1F003FCA0C /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C41366B81EB80DD400EC054A /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
-		C42A71BC1E9C0AF200944367 /* FocusSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
-		C46356651EF9CB1A0080C8D9 /* VirtualObjectLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObjectLoader.swift; sourceTree = "<group>"; };
-		C46356661EF9CC480080C8D9 /* VirtualObjectARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObjectARView.swift; sourceTree = "<group>"; };
+		C41366B81EB80DD400EC054A /* StatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVC.swift; sourceTree = "<group>"; };
+		C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquareNode.swift; sourceTree = "<group>"; };
+		C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNodeLoader.swift; sourceTree = "<group>"; };
+		C46356661EF9CC480080C8D9 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		C812D8671F47628300344E73 /* ThresholdPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPanGesture.swift; sourceTree = "<group>"; };
-		C8C12A701F29277B00B011FE /* ViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
-		C8C2AC511F3A545C00E86BA3 /* VirtualObjectInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObjectInteraction.swift; sourceTree = "<group>"; };
-		C8D719FF1F3B7D3D0086AD64 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
+		C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInteraction.swift; sourceTree = "<group>"; };
+		C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNode.swift; sourceTree = "<group>"; };
 		E5F1518ECE83631610AC00ED /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F270D24306DF002E8C47C1BF /* SampleCode.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,42 +68,108 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		113B64D01ECA81CA0071CBD1 /* Focus Square */ = {
-			isa = PBXGroup;
-			children = (
-				C42A71BC1E9C0AF200944367 /* FocusSquare.swift */,
-				148832401EFC3B250043E0AB /* FocusSquareSegment.swift */,
-			);
-			path = "Focus Square";
-			sourceTree = "<group>";
-		};
-		1488324A1EFC3E9C0043E0AB /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				39C0B9581E9C6B1F003FCA0C /* Utilities.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		1488324B1EFC3EBF0043E0AB /* Additional View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C41366B81EB80DD400EC054A /* StatusViewController.swift */,
-				147062631F06FA790003EE03 /* VirtualObjectSelection.swift */,
-			);
-			path = "Additional View Controllers";
-			sourceTree = "<group>";
-		};
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				3929C49E1E89EE4400E00B60 /* Models.scnassets */,
 				3929C4921E89EC2C00E00B60 /* Assets.xcassets */,
 				3929C4971E89EC2C00E00B60 /* Info.plist */,
-				3929C48F1E89EC2C00E00B60 /* Main.storyboard */,
-				39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2810DB711FBAC776008D69D9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2810DB751FBAC79C008D69D9 /* VC */,
+				2810DB741FBAC794008D69D9 /* View */,
+				2810DB731FBAC78D008D69D9 /* VO */,
+				2810DB721FBAC785008D69D9 /* Node */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2810DB721FBAC785008D69D9 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */,
+				C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */,
+				2810DB801FBAD150008D69D9 /* Text3DNode.swift */,
+				2810DB821FBAD162008D69D9 /* EmojiNode.swift */,
+				C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */,
+				148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
+		2810DB731FBAC78D008D69D9 /* VO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VO;
+			sourceTree = "<group>";
+		};
+		2810DB741FBAC794008D69D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C46356661EF9CC480080C8D9 /* ARView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2810DB751FBAC79C008D69D9 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				2810DB7B1FBAC91A008D69D9 /* MainVC.swift */,
+				C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */,
+				1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */,
+				147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */,
+				C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */,
+				C41366B81EB80DD400EC054A /* StatusVC.swift */,
+				147062631F06FA790003EE03 /* EmojiSelectionVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		2810DB761FBAC7A8008D69D9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2810DB7F1FBAC93D008D69D9 /* Extension */,
+				2810DB7E1FBAC932008D69D9 /* 3rdPart */,
+				2810DB7D1FBAC92C008D69D9 /* utils */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2810DB771FBAC7AE008D69D9 /* AppRoot */ = {
+			isa = PBXGroup;
+			children = (
+				2810DB791FBAC89C008D69D9 /* BaseVC.swift */,
+			);
+			path = AppRoot;
+			sourceTree = "<group>";
+		};
+		2810DB7D1FBAC92C008D69D9 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C812D8671F47628300344E73 /* ThresholdPanGesture.swift */,
+				39C0B9581E9C6B1F003FCA0C /* Utilities.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		2810DB7E1FBAC932008D69D9 /* 3rdPart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3rdPart;
+			sourceTree = "<group>";
+		};
+		2810DB7F1FBAC93D008D69D9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		3929C47F1E89EC2C00E00B60 = {
@@ -126,30 +194,13 @@
 		3929C48A1E89EC2C00E00B60 /* ARKitInteraction */ = {
 			isa = PBXGroup;
 			children = (
+				2810DB711FBAC776008D69D9 /* Main */,
+				2810DB761FBAC7A8008D69D9 /* Common */,
+				2810DB771FBAC7AE008D69D9 /* AppRoot */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
-				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
-				C8C12A701F29277B00B011FE /* ViewController+ARSCNViewDelegate.swift */,
-				1488323E1EFC378A0043E0AB /* ViewController+Actions.swift */,
-				147D76491EFC36070000FEBF /* ViewController+ObjectSelection.swift */,
-				C8C2AC511F3A545C00E86BA3 /* VirtualObjectInteraction.swift */,
-				C812D8671F47628300344E73 /* ThresholdPanGesture.swift */,
-				C46356661EF9CC480080C8D9 /* VirtualObjectARView.swift */,
-				C40DF57B1EC2330700D9D59E /* Virtual Objects */,
-				113B64D01ECA81CA0071CBD1 /* Focus Square */,
-				1488324B1EFC3EBF0043E0AB /* Additional View Controllers */,
-				1488324A1EFC3E9C0043E0AB /* Utilities */,
 				1488324C1EFC3ED00043E0AB /* Resources */,
 			);
 			path = ARKitInteraction;
-			sourceTree = "<group>";
-		};
-		C40DF57B1EC2330700D9D59E /* Virtual Objects */ = {
-			isa = PBXGroup;
-			children = (
-				C8D719FF1F3B7D3D0086AD64 /* VirtualObject.swift */,
-				C46356651EF9CB1A0080C8D9 /* VirtualObjectLoader.swift */,
-			);
-			path = "Virtual Objects";
 			sourceTree = "<group>";
 		};
 		CA0ADFFA247BCD89BEF87B81 /* LICENSE */ = {
@@ -230,9 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
-				39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */,
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
-				3929C4911E89EC2C00E00B60 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,36 +293,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */,
-				11BD822A1F09D750003F11C8 /* ViewController+ObjectSelection.swift in Sources */,
-				1488323F1EFC378A0043E0AB /* ViewController+Actions.swift in Sources */,
-				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
-				C41366B91EB80DD400EC054A /* StatusViewController.swift in Sources */,
+				2810DB7C1FBAC91A008D69D9 /* MainVC.swift in Sources */,
+				11BD822A1F09D750003F11C8 /* MainVC+ObjectSelection.swift in Sources */,
+				1488323F1EFC378A0043E0AB /* MainVC+Actions.swift in Sources */,
+				C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
-				147062641F06FA790003EE03 /* VirtualObjectSelection.swift in Sources */,
-				C8C12A711F29277B00B011FE /* ViewController+ARSCNViewDelegate.swift in Sources */,
-				C8C2AC521F3A545C00E86BA3 /* VirtualObjectInteraction.swift in Sources */,
-				C46356671EF9CC500080C8D9 /* VirtualObjectARView.swift in Sources */,
-				148832411EFC3B250043E0AB /* FocusSquareSegment.swift in Sources */,
-				C8D71A001F3B7D3D0086AD64 /* VirtualObject.swift in Sources */,
-				C42A71BD1E9C0AF200944367 /* FocusSquare.swift in Sources */,
+				147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */,
+				C8C12A711F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift in Sources */,
+				C8C2AC521F3A545C00E86BA3 /* NodeInteraction.swift in Sources */,
+				C46356671EF9CC500080C8D9 /* ARView.swift in Sources */,
+				2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */,
+				148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */,
+				2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */,
+				C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */,
+				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
-				C46356681EF9CC530080C8D9 /* VirtualObjectLoader.swift in Sources */,
+				C46356681EF9CC530080C8D9 /* EmojiNodeLoader.swift in Sources */,
+				2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3929C48F1E89EC2C00E00B60 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3929C4901E89EC2C00E00B60 /* Base */,
-			);
-			name = Main.storyboard;
-			path = ..;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3929C4981E89EC2C00E00B60 /* Debug */ = {
@@ -378,11 +418,15 @@
 			baseConfigurationReference = F270D24306DF002E8C47C1BF /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38347LA2XG;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.arkit-sample-app${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -397,11 +441,15 @@
 			baseConfigurationReference = F270D24306DF002E8C47C1BF /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38347LA2XG;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.arkit-sample-app${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

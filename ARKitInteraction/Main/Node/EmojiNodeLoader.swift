@@ -12,8 +12,8 @@ import ARKit
  Loads multiple `VirtualObject`s on a background queue to be able to display the
  objects quickly once they are needed.
 */
-class VirtualObjectLoader {
-	private(set) var loadedObjects = [VirtualObject]()
+class EmojiNodeLoader {
+	private(set) var loadedObjects = [BaseNode]()
     
     private(set) var isLoading = false
 	
@@ -23,7 +23,7 @@ class VirtualObjectLoader {
      Loads a `VirtualObject` on a background queue. `loadedHandler` is invoked
      on a background queue once `object` has been loaded.
     */
-    func loadVirtualObject(_ object: VirtualObject, loadedHandler: @escaping (VirtualObject) -> Void) {
+    func loadEmojiObject(_ object: BaseNode, loadedHandler: @escaping (BaseNode) -> Void) {
         isLoading = true
 		loadedObjects.append(object)
 		

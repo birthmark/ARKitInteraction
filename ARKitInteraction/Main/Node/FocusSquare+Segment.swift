@@ -7,7 +7,7 @@ Corner segments for the focus square UI.
 
 import SceneKit
 
-extension FocusSquare {
+extension FocusSquareNode {
 
     /*
     The focus square consists of eight segments as follows, which can be individually animated.
@@ -76,11 +76,11 @@ extension FocusSquare {
             self.name = name
             
             let material = plane.firstMaterial!
-            material.diffuse.contents = FocusSquare.primaryColor
+            material.diffuse.contents = FocusSquareNode.primaryColor
             material.isDoubleSided = true
             material.ambient.contents = UIColor.black
             material.lightingModel = .constant
-            material.emission.contents = FocusSquare.primaryColor
+            material.emission.contents = FocusSquareNode.primaryColor
             geometry = plane
         }
 

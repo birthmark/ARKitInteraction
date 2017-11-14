@@ -8,7 +8,7 @@ UI Actions for the main view controller.
 import UIKit
 import SceneKit
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension MainVC: UIGestureRecognizerDelegate {
     
     enum SegueIdentifier: String {
         case showObjects
@@ -54,7 +54,7 @@ extension ViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension ViewController: UIPopoverPresentationControllerDelegate {
+extension MainVC: UIPopoverPresentationControllerDelegate {
     
     // MARK: - UIPopoverPresentationControllerDelegate
 
@@ -74,13 +74,13 @@ extension ViewController: UIPopoverPresentationControllerDelegate {
               let segueIdentifer = SegueIdentifier(rawValue: identifier),
               segueIdentifer == .showObjects else { return }
         
-        let objectsViewController = segue.destination as! VirtualObjectSelectionViewController
-        objectsViewController.virtualObjects = VirtualObject.availableObjects
+        let objectsViewController = segue.destination as! EmojiSelectionVC
+        objectsViewController.virtualObjects = BaseNode.availableEmojiObjects
         objectsViewController.delegate = self
         
         // Set all rows of currently placed objects to selected.
         for object in virtualObjectLoader.loadedObjects {
-            guard let index = VirtualObject.availableObjects.index(of: object) else { continue }
+            guard let index = BaseNode.availableEmojiObjects.index(of: object) else { continue }
             objectsViewController.selectedVirtualObjectRows.insert(index)
         }
     }

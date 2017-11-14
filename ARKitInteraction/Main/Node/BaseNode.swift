@@ -9,7 +9,10 @@ import Foundation
 import SceneKit
 import ARKit
 
-class VirtualObject: SCNReferenceNode {
+class BaseNode: SCNReferenceNode {
+    
+    var isSelected: Bool?
+    var isStanding: Bool?
     
     /// The model name derived from the `referenceURL`.
     var modelName: String {
@@ -96,11 +99,11 @@ class VirtualObject: SCNReferenceNode {
     }
 }
 
-extension VirtualObject {
+extension BaseNode {
     // MARK: Static Properties and Methods
     
     /// Loads all the model objects within `Models.scnassets`.
-    static let availableObjects: [VirtualObject] = {
+    static let availableEmojiObjects: [BaseNode] = {
         let modelsURL = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
 
         let fileEnumerator = FileManager().enumerator(at: modelsURL, includingPropertiesForKeys: [])!
@@ -110,19 +113,19 @@ extension VirtualObject {
 
             guard url.pathExtension == "scn" else { return nil }
 
-            return VirtualObject(url: url)
+            return BaseNode(url: url)
         }
     }()
     
-    /// Returns a `VirtualObject` if one exists as an ancestor to the provided node.
-    static func existingObjectContainingNode(_ node: SCNNode) -> VirtualObject? {
-        if let virtualObjectRoot = node as? VirtualObject {
-            return virtualObjectRoot
+    /// Returns a `BaseNode` if one exists as an ancestor to the provided node.
+    static func existingObjectContainingNode(_ node: SCNNode) -> BaseNode? {
+        if let nodeRoot = node as? BaseNode {
+            return nodeRoot
         }
         
         guard let parent = node.parent else { return nil }
         
-        // Recurse up to check if the parent is a `VirtualObject`.
+        // Recurse up to check if the parent is a `BaseNode`.
         return existingObjectContainingNode(parent)
     }
 }

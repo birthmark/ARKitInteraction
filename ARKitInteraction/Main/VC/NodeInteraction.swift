@@ -2,29 +2,29 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-Coordinates movement and gesture interactions with virtual objects.
+Coordinates movement and gesture interactions with nodes.
 */
 
 import UIKit
 import ARKit
 
-/// - Tag: VirtualObjectInteraction
-class VirtualObjectInteraction: NSObject, UIGestureRecognizerDelegate {
+/// - Tag: NodeInteraction
+class NodeInteraction: NSObject, UIGestureRecognizerDelegate {
     
     /// Developer setting to translate assuming the detected plane extends infinitely.
     let translateAssumingInfinitePlane = true
     
     /// The scene view to hit test against when moving virtual content.
-    let sceneView: VirtualObjectARView
+    let sceneView: ARView
     
     /**
      The object that has been most recently intereacted with.
      The `selectedObject` can be moved at any time with the tap gesture.
      */
-    var selectedObject: VirtualObject?
+    var selectedObject: BaseNode?
     
     /// The object that is tracked for use by the pan and rotation gestures.
-    private var trackedObject: VirtualObject? {
+    private var trackedObject: BaseNode? {
         didSet {
             guard trackedObject != nil else { return }
             selectedObject = trackedObject
@@ -34,7 +34,7 @@ class VirtualObjectInteraction: NSObject, UIGestureRecognizerDelegate {
     /// The tracked screen position used to update the `trackedObject`'s position in `updateObjectToCurrentTrackingPosition()`.
     private var currentTrackingPosition: CGPoint?
 
-    init(sceneView: VirtualObjectARView) {
+    init(sceneView: ARView) {
         self.sceneView = sceneView
         super.init()
         
@@ -136,7 +136,7 @@ class VirtualObjectInteraction: NSObject, UIGestureRecognizerDelegate {
 
     /// A helper method to return the first object that is found under the provided `gesture`s touch locations.
     /// - Tag: TouchTesting
-    private func objectInteracting(with gesture: UIGestureRecognizer, in view: ARSCNView) -> VirtualObject? {
+    private func objectInteracting(with gesture: UIGestureRecognizer, in view: ARSCNView) -> BaseNode? {
         for index in 0..<gesture.numberOfTouches {
             let touchLocation = gesture.location(ofTouch: index, in: view)
             
@@ -153,7 +153,7 @@ class VirtualObjectInteraction: NSObject, UIGestureRecognizerDelegate {
     // MARK: - Update object position
 
     /// - Tag: DragVirtualObject
-    private func translate(_ object: VirtualObject, basedOn screenPos: CGPoint, infinitePlane: Bool) {
+    private func translate(_ object: BaseNode, basedOn screenPos: CGPoint, infinitePlane: Bool) {
         guard let cameraTransform = sceneView.session.currentFrame?.camera.transform,
             let (position, _, isOnPlane) = sceneView.worldPosition(fromScreenPosition: screenPos,
                                                                    objectPosition: object.simdPosition,

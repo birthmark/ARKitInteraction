@@ -12,7 +12,7 @@ import ARKit
  An `SCNNode` which is used to provide uses with visual cues about the status of ARKit world tracking.
  - Tag: FocusSquare
  */
-class FocusSquare: SCNNode {
+class FocusSquareNode: SCNNode {
     // MARK: - Types
     
     enum State {
@@ -84,7 +84,7 @@ class FocusSquare: SCNNode {
     private var anchorsOfVisitedPlanes: Set<ARAnchor> = []
     
     /// List of the segments in the focus square.
-    private var segments: [FocusSquare.Segment] = []
+    private var segments: [FocusSquareNode.Segment] = []
     
     /// The primary node that controls the position of other `FocusSquare` nodes.
     private let positioningNode = SCNNode()
@@ -117,7 +117,7 @@ class FocusSquare: SCNNode {
         segments = [s1, s2, s3, s4, s5, s6, s7, s8]
         
         let sl: Float = 0.5  // segment length
-        let c: Float = FocusSquare.thickness / 2 // correction to align lines perfectly
+        let c: Float = FocusSquareNode.thickness / 2 // correction to align lines perfectly
         s1.simdPosition += float3(-(sl / 2 - c), -(sl - c), 0)
         s2.simdPosition += float3(sl / 2 - c, -(sl - c), 0)
         s3.simdPosition += float3(-sl, -sl / 2, 0)
@@ -128,7 +128,7 @@ class FocusSquare: SCNNode {
         s8.simdPosition += float3(sl / 2 - c, sl - c, 0)
         
         positioningNode.eulerAngles.x = .pi / 2 // Horizontal
-        positioningNode.simdScale = float3(FocusSquare.size * FocusSquare.scaleForClosedSquare)
+        positioningNode.simdScale = float3(FocusSquareNode.size * FocusSquareNode.scaleForClosedSquare)
         for segment in segments {
             positioningNode.addChildNode(segment)
         }
@@ -266,7 +266,7 @@ class FocusSquare: SCNNode {
 		// Open animation
 		SCNTransaction.begin()
 		SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-		SCNTransaction.animationDuration = FocusSquare.animationDuration / 4
+		SCNTransaction.animationDuration = FocusSquareNode.animationDuration / 4
 		positioningNode.opacity = 1.0
         for segment in segments {
             segment.open()
@@ -281,8 +281,8 @@ class FocusSquare: SCNNode {
 		// Add a scale/bounce animation.
 		SCNTransaction.begin()
 		SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-		SCNTransaction.animationDuration = FocusSquare.animationDuration / 4
-        positioningNode.simdScale = float3(FocusSquare.size)
+		SCNTransaction.animationDuration = FocusSquareNode.animationDuration / 4
+        positioningNode.simdScale = float3(FocusSquareNode.size)
 		SCNTransaction.commit()
 	}
 
@@ -297,12 +297,12 @@ class FocusSquare: SCNNode {
 		// Close animation
 		SCNTransaction.begin()
 		SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-		SCNTransaction.animationDuration = FocusSquare.animationDuration / 2
+		SCNTransaction.animationDuration = FocusSquareNode.animationDuration / 2
 		positioningNode.opacity = 0.99
 		SCNTransaction.completionBlock = {
 			SCNTransaction.begin()
 			SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-			SCNTransaction.animationDuration = FocusSquare.animationDuration / 4
+			SCNTransaction.animationDuration = FocusSquareNode.animationDuration / 4
             for segment in self.segments {
                 segment.close()
             }
@@ -317,12 +317,12 @@ class FocusSquare: SCNNode {
 		positioningNode.addAnimation(scaleAnimation(for: "transform.scale.z"), forKey: "transform.scale.z")
 		
 		if flash {
-			let waitAction = SCNAction.wait(duration: FocusSquare.animationDuration * 0.75)
-			let fadeInAction = SCNAction.fadeOpacity(to: 0.25, duration: FocusSquare.animationDuration * 0.125)
-			let fadeOutAction = SCNAction.fadeOpacity(to: 0.0, duration: FocusSquare.animationDuration * 0.125)
+			let waitAction = SCNAction.wait(duration: FocusSquareNode.animationDuration * 0.75)
+			let fadeInAction = SCNAction.fadeOpacity(to: 0.25, duration: FocusSquareNode.animationDuration * 0.125)
+			let fadeOutAction = SCNAction.fadeOpacity(to: 0.0, duration: FocusSquareNode.animationDuration * 0.125)
             fillPlane.runAction(SCNAction.sequence([waitAction, fadeInAction, fadeOutAction]))
 			
-			let flashSquareAction = flashAnimation(duration: FocusSquare.animationDuration * 0.25)
+			let flashSquareAction = flashAnimation(duration: FocusSquareNode.animationDuration * 0.25)
             for segment in segments {
                 segment.runAction(.sequence([waitAction, flashSquareAction]))
             }
@@ -338,8 +338,8 @@ class FocusSquare: SCNNode {
         let easeInOut = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         let linear = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         
-        let size = FocusSquare.size
-        let ts = FocusSquare.size * FocusSquare.scaleForClosedSquare
+        let size = FocusSquareNode.size
+        let ts = FocusSquareNode.size * FocusSquareNode.scaleForClosedSquare
         let values = [size, size * 1.15, size * 1.15, ts * 0.97, ts]
         let keyTimes: [NSNumber] = [0.00, 0.25, 0.50, 0.75, 1.00]
         let timingFunctions = [easeOut, linear, easeOut, easeInOut]
@@ -347,7 +347,7 @@ class FocusSquare: SCNNode {
         scaleAnimation.values = values
         scaleAnimation.keyTimes = keyTimes
         scaleAnimation.timingFunctions = timingFunctions
-        scaleAnimation.duration = FocusSquare.animationDuration
+        scaleAnimation.duration = FocusSquareNode.animationDuration
         
         return scaleAnimation
     }
@@ -371,8 +371,8 @@ class FocusSquare: SCNNode {
     }
 
     private lazy var fillPlane: SCNNode = {
-        let correctionFactor = FocusSquare.thickness / 2 // correction to align lines perfectly
-        let length = CGFloat(1.0 - FocusSquare.thickness * 2 + correctionFactor)
+        let correctionFactor = FocusSquareNode.thickness / 2 // correction to align lines perfectly
+        let length = CGFloat(1.0 - FocusSquareNode.thickness * 2 + correctionFactor)
         
         let plane = SCNPlane(width: length, height: length)
         let node = SCNNode(geometry: plane)
@@ -380,11 +380,11 @@ class FocusSquare: SCNNode {
         node.opacity = 0.0
 
         let material = plane.firstMaterial!
-        material.diffuse.contents = FocusSquare.fillColor
+        material.diffuse.contents = FocusSquareNode.fillColor
         material.isDoubleSided = true
         material.ambient.contents = UIColor.black
         material.lightingModel = .constant
-        material.emission.contents = FocusSquare.fillColor
+        material.emission.contents = FocusSquareNode.fillColor
 
         return node
     }()
@@ -413,8 +413,8 @@ private func flashAnimation(duration: TimeInterval) -> SCNAction {
     return action
 }
 
-extension FocusSquare.State: Equatable {
-    static func ==(lhs: FocusSquare.State, rhs: FocusSquare.State) -> Bool {
+extension FocusSquareNode.State: Equatable {
+    static func ==(lhs: FocusSquareNode.State, rhs: FocusSquareNode.State) -> Bool {
         switch (lhs, rhs) {
         case (.initializing, .initializing):
             return true

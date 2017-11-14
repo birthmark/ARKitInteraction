@@ -14,7 +14,7 @@ import ARKit
  the experience altogether.
  - Tag: StatusViewController
 */
-class StatusViewController: UIViewController {
+class StatusVC: BaseVC {
     // MARK: - Types
 
     enum MessageType {
