@@ -102,6 +102,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         self.sceneView.frame = self.view.bounds
         self.view.addSubview(self.sceneView)
         
+        //
         self.btnVideoCapture = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
         self.view.addSubview(self.btnVideoCapture)
         self.btnVideoCapture.setTitle("拍摄", for: .normal)
@@ -109,6 +110,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         self.btnVideoCapture.centerX = self.view.width/2;
         self.btnVideoCapture.bottom = self.view.height-50;
         
+        //
         self.btnAddEmoji = UIButton(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
         self.btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
         self.view.addSubview(self.btnAddEmoji)
