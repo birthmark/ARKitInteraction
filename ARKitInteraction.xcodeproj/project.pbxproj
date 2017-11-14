@@ -97,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */,
-				C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */,
 				2810DB801FBAD150008D69D9 /* Text3DNode.swift */,
 				2810DB821FBAD162008D69D9 /* EmojiNode.swift */,
 				C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */,
@@ -157,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				C812D8671F47628300344E73 /* ThresholdPanGesture.swift */,
+				C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */,
 				39C0B9581E9C6B1F003FCA0C /* Utilities.swift */,
 			);
 			path = utils;
