@@ -33,8 +33,8 @@ extension MainVC: UIGestureRecognizerDelegate {
         statusVC.cancelAllScheduledMessages()
 
         emojiLoader.removeAllVirtualObjects()
-        addNodeButton.setImage(#imageLiteral(resourceName: "add"), for: [])
-        addNodeButton.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
+        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 
         resetTracking()
 

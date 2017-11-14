@@ -54,17 +54,17 @@ extension MainVC: EmojiSelectionDelegate {
     // MARK: Object Loading UI
 
     func displayObjectLoadingUI() {
-        addNodeButton.setImage(#imageLiteral(resourceName: "buttonring"), for: [])
+        btnAddEmoji.setImage(#imageLiteral(resourceName: "buttonring"), for: [])
 
-        addNodeButton.isEnabled = false
+        btnAddEmoji.isEnabled = false
         isRestartAvailable = false
     }
 
     func hideObjectLoadingUI() {
-        addNodeButton.setImage(#imageLiteral(resourceName: "add"), for: [])
-        addNodeButton.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
+        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 
-        addNodeButton.isEnabled = true
+        btnAddEmoji.isEnabled = true
         isRestartAvailable = true
     }
 }

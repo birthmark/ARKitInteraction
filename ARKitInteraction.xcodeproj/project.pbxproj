@@ -18,6 +18,9 @@
 		288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */; };
 		288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */; };
 		288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */; };
+		288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E551FBB064500DD0916 /* RecordARWrapper.swift */; };
+		288C3E581FBB066000DD0916 /* ARVideoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288C3E541FBB064500DD0916 /* ARVideoKit.framework */; };
+		288C3E591FBB066000DD0916 /* ARVideoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 288C3E541FBB064500DD0916 /* ARVideoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -32,6 +35,20 @@
 		C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		288C3E5A1FBB066000DD0916 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				288C3E591FBB066000DD0916 /* ARVideoKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		147062631F06FA790003EE03 /* EmojiSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionVC.swift; sourceTree = "<group>"; };
 		147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ObjectSelection.swift"; sourceTree = "<group>"; };
@@ -44,6 +61,8 @@
 		288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		288C3E541FBB064500DD0916 /* ARVideoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ARVideoKit.framework; sourceTree = "<group>"; };
+		288C3E551FBB064500DD0916 /* RecordARWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordARWrapper.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				288C3E581FBB066000DD0916 /* ARVideoKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +185,7 @@
 		2810DB7E1FBAC932008D69D9 /* 3rdPart */ = {
 			isa = PBXGroup;
 			children = (
+				288C3E531FBB064500DD0916 /* ARRecord */,
 			);
 			path = 3rdPart;
 			sourceTree = "<group>";
@@ -177,6 +198,15 @@
 				288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		288C3E531FBB064500DD0916 /* ARRecord */ = {
+			isa = PBXGroup;
+			children = (
+				288C3E541FBB064500DD0916 /* ARVideoKit.framework */,
+				288C3E551FBB064500DD0916 /* RecordARWrapper.swift */,
+			);
+			path = ARRecord;
 			sourceTree = "<group>";
 		};
 		3929C47F1E89EC2C00E00B60 = {
@@ -226,6 +256,7 @@
 				3929C4841E89EC2C00E00B60 /* Sources */,
 				3929C4851E89EC2C00E00B60 /* Frameworks */,
 				3929C4861E89EC2C00E00B60 /* Resources */,
+				288C3E5A1FBB066000DD0916 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -292,6 +323,7 @@
 				288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */,
 				C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */,
 				288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */,
+				288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */,
 				2810DB7C1FBAC91A008D69D9 /* MainVC.swift in Sources */,
 				11BD822A1F09D750003F11C8 /* MainVC+ObjectSelection.swift in Sources */,
 				1488323F1EFC378A0043E0AB /* MainVC+Actions.swift in Sources */,
@@ -421,6 +453,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38347LA2XG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ARKitInteraction/Common/3rdPart/ARRecord",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";
@@ -444,6 +480,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 38347LA2XG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ARKitInteraction/Common/3rdPart/ARRecord",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";

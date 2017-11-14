@@ -9,13 +9,19 @@
 import UIKit
 import ARKit
 import SceneKit
+import ARVideoKit
+import MediaPlayer
 
 class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
 
     // MARK: IBOutlets
     
     var sceneView: ARView!
-    var addNodeButton: UIButton!
+    var btnAddEmoji: UIButton!
+    var recorder: RecordAR!
+    var btnVideoCapture: UIButton!
+    var btn3DText: UIButton!
+    var isCapturing: Bool!
     
     // MARK: - UI Elements
     
@@ -61,10 +67,12 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         super.viewDidLoad()
         self.hideNavigationBar()
         self.view.backgroundColor = UIColor.white
+        self.isCapturing = false;
         
         self.setupViews()
         self.setupListener()
         
+        self.recorder = RecordAR.init(ARSceneKit: self.sceneView)
         sceneView.delegate = self
         sceneView.session.delegate = self
         
@@ -87,11 +95,6 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         statusVC.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
         }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showEmojiSelectionVC))
-        // Set the delegate to ensure this gesture is only used when there are no virtual objects in the scene.
-        tapGesture.delegate = self
-        sceneView.addGestureRecognizer(tapGesture)
     }
     
     func setupViews() {
@@ -99,20 +102,61 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         self.sceneView.frame = self.view.bounds
         self.view.addSubview(self.sceneView)
         
-        self.addNodeButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
-        self.addNodeButton.setImage(#imageLiteral(resourceName: "add"), for: [])
-        self.view.addSubview(self.addNodeButton)
-        self.addNodeButton.centerX = self.view.width/2
-        self.addNodeButton.bottom = self.view.height-30
+        self.btnVideoCapture = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
+        self.view.addSubview(self.btnVideoCapture)
+        self.btnVideoCapture.setTitle("拍摄", for: .normal)
+        self.btnVideoCapture.backgroundColor = UIColor.color(hexValue: 0x000000, alpha: 0.2)
+        self.btnVideoCapture.centerX = self.view.width/2;
+        self.btnVideoCapture.bottom = self.view.height-50;
+        
+        self.btnAddEmoji = UIButton(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
+        self.btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+        self.view.addSubview(self.btnAddEmoji)
+        self.btnAddEmoji.centerY = self.btnVideoCapture.centerY
+        self.btnAddEmoji.left = self.btnVideoCapture.right+30
     }
     
     func setupListener() {
-        self.addNodeButton.addTarget(self, action: #selector(MainVC.showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
+        self.btnAddEmoji.addTarget(self, action: #selector(MainVC.showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
+        self.btnVideoCapture.addTarget(self, action: #selector(MainVC.captureVideo), for: UIControlEvents.touchUpInside)
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showEmojiSelectionVC))
+//        // Set the delegate to ensure this gesture is only used when there are no virtual objects in the scene.
+//        tapGesture.delegate = self
+//        sceneView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func captureVideo() {
+        if (self.isCapturing) {
+            self.btnVideoCapture.setTitle("拍摄中", for: .normal)
+            self.recorder.stop({ (url) in
+                print("url: "+url.path)
+                
+                do {
+                let fileAttributes: NSDictionary = try FileManager.default.attributesOfItem(atPath: url.path) as NSDictionary
+                    let length: CUnsignedLongLong = fileAttributes.fileSize();
+                    let ff: Float = Float(length)/1024.0/1024.0;
+                    print("lenth: "+String(ff)+"M")
+                    
+                    DispatchQueue.main.async {
+                        let playerVC: MPMoviePlayerViewController = MPMoviePlayerViewController.init(contentURL: url)
+                        self.present(playerVC, animated: true, completion: nil)
+                    }
+                
+                } catch {}
+                
+            })
+        } else {
+            self.btnVideoCapture.setTitle("停止", for: .normal)
+            self.recorder.record()
+        }
+        
+        self.isCapturing = !self.isCapturing
     }
     
     @objc func showEmojiSelectionVC() {
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
-        guard !addNodeButton.isHidden && !emojiLoader.isLoading else { return }
+        guard !btnAddEmoji.isHidden && !emojiLoader.isLoading else { return }
         
         statusVC.cancelScheduledMessage(for: .contentPlacement)
 
@@ -122,8 +166,8 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         
         if let popoverController = selectionVC.popoverPresentationController {
             popoverController.delegate = self
-            popoverController.sourceView = self.addNodeButton
-            popoverController.sourceRect = self.addNodeButton.bounds
+            popoverController.sourceView = self.btnAddEmoji
+            popoverController.sourceRect = self.btnAddEmoji.bounds
         }
         
         selectionVC.virtualObjects = BaseNode.availableEmojiObjects
@@ -135,9 +179,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
             selectionVC.selectedEmojiObjectRows.insert(index)
         }
         
-        [self.present(selectionVC, animated: true, completion: {
-            
-        })]
+        self.present(selectionVC, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -185,7 +227,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
         configuration.planeDetection = .horizontal
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
-        statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .planeEstimation)
+        statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
     }
     
     // MARK: - Focus Square
@@ -208,7 +250,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
                 self.focusSquare.state = .initializing
                 self.sceneView.pointOfView?.addChildNode(self.focusSquare)
             }
-            addNodeButton.isHidden = true
+            btnAddEmoji.isHidden = true
             return
         }
         
@@ -222,7 +264,7 @@ class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
                 self.focusSquare.state = .featuresDetected(anchorPosition: worldPosition, camera: camera)
             }
         }
-        addNodeButton.isHidden = false
+        btnAddEmoji.isHidden = false
         statusVC.cancelScheduledMessage(for: .focusSquare)
     }
     

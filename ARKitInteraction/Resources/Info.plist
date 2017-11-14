@@ -26,6 +26,8 @@
 	<string>The camera is used for augmenting reality</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The location is used for augmenting reality</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>视频录制</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save photos of your ARExperience</string>
 	<key>NSPhotoLibraryUsageDescription</key>
