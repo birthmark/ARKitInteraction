@@ -12,9 +12,32 @@ import UIKit
 class ObjectCell: UITableViewCell {
     static let reuseIdentifier = "ObjectCell"
     
-    @IBOutlet weak var objectTitleLabel: UILabel!
-    @IBOutlet weak var objectImageView: UIImageView!
+    var objectTitleLabel: UILabel!
+    var objectImageView: UIImageView!
+    
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier:reuseIdentifier)
+        self.setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func setupViews() {
+        objectTitleLabel = UILabel.init(frame: CGRect.init(x: 50, y: 0, width: self.width-60, height: self.height))
+        self.contentView.addSubview(objectTitleLabel)
         
+        objectImageView = UIImageView.init(frame: CGRect.init(x: 10, y: 5, width: 30, height: 30))
+        self.contentView.addSubview(objectImageView)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.objectImageView.centerY = self.height/2
+    }
+    
     var modelName = "" {
         didSet {
             objectTitleLabel.text = modelName.capitalized
@@ -26,9 +49,9 @@ class ObjectCell: UITableViewCell {
 // MARK: - VirtualObjectSelectionViewControllerDelegate
 
 /// A protocol for reporting which objects have been selected.
-protocol VirtualObjectSelectionViewControllerDelegate: class {
-    func virtualObjectSelectionViewController(_ selectionViewController: EmojiSelectionVC, didSelectObject: BaseNode)
-    func virtualObjectSelectionViewController(_ selectionViewController: EmojiSelectionVC, didDeselectObject: BaseNode)
+protocol EmojiSelectionDelegate: class {
+    func emojiSelectionVC(_ VC: EmojiSelectionVC, didSelectObject: BaseNode)
+    func emojiSelectionVC(_ VC: EmojiSelectionVC, didDeselectObject: BaseNode)
 }
 
 /// A custom table view controller to allow users to select `VirtualObject`s for placement in the scene.
@@ -38,13 +61,13 @@ class EmojiSelectionVC: UITableViewController {
     var virtualObjects = [BaseNode]()
     
     /// The rows of the currently selected `VirtualObject`s.
-    var selectedVirtualObjectRows = IndexSet()
+    var selectedEmojiObjectRows = IndexSet()
     
-    weak var delegate: VirtualObjectSelectionViewControllerDelegate?
+    weak var delegate: EmojiSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.register(ObjectCell.classForCoder(), forCellReuseIdentifier: ObjectCell.reuseIdentifier)
         tableView.separatorEffect = UIVibrancyEffect(blurEffect: UIBlurEffect(style: .light))
     }
     
@@ -58,10 +81,10 @@ class EmojiSelectionVC: UITableViewController {
         let object = virtualObjects[indexPath.row]
         
         // Check if the current row is already selected, then deselect it.
-        if selectedVirtualObjectRows.contains(indexPath.row) {
-            delegate?.virtualObjectSelectionViewController(self, didDeselectObject: object)
+        if selectedEmojiObjectRows.contains(indexPath.row) {
+            delegate?.emojiSelectionVC(self, didDeselectObject: object)
         } else {
-            delegate?.virtualObjectSelectionViewController(self, didSelectObject: object)
+            delegate?.emojiSelectionVC(self, didSelectObject: object)
         }
 
         dismiss(animated: true, completion: nil)
@@ -80,7 +103,7 @@ class EmojiSelectionVC: UITableViewController {
         
         cell.modelName = virtualObjects[indexPath.row].modelName
 
-        if selectedVirtualObjectRows.contains(indexPath.row) {
+        if selectedEmojiObjectRows.contains(indexPath.row) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none

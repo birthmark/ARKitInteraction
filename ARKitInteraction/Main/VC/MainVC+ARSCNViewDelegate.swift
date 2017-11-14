@@ -13,7 +13,7 @@ extension MainVC: ARSCNViewDelegate, ARSessionDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         DispatchQueue.main.async {
-            self.virtualObjectInteraction.updateObjectToCurrentTrackingPosition()
+            self.nodeInteraction.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
         }
         
@@ -30,14 +30,14 @@ extension MainVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         DispatchQueue.main.async {
-            self.statusViewController.cancelScheduledMessage(for: .planeEstimation)
-            self.statusViewController.showMessage("SURFACE DETECTED")
-            if self.virtualObjectLoader.loadedObjects.isEmpty {
-                self.statusViewController.scheduleMessage("TAP + TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
+            self.statusVC.cancelScheduledMessage(for: .planeEstimation)
+            self.statusVC.showMessage("SURFACE DETECTED")
+            if self.emojiLoader.loadedObjects.isEmpty {
+                self.statusVC.scheduleMessage("TAP + TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
             }
         }
         updateQueue.async {
-            for object in self.virtualObjectLoader.loadedObjects {
+            for object in self.emojiLoader.loadedObjects {
                 object.adjustOntoPlaneAnchor(planeAnchor, using: node)
             }
         }
@@ -46,20 +46,20 @@ extension MainVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         updateQueue.async {
-            for object in self.virtualObjectLoader.loadedObjects {
+            for object in self.emojiLoader.loadedObjects {
                 object.adjustOntoPlaneAnchor(planeAnchor, using: node)
             }
         }
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
+        statusVC.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
         
         switch camera.trackingState {
         case .notAvailable, .limited:
-            statusViewController.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
+            statusVC.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
         case .normal:
-            statusViewController.cancelScheduledMessage(for: .trackingStateEscalation)
+            statusVC.cancelScheduledMessage(for: .trackingStateEscalation)
         }
     }
     
@@ -82,16 +82,14 @@ extension MainVC: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
-        blurView.isHidden = false
-        statusViewController.showMessage("""
+        statusVC.showMessage("""
         SESSION INTERRUPTED
         The session will be reset after the interruption has ended.
         """, autoHide: false)
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
-        blurView.isHidden = true
-        statusViewController.showMessage("RESETTING SESSION")
+        statusVC.showMessage("RESETTING SESSION")
         
         restartExperience()
     }

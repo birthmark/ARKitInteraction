@@ -21,13 +21,13 @@ class NodeInteraction: NSObject, UIGestureRecognizerDelegate {
      The object that has been most recently intereacted with.
      The `selectedObject` can be moved at any time with the tap gesture.
      */
-    var selectedObject: BaseNode?
+    var selectedNode: BaseNode?
     
     /// The object that is tracked for use by the pan and rotation gestures.
     private var trackedObject: BaseNode? {
         didSet {
             guard trackedObject != nil else { return }
-            selectedObject = trackedObject
+            selectedNode = trackedObject
         }
     }
     
@@ -120,10 +120,10 @@ class NodeInteraction: NSObject, UIGestureRecognizerDelegate {
     func didTap(_ gesture: UITapGestureRecognizer) {
         let touchLocation = gesture.location(in: sceneView)
         
-        if let tappedObject = sceneView.virtualObject(at: touchLocation) {
+        if let tappedObject = sceneView.selectNode(at: touchLocation) {
             // Select a new object.
-            selectedObject = tappedObject
-        } else if let object = selectedObject {
+            selectedNode = tappedObject
+        } else if let object = selectedNode {
             // Teleport the object to whereever the user touched the screen.
             translate(object, basedOn: touchLocation, infinitePlane: false)
         }
@@ -141,13 +141,13 @@ class NodeInteraction: NSObject, UIGestureRecognizerDelegate {
             let touchLocation = gesture.location(ofTouch: index, in: view)
             
             // Look for an object directly under the `touchLocation`.
-            if let object = sceneView.virtualObject(at: touchLocation) {
+            if let object = sceneView.selectNode(at: touchLocation) {
                 return object
             }
         }
         
         // As a last resort look for an object under the center of the touches.
-        return sceneView.virtualObject(at: gesture.center(in: view))
+        return sceneView.selectNode(at: gesture.center(in: view))
     }
     
     // MARK: - Update object position

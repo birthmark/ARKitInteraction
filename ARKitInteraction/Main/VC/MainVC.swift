@@ -10,37 +10,40 @@ import UIKit
 import ARKit
 import SceneKit
 
-class MainVC: BaseVC {
+class MainVC: BaseVC, UIPopoverPresentationControllerDelegate {
 
     // MARK: IBOutlets
     
     var sceneView: ARView!
-    var addObjectButton: UIButton!
-    var blurView: UIVisualEffectView!
-    var spinner: UIActivityIndicatorView!
+    var addNodeButton: UIButton!
     
     // MARK: - UI Elements
     
     var focusSquare = FocusSquareNode()
     
     /// The view controller that displays the status and "restart experience" UI.
-    lazy var statusViewController: StatusVC = {
-        return childViewControllers.lazy.flatMap({ $0 as? StatusVC }).first!
+    lazy var statusVC: StatusVC = {
+        var VC: StatusVC = StatusVC()
+        VC.view.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 60)
+        self.view.addSubview(VC.view)
+//        VC.view.backgroundColor = UIColor.red
+        self.addChildViewController(VC)
+        return VC
     }()
     
     // MARK: - ARKit Configuration Properties
     
     /// A type which manages gesture manipulation of virtual content in the scene.
-    lazy var virtualObjectInteraction = NodeInteraction(sceneView: sceneView)
+    lazy var nodeInteraction = NodeInteraction(sceneView: sceneView)
     
     /// Coordinates the loading and unloading of reference nodes for virtual objects.
-    let virtualObjectLoader = EmojiNodeLoader()
+    let emojiLoader = EmojiNodeLoader()
     
     /// Marks if the AR experience is available for restart.
     var isRestartAvailable = true
     
     /// A serial queue used to coordinate adding or removing nodes from the scene.
-    let updateQueue = DispatchQueue(label: "com.example.apple-samplecode.arkitexample.serialSceneKitQueue")
+    let updateQueue = DispatchQueue(label: "com.tuotian.arkitinteraction")
     
     var screenCenter: CGPoint {
         let bounds = sceneView.bounds
@@ -58,6 +61,9 @@ class MainVC: BaseVC {
         super.viewDidLoad()
         self.hideNavigationBar()
         self.view.backgroundColor = UIColor.white
+        
+        self.setupViews()
+        self.setupListener()
         
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -78,14 +84,64 @@ class MainVC: BaseVC {
         }
         
         // Hook up status view controller callback(s).
-        statusViewController.restartExperienceHandler = { [unowned self] in
+        statusVC.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showVirtualObjectSelectionViewController))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showEmojiSelectionVC))
         // Set the delegate to ensure this gesture is only used when there are no virtual objects in the scene.
         tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupViews() {
+        self.sceneView = ARView()
+        self.sceneView.frame = self.view.bounds
+        self.view.addSubview(self.sceneView)
+        
+        self.addNodeButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
+        self.addNodeButton.setImage(#imageLiteral(resourceName: "add"), for: [])
+        self.view.addSubview(self.addNodeButton)
+        self.addNodeButton.centerX = self.view.width/2
+        self.addNodeButton.bottom = self.view.height-30
+    }
+    
+    func setupListener() {
+        self.addNodeButton.addTarget(self, action: #selector(MainVC.showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
+    }
+    
+    @objc func showEmojiSelectionVC() {
+        // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
+        guard !addNodeButton.isHidden && !emojiLoader.isLoading else { return }
+        
+        statusVC.cancelScheduledMessage(for: .contentPlacement)
+
+        let selectionVC: EmojiSelectionVC = EmojiSelectionVC();
+        selectionVC.preferredContentSize = CGSize(width: 100, height: 100);
+        selectionVC.modalPresentationStyle = .popover;
+        
+        if let popoverController = selectionVC.popoverPresentationController {
+            popoverController.delegate = self
+            popoverController.sourceView = self.addNodeButton
+            popoverController.sourceRect = self.addNodeButton.bounds
+        }
+        
+        selectionVC.virtualObjects = BaseNode.availableEmojiObjects
+        selectionVC.delegate = self
+        
+        // Set all rows of currently placed objects to selected.
+        for object in emojiLoader.loadedObjects {
+            guard let index = BaseNode.availableEmojiObjects.index(of: object) else { continue }
+            selectionVC.selectedEmojiObjectRows.insert(index)
+        }
+        
+        [self.present(selectionVC, animated: true, completion: {
+            
+        })]
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,13 +185,13 @@ class MainVC: BaseVC {
         configuration.planeDetection = .horizontal
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
-        statusViewController.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .planeEstimation)
+        statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .planeEstimation)
     }
     
     // MARK: - Focus Square
     
     func updateFocusSquare() {
-        let isObjectVisible = virtualObjectLoader.loadedObjects.contains { object in
+        let isObjectVisible = emojiLoader.loadedObjects.contains { object in
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
@@ -143,7 +199,7 @@ class MainVC: BaseVC {
             focusSquare.hide()
         } else {
             focusSquare.unhide()
-            statusViewController.scheduleMessage("TRY MOVING LEFT OR RIGHT", inSeconds: 5.0, messageType: .focusSquare)
+            statusVC.scheduleMessage("TRY MOVING LEFT OR RIGHT", inSeconds: 5.0, messageType: .focusSquare)
         }
         
         // We should always have a valid world position unless the sceen is just being initialized.
@@ -152,7 +208,7 @@ class MainVC: BaseVC {
                 self.focusSquare.state = .initializing
                 self.sceneView.pointOfView?.addChildNode(self.focusSquare)
             }
-            addObjectButton.isHidden = true
+            addNodeButton.isHidden = true
             return
         }
         
@@ -166,21 +222,18 @@ class MainVC: BaseVC {
                 self.focusSquare.state = .featuresDetected(anchorPosition: worldPosition, camera: camera)
             }
         }
-        addObjectButton.isHidden = false
-        statusViewController.cancelScheduledMessage(for: .focusSquare)
+        addNodeButton.isHidden = false
+        statusVC.cancelScheduledMessage(for: .focusSquare)
     }
     
     // MARK: - Error handling
     
     func displayErrorMessage(title: String, message: String) {
-        // Blur the background.
-        blurView.isHidden = false
         
         // Present an alert informing about the error that has occurred.
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
             alertController.dismiss(animated: true, completion: nil)
-            self.blurView.isHidden = true
             self.resetTracking()
         }
         alertController.addAction(restartAction)

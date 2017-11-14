@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-A `SCNReferenceNode` subclass for virtual objects placed into the AR scene.
+A `SCNReferenceNode` subclass for emoji nodes placed into the AR scene.
 */
 
 import Foundation

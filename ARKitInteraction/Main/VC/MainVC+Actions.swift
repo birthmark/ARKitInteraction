@@ -16,18 +16,9 @@ extension MainVC: UIGestureRecognizerDelegate {
     
     // MARK: - Interface Actions
     
-    /// Displays the `VirtualObjectSelectionViewController` from the `addObjectButton` or in response to a tap gesture in the `sceneView`.
-    @IBAction func showVirtualObjectSelectionViewController() {
-        // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
-        guard !addObjectButton.isHidden && !virtualObjectLoader.isLoading else { return }
-        
-        statusViewController.cancelScheduledMessage(for: .contentPlacement)
-        performSegue(withIdentifier: SegueIdentifier.showObjects.rawValue, sender: addObjectButton)
-    }
-    
     /// Determines if the tap gesture for presenting the `VirtualObjectSelectionViewController` should be used.
     func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
-        return virtualObjectLoader.loadedObjects.isEmpty
+        return emojiLoader.loadedObjects.isEmpty
     }
     
     func gestureRecognizer(_: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
@@ -36,14 +27,14 @@ extension MainVC: UIGestureRecognizerDelegate {
     
     /// - Tag: restartExperience
     func restartExperience() {
-        guard isRestartAvailable, !virtualObjectLoader.isLoading else { return }
+        guard isRestartAvailable, !emojiLoader.isLoading else { return }
         isRestartAvailable = false
 
-        statusViewController.cancelAllScheduledMessages()
+        statusVC.cancelAllScheduledMessages()
 
-        virtualObjectLoader.removeAllVirtualObjects()
-        addObjectButton.setImage(#imageLiteral(resourceName: "add"), for: [])
-        addObjectButton.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
+        emojiLoader.removeAllVirtualObjects()
+        addNodeButton.setImage(#imageLiteral(resourceName: "add"), for: [])
+        addNodeButton.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 
         resetTracking()
 
@@ -52,37 +43,4 @@ extension MainVC: UIGestureRecognizerDelegate {
             self.isRestartAvailable = true
         }
     }
-}
-
-extension MainVC: UIPopoverPresentationControllerDelegate {
-    
-    // MARK: - UIPopoverPresentationControllerDelegate
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // All menus should be popovers (even on iPhone).
-        if let popoverController = segue.destination.popoverPresentationController, let button = sender as? UIButton {
-            popoverController.delegate = self
-            popoverController.sourceView = button
-            popoverController.sourceRect = button.bounds
-        }
-        
-        guard let identifier = segue.identifier,
-              let segueIdentifer = SegueIdentifier(rawValue: identifier),
-              segueIdentifer == .showObjects else { return }
-        
-        let objectsViewController = segue.destination as! EmojiSelectionVC
-        objectsViewController.virtualObjects = BaseNode.availableEmojiObjects
-        objectsViewController.delegate = self
-        
-        // Set all rows of currently placed objects to selected.
-        for object in virtualObjectLoader.loadedObjects {
-            guard let index = BaseNode.availableEmojiObjects.index(of: object) else { continue }
-            objectsViewController.selectedVirtualObjectRows.insert(index)
-        }
-    }
-    
 }

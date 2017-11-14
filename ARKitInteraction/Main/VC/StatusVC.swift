@@ -33,11 +33,9 @@ class StatusVC: BaseVC {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak private var messagePanel: UIVisualEffectView!
-    
-    @IBOutlet weak private var messageLabel: UILabel!
-    
-    @IBOutlet weak private var restartExperienceButton: UIButton!
+    var messagePanel: UIVisualEffectView!
+    var messageLabel: UILabel!
+    var restartExperienceButton: UIButton!
 
     // MARK: - Properties
     
@@ -52,6 +50,33 @@ class StatusVC: BaseVC {
     
     private var timers: [MessageType: Timer] = [:]
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupViews()
+        self.setupListeners()
+    }
+    
+    func setupViews() {
+        self.restartExperienceButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
+        self.view.addSubview(self.restartExperienceButton!)
+        self.restartExperienceButton.setImage(UIImage.init(named: "restart"), for: [])
+        self.restartExperienceButton.right = self.view.width-8;
+        self.restartExperienceButton.centerY = 40;
+        
+        //
+        self.messagePanel = UIVisualEffectView.init(frame: CGRect.init(x: 12, y: 0, width: self.view.width-36-45, height: 60))
+        self.view.addSubview(self.messagePanel)
+        
+        self.messageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 20, width: self.messagePanel.width, height: self.messagePanel.height-20))
+        self.messagePanel.contentView.addSubview(self.messageLabel)
+        self.messageLabel.font = UIFont.appNormalFont(fontSize: 12)
+        self.messageLabel.textColor = UIColor.color(hexValue: 0x000000)
+    }
+    
+    func setupListeners() {
+        //按钮添加事件，方法要加@objc声明
+        self.restartExperienceButton.addTarget(self, action:#selector(StatusVC.restartExperience(_:)), for: UIControlEvents.touchUpInside)
+    }
     // MARK: - Message Handling
 	
 	func showMessage(_ text: String, autoHide: Bool = true) {
@@ -117,7 +142,7 @@ class StatusVC: BaseVC {
     
     // MARK: - IBActions
     
-    @IBAction private func restartExperience(_ sender: UIButton) {
+    @objc func restartExperience(_ sender: UIButton) {
         restartExperienceHandler()
     }
 	

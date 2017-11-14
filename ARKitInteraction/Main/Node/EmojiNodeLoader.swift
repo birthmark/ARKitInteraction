@@ -2,14 +2,14 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-A type which loads and tracks virtual objects.
+A type which loads and tracks emoji nodes.
 */
 
 import Foundation
 import ARKit
 
 /**
- Loads multiple `VirtualObject`s on a background queue to be able to display the
+ Loads multiple `EmojiNode`s on a background queue to be able to display the
  objects quickly once they are needed.
 */
 class EmojiNodeLoader {
@@ -20,7 +20,7 @@ class EmojiNodeLoader {
 	// MARK: - Loading object
 
     /**
-     Loads a `VirtualObject` on a background queue. `loadedHandler` is invoked
+     Loads a `EmojiNode` on a background queue. `loadedHandler` is invoked
      on a background queue once `object` has been loaded.
     */
     func loadEmojiObject(_ object: BaseNode, loadedHandler: @escaping (BaseNode) -> Void) {
