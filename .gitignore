@@ -1,0 +1,12 @@
+build/*
+*~.nib
+*.swp
+.DS_Store
+*.model
+*.modelv3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+xcuserdata
+xcshareddata
