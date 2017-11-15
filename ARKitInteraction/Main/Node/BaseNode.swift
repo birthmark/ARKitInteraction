@@ -13,7 +13,7 @@ class BaseNode: SCNReferenceNode {
     
     var isSelected: Bool?
     var isStanding: Bool?
-    
+
     /// The model name derived from the `referenceURL`.
     var modelName: String {
         return referenceURL.lastPathComponent.replacingOccurrences(of: ".scn", with: "")
@@ -26,6 +26,7 @@ class BaseNode: SCNReferenceNode {
     func reset() {
         recentVirtualObjectDistances.removeAll()
     }
+
 	
     /**
      Set the object's position based on the provided position relative to the `cameraTransform`.
@@ -54,7 +55,7 @@ class BaseNode: SCNReferenceNode {
             let hitTestResultDistance = simd_length(positionOffsetFromCamera)
             
             // Add the latest position and keep up to 10 recent distances to smooth with.
-            recentVirtualObjectDistances.append(hitTestResultDistance)
+            recentVirtualObjectDistances.append(Float(hitTestResultDistance))
             recentVirtualObjectDistances = Array(recentVirtualObjectDistances.suffix(10))
             
             let averageDistance = recentVirtualObjectDistances.average!
@@ -97,6 +98,14 @@ class BaseNode: SCNReferenceNode {
             SCNTransaction.commit()
         }
     }
+    
+    public func updatePivot() {
+        let (min, max) = boundingBox
+        let dx = min.x + 0.5 * (max.x - min.x)
+        let dy = min.y + 0.5 * (max.y - min.y)
+        let dz = min.z + 0.5 * (max.z - min.z)
+        pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+    }
 }
 
 extension BaseNode {
@@ -111,9 +120,11 @@ extension BaseNode {
         return fileEnumerator.flatMap { element in
             let url = element as! URL
 
-            guard url.pathExtension == "scn" else { return nil }
+            guard url.pathExtension == "scn" || url.pathExtension == "dae" else { return nil }
 
-            return BaseNode(url: url)
+            let node: BaseNode = BaseNode(url: url)!
+//            node.light?.castsShadow = true
+            return node
         }
     }()
     

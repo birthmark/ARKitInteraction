@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11BD822A1F09D750003F11C8 /* MainVC+ObjectSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */; };
+		11BD822A1F09D750003F11C8 /* SceneVC+EmojiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */; };
 		147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147062631F06FA790003EE03 /* EmojiSelectionVC.swift */; };
-		1488323F1EFC378A0043E0AB /* MainVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */; };
+		1488323F1EFC378A0043E0AB /* SceneVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */; };
 		148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */; };
 		2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB791FBAC89C008D69D9 /* BaseVC.swift */; };
-		2810DB7C1FBAC91A008D69D9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB7B1FBAC91A008D69D9 /* MainVC.swift */; };
+		2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */; };
 		2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB801FBAD150008D69D9 /* Text3DNode.swift */; };
 		2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB821FBAD162008D69D9 /* EmojiNode.swift */; };
 		288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */; };
@@ -21,6 +21,11 @@
 		288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E551FBB064500DD0916 /* RecordARWrapper.swift */; };
 		288C3E581FBB066000DD0916 /* ARVideoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288C3E541FBB064500DD0916 /* ARVideoKit.framework */; };
 		288C3E591FBB066000DD0916 /* ARVideoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 288C3E541FBB064500DD0916 /* ARVideoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		288C3E5C1FBC406700DD0916 /* Materials+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E5B1FBC406700DD0916 /* Materials+Extension.swift */; };
+		288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E5D1FBC40BB00DD0916 /* rustediron-streaks-albedo.png */; };
+		288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E5E1FBC40BB00DD0916 /* rustediron-streaks-normal.png */; };
+		288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E5F1FBC40BB00DD0916 /* rustediron-streaks-roughness.png */; };
+		288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -30,8 +35,8 @@
 		C46356671EF9CC500080C8D9 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356661EF9CC480080C8D9 /* ARView.swift */; };
 		C46356681EF9CC530080C8D9 /* EmojiNodeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */; };
 		C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812D8671F47628300344E73 /* ThresholdPanGesture.swift */; };
-		C8C12A711F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */; };
-		C8C2AC521F3A545C00E86BA3 /* NodeInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */; };
+		C8C12A711F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C12A701F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift */; };
+		C8C2AC521F3A545C00E86BA3 /* NodeGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C2AC511F3A545C00E86BA3 /* NodeGestureHandler.swift */; };
 		C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,11 +56,11 @@
 
 /* Begin PBXFileReference section */
 		147062631F06FA790003EE03 /* EmojiSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionVC.swift; sourceTree = "<group>"; };
-		147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ObjectSelection.swift"; sourceTree = "<group>"; };
-		1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Actions.swift"; sourceTree = "<group>"; };
+		147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneVC+EmojiSelection.swift"; sourceTree = "<group>"; };
+		1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneVC+Actions.swift"; sourceTree = "<group>"; };
 		148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusSquare+Segment.swift"; sourceTree = "<group>"; };
 		2810DB791FBAC89C008D69D9 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
-		2810DB7B1FBAC91A008D69D9 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneVC.swift; sourceTree = "<group>"; };
 		2810DB801FBAD150008D69D9 /* Text3DNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text3DNode.swift; sourceTree = "<group>"; };
 		2810DB821FBAD162008D69D9 /* EmojiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNode.swift; sourceTree = "<group>"; };
 		288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -63,6 +68,11 @@
 		288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		288C3E541FBB064500DD0916 /* ARVideoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ARVideoKit.framework; sourceTree = "<group>"; };
 		288C3E551FBB064500DD0916 /* RecordARWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordARWrapper.swift; sourceTree = "<group>"; };
+		288C3E5B1FBC406700DD0916 /* Materials+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Materials+Extension.swift"; sourceTree = "<group>"; };
+		288C3E5D1FBC40BB00DD0916 /* rustediron-streaks-albedo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-albedo.png"; sourceTree = "<group>"; };
+		288C3E5E1FBC40BB00DD0916 /* rustediron-streaks-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-normal.png"; sourceTree = "<group>"; };
+		288C3E5F1FBC40BB00DD0916 /* rustediron-streaks-roughness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-roughness.png"; sourceTree = "<group>"; };
+		288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-metal.png"; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,8 +84,8 @@
 		C46356651EF9CB1A0080C8D9 /* EmojiNodeLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNodeLoader.swift; sourceTree = "<group>"; };
 		C46356661EF9CC480080C8D9 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		C812D8671F47628300344E73 /* ThresholdPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPanGesture.swift; sourceTree = "<group>"; };
-		C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
-		C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInteraction.swift; sourceTree = "<group>"; };
+		C8C12A701F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneVC+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		C8C2AC511F3A545C00E86BA3 /* NodeGestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeGestureHandler.swift; sourceTree = "<group>"; };
 		C8D719FF1F3B7D3D0086AD64 /* BaseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNode.swift; sourceTree = "<group>"; };
 		E5F1518ECE83631610AC00ED /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +105,10 @@
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				288C3E5D1FBC40BB00DD0916 /* rustediron-streaks-albedo.png */,
+				288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */,
+				288C3E5E1FBC40BB00DD0916 /* rustediron-streaks-normal.png */,
+				288C3E5F1FBC40BB00DD0916 /* rustediron-streaks-roughness.png */,
 				3929C49E1E89EE4400E00B60 /* Models.scnassets */,
 				3929C4921E89EC2C00E00B60 /* Assets.xcassets */,
 				3929C4971E89EC2C00E00B60 /* Info.plist */,
@@ -143,11 +157,11 @@
 		2810DB751FBAC79C008D69D9 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				2810DB7B1FBAC91A008D69D9 /* MainVC.swift */,
-				C8C12A701F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift */,
-				1488323E1EFC378A0043E0AB /* MainVC+Actions.swift */,
-				147D76491EFC36070000FEBF /* MainVC+ObjectSelection.swift */,
-				C8C2AC511F3A545C00E86BA3 /* NodeInteraction.swift */,
+				2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */,
+				C8C12A701F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift */,
+				1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */,
+				147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */,
+				C8C2AC511F3A545C00E86BA3 /* NodeGestureHandler.swift */,
 				C41366B81EB80DD400EC054A /* StatusVC.swift */,
 				147062631F06FA790003EE03 /* EmojiSelectionVC.swift */,
 			);
@@ -196,6 +210,7 @@
 				288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */,
 				288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */,
 				288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */,
+				288C3E5B1FBC406700DD0916 /* Materials+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -310,6 +325,10 @@
 			files = (
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
+				288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */,
+				288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */,
+				288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */,
+				288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,15 +343,15 @@
 				C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */,
 				288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */,
 				288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */,
-				2810DB7C1FBAC91A008D69D9 /* MainVC.swift in Sources */,
-				11BD822A1F09D750003F11C8 /* MainVC+ObjectSelection.swift in Sources */,
-				1488323F1EFC378A0043E0AB /* MainVC+Actions.swift in Sources */,
+				2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */,
+				11BD822A1F09D750003F11C8 /* SceneVC+EmojiSelection.swift in Sources */,
+				1488323F1EFC378A0043E0AB /* SceneVC+Actions.swift in Sources */,
 				C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */,
 				147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */,
-				C8C12A711F29277B00B011FE /* MainVC+ARSCNViewDelegate.swift in Sources */,
-				C8C2AC521F3A545C00E86BA3 /* NodeInteraction.swift in Sources */,
+				C8C12A711F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift in Sources */,
+				C8C2AC521F3A545C00E86BA3 /* NodeGestureHandler.swift in Sources */,
 				C46356671EF9CC500080C8D9 /* ARView.swift in Sources */,
 				2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */,
 				148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */,
@@ -340,6 +359,7 @@
 				C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */,
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
+				288C3E5C1FBC406700DD0916 /* Materials+Extension.swift in Sources */,
 				C46356681EF9CC530080C8D9 /* EmojiNodeLoader.swift in Sources */,
 				2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */,
 			);

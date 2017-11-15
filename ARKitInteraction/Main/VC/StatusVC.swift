@@ -35,7 +35,7 @@ class StatusVC: BaseVC {
 
     var messagePanel: UIVisualEffectView!
     var messageLabel: UILabel!
-    var restartExperienceButton: UIButton!
+    var btnRestartExperience: UIButton!
 
     // MARK: - Properties
     
@@ -57,11 +57,11 @@ class StatusVC: BaseVC {
     }
     
     func setupViews() {
-        self.restartExperienceButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
-        self.view.addSubview(self.restartExperienceButton!)
-        self.restartExperienceButton.setImage(UIImage.init(named: "restart"), for: [])
-        self.restartExperienceButton.right = self.view.width-8;
-        self.restartExperienceButton.centerY = 40;
+        self.btnRestartExperience = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
+        self.view.addSubview(self.btnRestartExperience!)
+        self.btnRestartExperience.setImage(UIImage.init(named: "restart"), for: [])
+        self.btnRestartExperience.right = self.view.width-8;
+        self.btnRestartExperience.centerY = 40;
         
         //
         self.messagePanel = UIVisualEffectView.init(frame: CGRect.init(x: 12, y: 0, width: self.view.width-36-45, height: 60))
@@ -75,7 +75,7 @@ class StatusVC: BaseVC {
     
     func setupListeners() {
         //按钮添加事件，方法要加@objc声明
-        self.restartExperienceButton.addTarget(self, action:#selector(StatusVC.restartExperience(_:)), for: UIControlEvents.touchUpInside)
+        self.btnRestartExperience.addTarget(self, action:#selector(StatusVC.restartExperience(_:)), for: UIControlEvents.touchUpInside)
     }
     // MARK: - Message Handling
 	
@@ -139,8 +139,6 @@ class StatusVC: BaseVC {
 
         timers[.trackingStateEscalation] = timer
     }
-    
-    // MARK: - IBActions
     
     @objc func restartExperience(_ sender: UIButton) {
         restartExperienceHandler()
