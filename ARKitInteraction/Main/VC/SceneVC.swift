@@ -120,6 +120,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
         self.sceneView = ARView()
         self.sceneView.frame = self.view.bounds
         self.view.addSubview(self.sceneView)
+        self.sceneView.autoenablesDefaultLighting = true
         
         //
         self.btnVideoCapture = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
@@ -257,8 +258,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     func resetTracking() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        
+        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])        
         statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
     }
     

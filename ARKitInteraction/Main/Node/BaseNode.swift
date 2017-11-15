@@ -124,6 +124,7 @@ extension BaseNode {
 
             let node: BaseNode = BaseNode(url: url)!
 //            node.light?.castsShadow = true
+            node.updatePivot()
             return node
         }
     }()
