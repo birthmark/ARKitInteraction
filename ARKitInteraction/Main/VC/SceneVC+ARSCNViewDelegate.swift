@@ -27,12 +27,12 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
-    //显示检测到的平面 todo 为什么得不到回调?
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         print("node for anchor")
         if let planeAnchor = anchor as? ARPlaneAnchor {
             let node = SCNNode()
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z), chamferRadius: 0)
+            node.geometry?.materials.first?.diffuse.contents = UIColor.white
             return node
         }
         return nil

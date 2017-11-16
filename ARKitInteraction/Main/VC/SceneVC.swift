@@ -128,22 +128,21 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
         self.btnVideoCapture.setTitle("拍摄", for: .normal)
         self.btnVideoCapture.backgroundColor = UIColor.color(hexValue: 0x000000, alpha: 0.2)
         self.btnVideoCapture.centerX = self.view.width/2;
-        self.btnVideoCapture.bottom = self.view.height-50;
+        self.btnVideoCapture.bottom = self.view.height-20;
         
         //
-        self.btnAddEmoji = UIButton(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
-        self.btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+        self.btnAddEmoji = UIButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
+        self.btnAddEmoji.setImage(UIImage.init(named: "emoji_3d"), for: [])
         self.view.addSubview(self.btnAddEmoji)
         self.btnAddEmoji.centerY = self.btnVideoCapture.centerY
-        self.btnAddEmoji.left = self.btnVideoCapture.right+30
+        self.btnAddEmoji.left = self.btnVideoCapture.right+57
         
         //
-        self.btn3DText = UIButton(frame: CGRect.init(x: 0, y: 0, width: 45, height: 45));
+        self.btn3DText = UIButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
         self.view.addSubview(self.btn3DText)
-        self.btn3DText.setTitle("T", for: [])
-        self.btn3DText.backgroundColor = UIColor.color(hexValue: 0x000000, alpha: 0.2)
+        self.btn3DText.setImage(UIImage.init(named: "letter_3d"), for: [])
         self.btn3DText.centerY = self.btnVideoCapture.centerY
-        self.btn3DText.right = self.btnVideoCapture.left-30
+        self.btn3DText.right = self.btnVideoCapture.left-57
     }
     
     func setupListener() {
@@ -283,6 +282,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
                 self.sceneView.pointOfView?.addChildNode(self.focusSquare)
             }
             btnAddEmoji.isHidden = true
+            btnVideoCapture.isHidden = true
+            btn3DText.isHidden = true
             return
         }
         
@@ -297,6 +298,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
             }
         }
         btnAddEmoji.isHidden = false
+        btnVideoCapture.isHidden = false
+        btn3DText.isHidden = false
         statusVC.cancelScheduledMessage(for: .focusSquare)
     }
     

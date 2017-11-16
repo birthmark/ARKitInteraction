@@ -16,7 +16,9 @@ class BaseNode: SCNReferenceNode {
 
     /// The model name derived from the `referenceURL`.
     var modelName: String {
-        return referenceURL.lastPathComponent.replacingOccurrences(of: ".scn", with: "")
+        var name = referenceURL.lastPathComponent.replacingOccurrences(of: ".scn", with: "")
+        name = name.replacingOccurrences(of: ".dae", with: "")
+        return name
     }
     
     /// Use average of recent virtual object distances to avoid rapid changes in object scale.
@@ -123,7 +125,6 @@ extension BaseNode {
             guard url.pathExtension == "scn" || url.pathExtension == "dae" else { return nil }
 
             let node: BaseNode = BaseNode(url: url)!
-//            node.light?.castsShadow = true
             node.updatePivot()
             return node
         }

@@ -27,8 +27,8 @@ extension SceneVC: UIGestureRecognizerDelegate {
         statusVC.cancelAllScheduledMessages()
 
         emojiLoader.removeAllVirtualObjects()
-        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
-        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
+//        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+//        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 
         resetTracking()
 

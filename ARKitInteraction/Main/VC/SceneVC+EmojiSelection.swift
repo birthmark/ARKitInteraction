@@ -53,16 +53,24 @@ extension SceneVC: EmojiSelectionDelegate {
     // MARK: Object Loading UI
 
     func displayObjectLoadingUI() {
-        btnAddEmoji.setImage(#imageLiteral(resourceName: "buttonring"), for: [])
+//        btnAddEmoji.setImage(#imageLiteral(resourceName: "buttonring"), for: [])
 
+        btnAddEmoji.isHidden = true
+        btnVideoCapture.isHidden = true
+        btn3DText.isHidden = true
+        
         btnAddEmoji.isEnabled = false
         isRestartAvailable = false
     }
 
     func hideObjectLoadingUI() {
-        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
-        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
+//        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
+//        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 
+        btnAddEmoji.isHidden = false
+        btnVideoCapture.isHidden = false
+        btn3DText.isHidden = false
+        
         btnAddEmoji.isEnabled = true
         isRestartAvailable = true
     }

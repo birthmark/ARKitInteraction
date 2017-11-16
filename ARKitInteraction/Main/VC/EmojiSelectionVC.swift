@@ -41,7 +41,11 @@ class ObjectCell: UITableViewCell {
     var modelName = "" {
         didSet {
             objectTitleLabel.text = modelName.capitalized
-            objectImageView.image = UIImage(named: modelName)
+            if let icon = UIImage(named: modelName) {
+                objectImageView.image = icon
+            } else {
+                objectImageView.image = UIImage(named: "emoji_3d")
+            }
         }
     }
 }
