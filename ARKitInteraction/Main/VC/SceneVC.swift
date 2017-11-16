@@ -12,7 +12,7 @@ import SceneKit
 import ARVideoKit
 import MediaPlayer
 
-class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
+class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDelegate,UIGestureRecognizerDelegate {
 
     // MARK: IBOutlets
     
@@ -152,8 +152,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
         let node: Text3DNode = Text3DNode()
         node.scale = SCNVector3Make(0.2, 0.2, 0.2)
         node.setText(text: "选择修改")
-        self.placeVirtualObject(node)
-        EmojiManager.sharedInstance.addNode(node: node)
+        self.placeNode(node)
+        NodeManager.sharedInstance.addNode(node: node)
     }
     
     @objc func captureVideo() {
@@ -186,7 +186,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     
     @objc func showEmojiSelectionVC() {
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
-        guard !btnAddEmoji.isHidden && !EmojiManager.sharedInstance.isLoading! else { return }
+        guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
         
         statusVC.cancelScheduledMessage(for: .contentPlacement)
 
@@ -200,7 +200,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
             popoverController.sourceRect = self.btnAddEmoji.bounds
         }
         
-        selectionVC.arrEmojiVOs = EmojiManager.sharedInstance.arrEmojiVOs!
+        selectionVC.arrEmojiConfigVOs = NodeManager.sharedInstance.arrEmojiConfigVOs!
         selectionVC.delegate = self
         
         self.present(selectionVC, animated: true, completion: nil)
@@ -256,7 +256,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     // MARK: - Focus Square
     
     func updateFocusSquare() {
-        let isObjectVisible = EmojiManager.sharedInstance.arrLoadedNode?.contains { object in
+        let isObjectVisible = NodeManager.sharedInstance.arrLoadedNodes?.contains { object in
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
@@ -307,5 +307,50 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
         }
         alertController.addAction(restartAction)
         present(alertController, animated: true, completion: nil)
+    }
+
+    //重置
+    func restartExperience() {
+        guard isRestartAvailable, !NodeManager.sharedInstance.isLoading! else { return }
+        isRestartAvailable = false
+        statusVC.cancelAllScheduledMessages()
+        NodeManager.sharedInstance.removeAllNodes()
+        resetTracking()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.isRestartAvailable = true
+        }
+    }
+    
+    //放入3D空间
+    func placeNode(_ node: BaseNode) {
+        guard let cameraTransform = session.currentFrame?.camera.transform,
+            let focusSquarePosition = focusSquare.lastPosition else {
+                statusVC.showMessage("CANNOT PLACE OBJECT\nTry moving left or right.")
+                return
+        }
+        
+        nodeGestureHandler.selectedNode = node
+        node.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
+        updateQueue.async {
+            self.sceneView.scene.rootNode.addChildNode(node)
+        }
+    }
+
+    // MARK: - VirtualObjectSelectionViewControllerDelegate
+    func emojiSelectionVC(_: EmojiSelectionVC, didSelectObject object: EmojiConfigVO) {
+        //加载模型
+        NodeManager.sharedInstance.loadNode(object, loadedHandler: { [unowned self] loadedNode in
+            DispatchQueue.main.async {
+                self.placeNode(loadedNode)
+            }
+        })
+    }
+    
+    func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
+        return NodeManager.sharedInstance.arrLoadedNodes!.isEmpty
+    }
+    
+    func gestureRecognizer(_: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

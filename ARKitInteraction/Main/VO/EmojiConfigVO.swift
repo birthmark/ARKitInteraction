@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiVO: NSObject {
+class EmojiConfigVO: NSObject {
 
     var url: URL?
     

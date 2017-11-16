@@ -54,14 +54,14 @@ class ObjectCell: UITableViewCell {
 
 /// A protocol for reporting which objects have been selected.
 protocol EmojiSelectionDelegate: class {
-    func emojiSelectionVC(_ VC: EmojiSelectionVC, didSelectObject: EmojiVO)
+    func emojiSelectionVC(_ VC: EmojiSelectionVC, didSelectObject: EmojiConfigVO)
 }
 
 /// A custom table view controller to allow users to select `VirtualObject`s for placement in the scene.
 class EmojiSelectionVC: UITableViewController {
     
     /// The collection of `EmojiVO`s to select from.
-    var arrEmojiVOs = [EmojiVO]()
+    var arrEmojiConfigVOs = [EmojiConfigVO]()
     
     weak var delegate: EmojiSelectionDelegate?
     
@@ -78,7 +78,7 @@ class EmojiSelectionVC: UITableViewController {
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let object = arrEmojiVOs[indexPath.row]
+        let object = arrEmojiConfigVOs[indexPath.row]
         delegate?.emojiSelectionVC(self, didSelectObject: object)
 
         dismiss(animated: true, completion: nil)
@@ -87,7 +87,7 @@ class EmojiSelectionVC: UITableViewController {
     // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrEmojiVOs.count
+        return arrEmojiConfigVOs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,7 +95,7 @@ class EmojiSelectionVC: UITableViewController {
             fatalError("Expected `\(ObjectCell.self)` type for reuseIdentifier \(ObjectCell.reuseIdentifier). Check the configuration in Main.storyboard.")
         }
         
-        cell.modelName = arrEmojiVOs[indexPath.row].modelName
+        cell.modelName = arrEmojiConfigVOs[indexPath.row].modelName
         cell.accessoryType = .none
 
         return cell

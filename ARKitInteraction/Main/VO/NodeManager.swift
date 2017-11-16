@@ -9,20 +9,20 @@
 import UIKit
 import ARKit
 
-class EmojiManager: NSObject {
+class NodeManager: NSObject {
 
-    static let sharedInstance = EmojiManager()
-    var arrEmojiVOs: Array<EmojiVO>?
-    var arrLoadedNode: Array<BaseNode>? = []
+    static let sharedInstance = NodeManager()
+    var arrEmojiConfigVOs: Array<EmojiConfigVO>?
+    var arrLoadedNodes: Array<BaseNode>? = []
     var isLoading: Bool?
     
     private override init() {
         super.init()
         isLoading = false
-        arrEmojiVOs = loadEmojis()
+        arrEmojiConfigVOs = loadEmojiConfigs()
     }
     
-    private func loadEmojis() -> Array<EmojiVO> {
+    private func loadEmojiConfigs() -> Array<EmojiConfigVO> {
         let modelsURL = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
         
         let fileEnumerator = FileManager().enumerator(at: modelsURL, includingPropertiesForKeys: [])!
@@ -32,37 +32,38 @@ class EmojiManager: NSObject {
             
             guard url.pathExtension == "scn" || url.pathExtension == "dae" else { return nil }
             
-            let emojiVO: EmojiVO = EmojiVO()
+            let emojiVO: EmojiConfigVO = EmojiConfigVO()
             emojiVO.url = url
             return emojiVO
         }
     }
     
-    public func addNode(node: BaseNode) {
-        arrLoadedNode?.append(node)
+    func addNode(node: BaseNode) {
+        arrLoadedNodes?.append(node)
     }
     
-    public func removeAllNodes() {
-        for node in arrLoadedNode! {
+    func removeAllNodes() {
+        for node in arrLoadedNodes! {
             node.removeFromParentNode()
         }
         
-        arrLoadedNode?.removeAll()
+        arrLoadedNodes?.removeAll()
     }
     
-    public func removeNode(node: BaseNode) {
-        let index = arrLoadedNode?.index(of: node)
-        guard (arrLoadedNode?.indices.contains(index!))! else { return }
-        arrLoadedNode?.remove(at: index!)
+    func removeNode(node: BaseNode) {
+        let index = arrLoadedNodes?.index(of: node)
+        guard (arrLoadedNodes?.indices.contains(index!))! else { return }
+        arrLoadedNodes?.remove(at: index!)
         node.removeFromParentNode()
     }
     
-    func loadEmojiObject(_ object: EmojiVO, loadedHandler: @escaping (BaseNode) -> Void) {
+    // 加载模型
+    func loadNode(_ object: EmojiConfigVO, loadedHandler: @escaping (BaseNode) -> Void) {
         let node: EmojiNode = EmojiNode()
         node.referenceURL = object.url!
-        arrLoadedNode?.append(node)
+        arrLoadedNodes?.append(node)
         isLoading = true
-        // Load the content asynchronously.
+        
         DispatchQueue.global(qos: .userInitiated).async {
             node.reset()
             node.load()

@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11BD822A1F09D750003F11C8 /* SceneVC+EmojiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */; };
 		147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147062631F06FA790003EE03 /* EmojiSelectionVC.swift */; };
-		1488323F1EFC378A0043E0AB /* SceneVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */; };
 		148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */; };
 		2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB791FBAC89C008D69D9 /* BaseVC.swift */; };
 		2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */; };
@@ -26,8 +24,8 @@
 		288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E5E1FBC40BB00DD0916 /* rustediron-streaks-normal.png */; };
 		288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E5F1FBC40BB00DD0916 /* rustediron-streaks-roughness.png */; };
 		288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */; };
-		288C3E661FBD6F6D00DD0916 /* EmojiVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E651FBD6F6D00DD0916 /* EmojiVO.swift */; };
-		288C3E681FBD6F7C00DD0916 /* EmojiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E671FBD6F7C00DD0916 /* EmojiManager.swift */; };
+		288C3E661FBD6F6D00DD0916 /* EmojiConfigVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E651FBD6F6D00DD0916 /* EmojiConfigVO.swift */; };
+		288C3E681FBD6F7C00DD0916 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E671FBD6F7C00DD0916 /* NodeManager.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -57,8 +55,6 @@
 
 /* Begin PBXFileReference section */
 		147062631F06FA790003EE03 /* EmojiSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionVC.swift; sourceTree = "<group>"; };
-		147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneVC+EmojiSelection.swift"; sourceTree = "<group>"; };
-		1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneVC+Actions.swift"; sourceTree = "<group>"; };
 		148832401EFC3B250043E0AB /* FocusSquare+Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusSquare+Segment.swift"; sourceTree = "<group>"; };
 		2810DB791FBAC89C008D69D9 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneVC.swift; sourceTree = "<group>"; };
@@ -74,8 +70,8 @@
 		288C3E5E1FBC40BB00DD0916 /* rustediron-streaks-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-normal.png"; sourceTree = "<group>"; };
 		288C3E5F1FBC40BB00DD0916 /* rustediron-streaks-roughness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-roughness.png"; sourceTree = "<group>"; };
 		288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rustediron-streaks-metal.png"; sourceTree = "<group>"; };
-		288C3E651FBD6F6D00DD0916 /* EmojiVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiVO.swift; sourceTree = "<group>"; };
-		288C3E671FBD6F7C00DD0916 /* EmojiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiManager.swift; sourceTree = "<group>"; };
+		288C3E651FBD6F6D00DD0916 /* EmojiConfigVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiConfigVO.swift; sourceTree = "<group>"; };
+		288C3E671FBD6F7C00DD0916 /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,8 +140,8 @@
 		2810DB731FBAC78D008D69D9 /* VO */ = {
 			isa = PBXGroup;
 			children = (
-				288C3E651FBD6F6D00DD0916 /* EmojiVO.swift */,
-				288C3E671FBD6F7C00DD0916 /* EmojiManager.swift */,
+				288C3E651FBD6F6D00DD0916 /* EmojiConfigVO.swift */,
+				288C3E671FBD6F7C00DD0916 /* NodeManager.swift */,
 			);
 			path = VO;
 			sourceTree = "<group>";
@@ -163,8 +159,6 @@
 			children = (
 				2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */,
 				C8C12A701F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift */,
-				1488323E1EFC378A0043E0AB /* SceneVC+Actions.swift */,
-				147D76491EFC36070000FEBF /* SceneVC+EmojiSelection.swift */,
 				C8C2AC511F3A545C00E86BA3 /* NodeGestureHandler.swift */,
 				C41366B81EB80DD400EC054A /* StatusVC.swift */,
 				147062631F06FA790003EE03 /* EmojiSelectionVC.swift */,
@@ -345,11 +339,9 @@
 				288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */,
 				C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */,
 				288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */,
-				288C3E681FBD6F7C00DD0916 /* EmojiManager.swift in Sources */,
+				288C3E681FBD6F7C00DD0916 /* NodeManager.swift in Sources */,
 				288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */,
 				2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */,
-				11BD822A1F09D750003F11C8 /* SceneVC+EmojiSelection.swift in Sources */,
-				1488323F1EFC378A0043E0AB /* SceneVC+Actions.swift in Sources */,
 				C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */,
@@ -360,7 +352,7 @@
 				2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */,
 				148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */,
 				2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */,
-				288C3E661FBD6F6D00DD0916 /* EmojiVO.swift in Sources */,
+				288C3E661FBD6F6D00DD0916 /* EmojiConfigVO.swift in Sources */,
 				C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */,
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
