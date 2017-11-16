@@ -54,18 +54,14 @@ class ObjectCell: UITableViewCell {
 
 /// A protocol for reporting which objects have been selected.
 protocol EmojiSelectionDelegate: class {
-    func emojiSelectionVC(_ VC: EmojiSelectionVC, didSelectObject: BaseNode)
-    func emojiSelectionVC(_ VC: EmojiSelectionVC, didDeselectObject: BaseNode)
+    func emojiSelectionVC(_ VC: EmojiSelectionVC, didSelectObject: EmojiVO)
 }
 
 /// A custom table view controller to allow users to select `VirtualObject`s for placement in the scene.
 class EmojiSelectionVC: UITableViewController {
     
-    /// The collection of `VirtualObject`s to select from.
-    var virtualObjects = [BaseNode]()
-    
-    /// The rows of the currently selected `VirtualObject`s.
-    var selectedEmojiObjectRows = IndexSet()
+    /// The collection of `EmojiVO`s to select from.
+    var arrEmojiVOs = [EmojiVO]()
     
     weak var delegate: EmojiSelectionDelegate?
     
@@ -82,14 +78,8 @@ class EmojiSelectionVC: UITableViewController {
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let object = virtualObjects[indexPath.row]
-        
-        // Check if the current row is already selected, then deselect it.
-        if selectedEmojiObjectRows.contains(indexPath.row) {
-            delegate?.emojiSelectionVC(self, didDeselectObject: object)
-        } else {
-            delegate?.emojiSelectionVC(self, didSelectObject: object)
-        }
+        let object = arrEmojiVOs[indexPath.row]
+        delegate?.emojiSelectionVC(self, didSelectObject: object)
 
         dismiss(animated: true, completion: nil)
     }
@@ -97,7 +87,7 @@ class EmojiSelectionVC: UITableViewController {
     // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return virtualObjects.count
+        return arrEmojiVOs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,13 +95,8 @@ class EmojiSelectionVC: UITableViewController {
             fatalError("Expected `\(ObjectCell.self)` type for reuseIdentifier \(ObjectCell.reuseIdentifier). Check the configuration in Main.storyboard.")
         }
         
-        cell.modelName = virtualObjects[indexPath.row].modelName
-
-        if selectedEmojiObjectRows.contains(indexPath.row) {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+        cell.modelName = arrEmojiVOs[indexPath.row].modelName
+        cell.accessoryType = .none
 
         return cell
     }

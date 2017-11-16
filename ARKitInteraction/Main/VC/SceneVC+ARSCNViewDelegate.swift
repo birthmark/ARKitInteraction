@@ -44,12 +44,12 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         DispatchQueue.main.async {
             self.statusVC.cancelScheduledMessage(for: .planeEstimation)
             self.statusVC.showMessage("SURFACE DETECTED")
-            if self.emojiLoader.loadedObjects.isEmpty {
+            if (EmojiManager.sharedInstance.arrLoadedNode?.isEmpty)! {
                 self.statusVC.scheduleMessage("TAP + TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
             }
         }
         updateQueue.async {
-            for object in self.emojiLoader.loadedObjects {
+            for object in EmojiManager.sharedInstance.arrLoadedNode! {
                 object.adjustOntoPlaneAnchor(planeAnchor, using: node)
             }
         }
@@ -58,7 +58,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         updateQueue.async {
-            for object in self.emojiLoader.loadedObjects {
+            for object in EmojiManager.sharedInstance.arrLoadedNode! {
                 object.adjustOntoPlaneAnchor(planeAnchor, using: node)
             }
         }

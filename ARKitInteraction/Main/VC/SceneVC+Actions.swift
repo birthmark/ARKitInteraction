@@ -12,7 +12,7 @@ extension SceneVC: UIGestureRecognizerDelegate {
     
     /// Determines if the tap gesture for presenting the `VirtualObjectSelectionViewController` should be used.
     func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
-        return emojiLoader.loadedObjects.isEmpty
+        return EmojiManager.sharedInstance.arrLoadedNode!.isEmpty
     }
     
     func gestureRecognizer(_: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
@@ -21,12 +21,12 @@ extension SceneVC: UIGestureRecognizerDelegate {
     
     /// - Tag: restartExperience
     func restartExperience() {
-        guard isRestartAvailable, !emojiLoader.isLoading else { return }
+        guard isRestartAvailable, !EmojiManager.sharedInstance.isLoading! else { return }
         isRestartAvailable = false
 
         statusVC.cancelAllScheduledMessages()
 
-        emojiLoader.removeAllVirtualObjects()
+        EmojiManager.sharedInstance.removeAllNodes()
 //        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
 //        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
 

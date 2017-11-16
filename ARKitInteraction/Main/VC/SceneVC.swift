@@ -42,9 +42,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     /// A type which manages gesture manipulation of virtual content in the scene.
     lazy var nodeGestureHandler = NodeGestureHandler(sceneView: sceneView)
     
-    /// Coordinates the loading and unloading of reference nodes for virtual objects.
-    let emojiLoader = EmojiNodeLoader()
-    
     /// Marks if the AR experience is available for restart.
     var isRestartAvailable = true
     
@@ -155,7 +152,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
         let node: Text3DNode = Text3DNode()
         node.scale = SCNVector3Make(0.2, 0.2, 0.2)
         node.setText(text: "选择修改")
-        self .placeVirtualObject(node)
+        self.placeVirtualObject(node)
+        EmojiManager.sharedInstance.addNode(node: node)
     }
     
     @objc func captureVideo() {
@@ -188,7 +186,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     
     @objc func showEmojiSelectionVC() {
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
-        guard !btnAddEmoji.isHidden && !emojiLoader.isLoading else { return }
+        guard !btnAddEmoji.isHidden && !EmojiManager.sharedInstance.isLoading! else { return }
         
         statusVC.cancelScheduledMessage(for: .contentPlacement)
 
@@ -202,14 +200,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
             popoverController.sourceRect = self.btnAddEmoji.bounds
         }
         
-        selectionVC.virtualObjects = BaseNode.availableEmojiObjects
+        selectionVC.arrEmojiVOs = EmojiManager.sharedInstance.arrEmojiVOs!
         selectionVC.delegate = self
-        
-        // Set all rows of currently placed objects to selected.
-        for object in emojiLoader.loadedObjects {
-            guard let index = BaseNode.availableEmojiObjects.index(of: object) else { continue }
-            selectionVC.selectedEmojiObjectRows.insert(index)
-        }
         
         self.present(selectionVC, animated: true, completion: nil)
     }
@@ -264,11 +256,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate {
     // MARK: - Focus Square
     
     func updateFocusSquare() {
-        let isObjectVisible = emojiLoader.loadedObjects.contains { object in
+        let isObjectVisible = EmojiManager.sharedInstance.arrLoadedNode?.contains { object in
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
-        if isObjectVisible {
+        if isObjectVisible! {
             focusSquare.hide()
         } else {
             focusSquare.unhide()

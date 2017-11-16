@@ -32,46 +32,11 @@ extension SceneVC: EmojiSelectionDelegate {
     
     // MARK: - VirtualObjectSelectionViewControllerDelegate
     
-    func emojiSelectionVC(_: EmojiSelectionVC, didSelectObject object: BaseNode) {
-        emojiLoader.loadEmojiObject(object, loadedHandler: { [unowned self] loadedObject in
+    func emojiSelectionVC(_: EmojiSelectionVC, didSelectObject object: EmojiVO) {
+        EmojiManager.sharedInstance.loadEmojiObject(object, loadedHandler: { [unowned self] loadedObject in
             DispatchQueue.main.async {
-                self.hideObjectLoadingUI()
                 self.placeVirtualObject(loadedObject)
             }
         })
-
-        displayObjectLoadingUI()
-    }
-    
-    func emojiSelectionVC(_: EmojiSelectionVC, didDeselectObject object: BaseNode) {
-        guard let objectIndex = emojiLoader.loadedObjects.index(of: object) else {
-            fatalError("Programmer error: Failed to lookup virtual object in scene.")
-        }
-        emojiLoader.removeVirtualObject(at: objectIndex)
-    }
-
-    // MARK: Object Loading UI
-
-    func displayObjectLoadingUI() {
-//        btnAddEmoji.setImage(#imageLiteral(resourceName: "buttonring"), for: [])
-
-        btnAddEmoji.isHidden = true
-        btnVideoCapture.isHidden = true
-        btn3DText.isHidden = true
-        
-        btnAddEmoji.isEnabled = false
-        isRestartAvailable = false
-    }
-
-    func hideObjectLoadingUI() {
-//        btnAddEmoji.setImage(#imageLiteral(resourceName: "add"), for: [])
-//        btnAddEmoji.setImage(#imageLiteral(resourceName: "addPressed"), for: [.highlighted])
-
-        btnAddEmoji.isHidden = false
-        btnVideoCapture.isHidden = false
-        btn3DText.isHidden = false
-        
-        btnAddEmoji.isEnabled = true
-        isRestartAvailable = true
     }
 }
