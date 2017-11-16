@@ -78,22 +78,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         sceneView.scene.rootNode.addChildNode(focusSquare)
         
         // setup light
-//        let cone = SCNCone.init(topRadius: 1, bottomRadius: 25, height: 50)
-//        cone.radialSegmentCount = 10
-//        cone.heightSegmentCount = 5
-        
         let spotLight = SCNNode()
-//        spotLight.geometry = cone
-//        spotLight.geometry?.firstMaterial?.emission.contents = UIColor.yellow
         spotLight.position = SCNVector3Make(-0.5, 10.2, -0.8)
         spotLight.light = SCNLight()
         spotLight.light?.type = .directional
         spotLight.light?.castsShadow = true
-        
-//        let handleSpot = SCNNode()
-//        handleSpot.position = SCNVector3Make(-10, 10, 10)
         self.sceneView.scene.rootNode.addChildNode(spotLight)
-//        self.sceneView.scene.rootNode.addChildNode(handleSpot)
         
         
         /*
