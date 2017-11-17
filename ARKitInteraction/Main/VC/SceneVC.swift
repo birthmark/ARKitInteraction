@@ -23,6 +23,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     var btn3DText: UIButton!
     var isCapturing: Bool!
     var inputBar: InputPanelView!
+    var btnDelete: DeleteButton!
     
     // MARK: - UI Elements
     
@@ -72,8 +73,18 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         nodeGestureHandler = NodeGestureHandler(sceneView: sceneView)
         nodeGestureHandler?.sceneVC = self
-        nodeGestureHandler?.inputBeginHandler = {
+        //手势回调
+        nodeGestureHandler?.inputBeginHandler = {[unowned self] in
             self.inputBar?.textView?.becomeFirstResponder()
+        }
+        
+        nodeGestureHandler?.longPressHandler = {[unowned self](node: BaseNode, point: CGPoint) in
+            self.btnDelete.center = CGPoint.init(x: max(18, point.x-50), y: max(18,point.y-50))
+            self.btnDelete.node = node
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.btnDelete.alpha = 1.0
+            })
         }
         
         self.recorder = RecordAR.init(ARSceneKit: self.sceneView)
@@ -106,6 +117,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         // Hook up status view controller callback(s).
         statusVC.restartExperienceHandler = { [unowned self] in
+            self.endEditing()
             self.restartExperience()
         }
     }
@@ -139,6 +151,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.btn3DText.right = self.btnVideoCapture.left-57
         
         //
+        self.btnDelete = DeleteButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
+        self.view.addSubview(self.btnDelete)
+        self.btnDelete.setImage(UIImage.init(named: "delete"), for: [])
+        self.btnDelete.alpha = 0.0
+        
+        //
         self.inputBar = InputPanelView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.width, height: 76))
         self.view.addSubview(self.inputBar)
         self.inputBar.inputFinishHandler = { [unowned self](text: String?) in
@@ -155,6 +173,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
         self.btnVideoCapture.addTarget(self, action: #selector(captureVideo), for: UIControlEvents.touchUpInside)
         self.btn3DText.addTarget(self, action: #selector(text3D), for: UIControlEvents.touchUpInside)
+        self.btnDelete.addTarget(self, action: #selector(deleteNode), for: UIControlEvents.touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(note:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -203,7 +222,36 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         NotificationCenter.default.removeObserver(self)
     }
     
+    func endEditing() {
+        self.view.endEditing(true)
+        
+        if (self.btnDelete.alpha > 0.0) {
+            self.btnDelete.center = CGPoint.init(x: -36, y: -36)
+            UIView.animate(withDuration: 0.3) {
+                self.btnDelete.alpha = 0.0
+            }
+        }
+    }
+    
+    func hideDeleteButton() {
+        if (self.btnDelete.alpha > 0.0) {
+            self.btnDelete.center = CGPoint.init(x: -36, y: -36)
+            UIView.animate(withDuration: 0.3) {
+                self.btnDelete.alpha = 0.0
+            }
+        }
+    }
+    
+    @objc func deleteNode() {
+        NodeManager.sharedInstance.removeNode(node: self.btnDelete.node!)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.btnDelete.alpha = 0.0
+        })
+    }
+    
     @objc func text3D() {
+        endEditing()
+        
         let node: Text3DNode = Text3DNode()
         node.scale = SCNVector3Make(0.2, 0.2, 0.2)
         node.setText(text: "双击修改")
@@ -212,6 +260,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     }
     
     @objc func captureVideo() {
+        endEditing()
+        
         if (self.isCapturing) {
             self.btnVideoCapture.setTitle("拍摄中", for: .normal)
             self.recorder.stop({ (url) in
@@ -240,6 +290,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     }
     
     @objc func showEmojiSelectionVC() {
+        endEditing()
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
         guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
         

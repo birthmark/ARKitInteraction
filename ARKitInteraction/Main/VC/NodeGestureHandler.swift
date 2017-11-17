@@ -19,6 +19,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     weak var sceneVC: SceneVC?
     
     var inputBeginHandler: () -> Void = {}
+    var longPressHandler: (_ node: BaseNode, _ point: CGPoint) -> Void = {_,_  in }
     
     /**
      The object that has been most recently intereacted with.
@@ -74,7 +75,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
 
     @objc
     func didTap(_ gesture: UITapGestureRecognizer) {
-        sceneVC?.view.endEditing(true)
+        sceneVC?.endEditing()
         
         let touchLocation = gesture.location(in: sceneView)
         
@@ -83,12 +84,6 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("tap text3DNode to fall down")
-                if (selectedNode?.isStanding)! {
-                    selectedNode?.eulerAngles.x += Float(Double.pi/2)
-                } else {
-                    selectedNode?.eulerAngles.x -= Float(Double.pi/2)
-                }
-                
                 selectedNode?.isStanding = !(selectedNode?.isStanding)!
             } else {
                 print("tap emojiNode do nothing")
@@ -102,6 +97,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     
     @objc
     func didDoubleTap(_ gesture: UITapGestureRecognizer) {
+        sceneVC?.hideDeleteButton()
         let touchLocation = gesture.location(in: sceneView)
         
         if let tappedObject = sceneView.selectNode(at: touchLocation) {
@@ -125,14 +121,16 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             if let object = objectInteracting(with: gesture, in: sceneView) {
                 selectedNode = object
                 print("LongPress Node to delete")
-                NodeManager.sharedInstance.removeNode(node: selectedNode!)
+//                NodeManager.sharedInstance.removeNode(node: selectedNode!)
+                let touchLocation = gesture.location(ofTouch: 0, in: sceneView)
+                longPressHandler(selectedNode!, touchLocation)
             }
         }
     }
     
     @objc
     func didPan(_ gesture: ThresholdPanGesture) {
-        sceneVC?.view.endEditing(true)
+        sceneVC?.endEditing()
         
         switch gesture.state {
         case .began:
@@ -181,7 +179,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     /// - Tag: didRotate
     @objc
     func didRotate(_ gesture: UIRotationGestureRecognizer) {
-        sceneVC?.view.endEditing(true)
+        sceneVC?.endEditing()
         guard gesture.state == .changed else { return }
         
         /*

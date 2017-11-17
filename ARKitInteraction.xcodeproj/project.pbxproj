@@ -27,6 +27,7 @@
 		288C3E661FBD6F6D00DD0916 /* EmojiConfigVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E651FBD6F6D00DD0916 /* EmojiConfigVO.swift */; };
 		288C3E681FBD6F7C00DD0916 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E671FBD6F7C00DD0916 /* NodeManager.swift */; };
 		28AC26611FBEB1E800D20AF3 /* InputPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */; };
+		28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -75,6 +76,7 @@
 		288C3E671FBD6F7C00DD0916 /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPanelView.swift; sourceTree = "<group>"; };
 		28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lanting_GBK.ttf; sourceTree = "<group>"; };
+		28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				C46356661EF9CC480080C8D9 /* ARView.swift */,
 				28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */,
+				28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */,
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
+				28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */,
 				288C3E5C1FBC406700DD0916 /* Materials+Extension.swift in Sources */,
 				28AC26611FBEB1E800D20AF3 /* InputPanelView.swift in Sources */,
 				2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */,
