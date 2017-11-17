@@ -22,6 +22,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     var btnVideoCapture: UIButton!
     var btn3DText: UIButton!
     var isCapturing: Bool!
+    var inputBar: InputPanelView!
     
     // MARK: - UI Elements
     
@@ -40,7 +41,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     // MARK: - ARKit Configuration Properties
     
     /// A type which manages gesture manipulation of virtual content in the scene.
-    lazy var nodeGestureHandler = NodeGestureHandler(sceneView: sceneView)
+    var nodeGestureHandler: NodeGestureHandler?
     
     /// Marks if the AR experience is available for restart.
     var isRestartAvailable = true
@@ -68,6 +69,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         self.setupViews()
         self.setupListener()
+        
+        nodeGestureHandler = NodeGestureHandler(sceneView: sceneView)
+        nodeGestureHandler?.sceneVC = self
+        nodeGestureHandler?.inputBeginHandler = {
+            self.inputBar?.textView?.becomeFirstResponder()
+        }
         
         self.recorder = RecordAR.init(ARSceneKit: self.sceneView)
         sceneView.delegate = self
@@ -130,18 +137,76 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.btn3DText.setImage(UIImage.init(named: "letter_3d"), for: [])
         self.btn3DText.centerY = self.btnVideoCapture.centerY
         self.btn3DText.right = self.btnVideoCapture.left-57
+        
+        //
+        self.inputBar = InputPanelView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.width, height: 76))
+        self.view.addSubview(self.inputBar)
+        self.inputBar.inputFinishHandler = { [unowned self](text: String?) in
+                print("input string \(text!)")
+                self.nodeGestureHandler?.setText(text: text!);
+                self.view.endEditing(true)
+            }
+        
+        self.inputBar.bottom = self.view.height
+        self.inputBar.alpha = 0.0
     }
     
     func setupListener() {
         self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
         self.btnVideoCapture.addTarget(self, action: #selector(captureVideo), for: UIControlEvents.touchUpInside)
         self.btn3DText.addTarget(self, action: #selector(text3D), for: UIControlEvents.touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(note:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHidden(note:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWillShow(note: NSNotification) {
+        let userInfo = note.userInfo!
+        let  keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let deltaY = keyBoardBounds.size.height
+        let animations:(() -> Void) = {
+            self.inputBar.bottom = self.view.height-deltaY
+            self.inputBar.alpha = 1.0
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+            
+        } else{
+            animations()
+        }
+    }
+    
+    @objc func keyboardWillHidden(note: NSNotification) {
+        let userInfo  = note.userInfo!
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            self.inputBar.bottom = self.view.height
+            self.inputBar.alpha = 0.0
+        }
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func text3D() {
         let node: Text3DNode = Text3DNode()
         node.scale = SCNVector3Make(0.2, 0.2, 0.2)
-        node.setText(text: "选择修改")
+        node.setText(text: "双击修改")
         self.placeNode(node)
         NodeManager.sharedInstance.addNode(node: node)
     }
@@ -319,7 +384,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
                 return
         }
         
-        nodeGestureHandler.selectedNode = node
+        nodeGestureHandler!.selectedNode = node
         node.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
         updateQueue.async {
             self.sceneView.scene.rootNode.addChildNode(node)

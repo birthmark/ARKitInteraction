@@ -13,7 +13,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         DispatchQueue.main.async {
-            self.nodeGestureHandler.updateObjectToCurrentTrackingPosition()
+            self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
         }
         

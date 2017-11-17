@@ -16,6 +16,9 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     
     /// The scene view to hit test against when moving virtual content.
     let sceneView: ARView
+    weak var sceneVC: SceneVC?
+    
+    var inputBeginHandler: () -> Void = {}
     
     /**
      The object that has been most recently intereacted with.
@@ -61,11 +64,18 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         
         tapGesture.require(toFail: doubleTapGesture)
     }
-    
+
+    func setText(text: String) {
+        if let node: Text3DNode = selectedNode as? Text3DNode {
+            node.setText(text: text)
+        }
+    }
     // MARK: - Gesture Actions
 
     @objc
     func didTap(_ gesture: UITapGestureRecognizer) {
+        sceneVC?.view.endEditing(true)
+        
         let touchLocation = gesture.location(in: sceneView)
         
         if let tappedObject = sceneView.selectNode(at: touchLocation) {
@@ -91,6 +101,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("double tap text3DNode to change text")
+                inputBeginHandler()
             } else {
                 print("double tap emojiNode do nothing")
             }
