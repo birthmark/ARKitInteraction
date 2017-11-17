@@ -45,15 +45,4 @@ public extension UIFont{
         }
         return font!;
     }
-    
-    class func appLanTingBoldFont(fontSize size:CGFloat)->UIFont{
-        
-        var font = UIFont(name:"FZLTDHK--GBK1-0",size:size);
-        if font == nil {
-            font = UIFont.boldSystemFont(ofSize: size);
-        }
-        return font!;
-    }
-    
-    
 }
