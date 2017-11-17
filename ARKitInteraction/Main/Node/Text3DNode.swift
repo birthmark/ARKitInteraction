@@ -30,9 +30,17 @@ class Text3DNode: BaseNode {
             let material = SCNMaterial.material(named: "rustediron-streaks")
             textNode.materials = [material]
             self.geometry = textNode
+            self.eulerAngles.y = 0
         }
         
         updatePivot()
     }
     
+    override func updatePivot() {
+        let (min, max) = boundingBox
+        let dx = min.x + 0.5 * (max.x - min.x)
+        let dy = min.y
+        let dz = min.z + 0.5 * (max.z - min.z)
+        pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+    }
 }

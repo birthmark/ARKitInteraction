@@ -18,7 +18,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     let sceneView: ARView
     weak var sceneVC: SceneVC?
     
-    var inputBeginHandler: () -> Void = {}
+    var inputBeginHandler: (_ text: String) -> Void = {_ in}
     var longPressHandler: (_ node: BaseNode, _ point: CGPoint) -> Void = {_,_  in }
     
     /**
@@ -104,7 +104,8 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("double tap text3DNode to change text")
-                inputBeginHandler()
+                let text: SCNText = selectedNode?.geometry as! SCNText!
+                inputBeginHandler(text.string! as! String)
             } else {
                 print("double tap emojiNode do nothing")
                 sceneVC?.view.endEditing(true)

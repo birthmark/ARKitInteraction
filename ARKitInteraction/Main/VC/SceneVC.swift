@@ -74,7 +74,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         nodeGestureHandler = NodeGestureHandler(sceneView: sceneView)
         nodeGestureHandler?.sceneVC = self
         //手势回调
-        nodeGestureHandler?.inputBeginHandler = {[unowned self] in
+        nodeGestureHandler?.inputBeginHandler = {[unowned self](text: String) in
+            self.inputBar?.textView?.text = text
             self.inputBar?.textView?.becomeFirstResponder()
         }
         
