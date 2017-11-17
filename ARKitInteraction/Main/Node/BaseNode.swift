@@ -12,7 +12,7 @@ import ARKit
 class BaseNode: SCNReferenceNode {
     
     var isSelected: Bool?
-    var isStanding: Bool?
+    var isStanding: Bool? = true
 
     /// The model name derived from the `referenceURL`.
     var modelName: String {
