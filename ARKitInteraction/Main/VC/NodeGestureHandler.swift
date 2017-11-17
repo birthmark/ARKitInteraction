@@ -104,12 +104,16 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
                 inputBeginHandler()
             } else {
                 print("double tap emojiNode do nothing")
+                sceneVC?.view.endEditing(true)
             }
+        } else {
+            sceneVC?.view.endEditing(true)
         }
     }
     
     @objc
     func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        sceneVC?.view.endEditing(true)
         if(gesture.state == .began) {
             if let object = objectInteracting(with: gesture, in: sceneView) {
                 selectedNode = object
@@ -121,6 +125,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     
     @objc
     func didPan(_ gesture: ThresholdPanGesture) {
+        sceneVC?.view.endEditing(true)
         
         switch gesture.state {
         case .began:
@@ -169,6 +174,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     /// - Tag: didRotate
     @objc
     func didRotate(_ gesture: UIRotationGestureRecognizer) {
+        sceneVC?.view.endEditing(true)
         guard gesture.state == .changed else { return }
         
         /*

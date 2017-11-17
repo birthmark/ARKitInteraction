@@ -32,6 +32,10 @@
 	<string>Save photos of your ARExperience</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Save photos of your AR experience</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Lanting_GBK.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

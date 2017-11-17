@@ -29,7 +29,7 @@ class InputPanelView: UIView {
     func setupViews() {
         textView = UITextView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
         self.addSubview(textView!)
-        self.textView?.font = UIFont.systemFont(ofSize: 18)
+        self.textView?.font = UIFont.appLanTingBoldFont(fontSize:18)
         self.textView?.textColor = UIColor.color(hexValue: 0x4e4e4e)
         
         btnConfirm = UIButton.init(frame: CGRect.init())
