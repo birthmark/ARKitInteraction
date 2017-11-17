@@ -45,17 +45,72 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         rotationGesture.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2;
+        doubleTapGesture.numberOfTouchesRequired = 1;
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        longPressGesture.minimumPressDuration = 1.5;
         
         // Add gestures to the `sceneView`.
         sceneView.addGestureRecognizer(panGesture)
         sceneView.addGestureRecognizer(rotationGesture)
         sceneView.addGestureRecognizer(tapGesture)
+        sceneView.addGestureRecognizer(doubleTapGesture)
+        sceneView.addGestureRecognizer(longPressGesture)
+        
+        tapGesture.require(toFail: doubleTapGesture)
     }
     
     // MARK: - Gesture Actions
+
+    @objc
+    func didTap(_ gesture: UITapGestureRecognizer) {
+        let touchLocation = gesture.location(in: sceneView)
+        
+        if let tappedObject = sceneView.selectNode(at: touchLocation) {
+            // Select a new object.
+            selectedNode = tappedObject
+            if selectedNode as? Text3DNode != nil {
+                print("tap text3DNode to fall down")
+            } else {
+                print("tap emojiNode do nothing")
+            }
+            
+        } else if let object = selectedNode {//ignore
+            // Teleport the object to whereever the user touched the screen.
+            //            translate(object, basedOn: touchLocation, infinitePlane: false)
+        }
+    }
+    
+    @objc
+    func didDoubleTap(_ gesture: UITapGestureRecognizer) {
+        let touchLocation = gesture.location(in: sceneView)
+        
+        if let tappedObject = sceneView.selectNode(at: touchLocation) {
+            selectedNode = tappedObject
+            if selectedNode as? Text3DNode != nil {
+                print("double tap text3DNode to change text")
+            } else {
+                print("double tap emojiNode do nothing")
+            }
+        }
+    }
+    
+    @objc
+    func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        if(gesture.state == .began) {
+            if let object = objectInteracting(with: gesture, in: sceneView) {
+                selectedNode = object
+                print("LongPress Node to delete")
+                NodeManager.sharedInstance.removeNode(node: selectedNode!)
+            }
+        }
+    }
     
     @objc
     func didPan(_ gesture: ThresholdPanGesture) {
+        
         switch gesture.state {
         case .began:
             // Check for interaction with a new object.
@@ -114,19 +169,6 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         trackedObject?.eulerAngles.y -= Float(gesture.rotation)
         
         gesture.rotation = 0
-    }
-    
-    @objc
-    func didTap(_ gesture: UITapGestureRecognizer) {
-        let touchLocation = gesture.location(in: sceneView)
-        
-        if let tappedObject = sceneView.selectNode(at: touchLocation) {
-            // Select a new object.
-            selectedNode = tappedObject
-        } else if let object = selectedNode {
-            // Teleport the object to whereever the user touched the screen.
-            translate(object, basedOn: touchLocation, infinitePlane: false)
-        }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
