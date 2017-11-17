@@ -31,7 +31,7 @@ class InputPanelView: UIView, UITextViewDelegate {
         self.addSubview(textView!)
         self.textView?.delegate = self
         self.textView?.backgroundColor = UIColor.clear
-        self.textView?.font = UIFont.appLanTingBoldFont(fontSize:18)
+        self.textView?.font = UIFont.appLanTingFont(fontSize:18)
         self.textView?.textColor = UIColor.color(hexValue: 0x4e4e4e)
         self.textView?.returnKeyType = .done
         

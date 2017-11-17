@@ -84,6 +84,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("tap text3DNode to fall down")
+                
                 selectedNode?.isStanding = !(selectedNode?.isStanding)!
             } else {
                 print("tap emojiNode do nothing")
