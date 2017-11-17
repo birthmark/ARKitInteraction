@@ -26,7 +26,7 @@ class Text3DNode: BaseNode {
         } else {
             let textNode = SCNText.init(string: text, extrusionDepth: 0.2)
             textNode.firstMaterial?.diffuse.contents = UIColor.blue
-            textNode.font = UIFont.appLanTingFont(fontSize: 0.5)
+            textNode.font = UIFont.appLanTingBoldFont(fontSize: 0.5)
             let material = SCNMaterial.material(named: "rustediron-streaks")
             textNode.materials = [material]
             self.geometry = textNode
