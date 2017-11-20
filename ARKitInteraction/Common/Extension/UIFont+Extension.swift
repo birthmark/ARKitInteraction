@@ -39,7 +39,8 @@ public extension UIFont{
     
     class func appLanTingFont(fontSize size:CGFloat)->UIFont{
         
-        var font = UIFont(name:"FZLTDHK--GBK1-0",size:size);
+//        var font = UIFont(name:"FZLTDHK--GBK1-0",size:size);//Lanting_GBK.ttf
+        var font = UIFont(name:"FZLTCHJW--GB1-0",size:size);//Lanting_GBK_II.ttf
         if font == nil {
             font = UIFont.systemFont(ofSize: size);
         }

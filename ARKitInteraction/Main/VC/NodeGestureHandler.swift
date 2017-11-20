@@ -26,6 +26,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
      The `selectedObject` can be moved at any time with the tap gesture.
      */
     var selectedNode: BaseNode?
+    var currentScale: SCNVector3?
     
     /// The object that is tracked for use by the pan and rotation gestures.
     private var trackedObject: BaseNode? {
@@ -56,12 +57,15 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
         longPressGesture.minimumPressDuration = 1.5;
         
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action:#selector(didPinch(_:)))
+        
         // Add gestures to the `sceneView`.
         sceneView.addGestureRecognizer(panGesture)
         sceneView.addGestureRecognizer(rotationGesture)
         sceneView.addGestureRecognizer(tapGesture)
         sceneView.addGestureRecognizer(doubleTapGesture)
         sceneView.addGestureRecognizer(longPressGesture)
+        sceneView.addGestureRecognizer(pinchGesture)
         
         tapGesture.require(toFail: doubleTapGesture)
     }
@@ -72,7 +76,32 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         }
     }
     // MARK: - Gesture Actions
-
+    @objc
+    func didPinch(_ gesture: UIPinchGestureRecognizer) {
+        sceneVC?.endEditing()
+        print("pinch: \(gesture.scale)")
+        
+        switch gesture.state {
+        case .began:
+            // Check for interaction with a new object.
+            if let object = objectInteracting(with: gesture, in: sceneView) {
+                trackedObject = object
+                currentScale = trackedObject?.scale
+            }
+            
+        case .changed:
+            guard let object = trackedObject else { return }
+            let matrix: SCNMatrix4 = SCNMatrix4MakeScale(Float(gesture.scale), Float(gesture.scale), Float(gesture.scale))
+            trackedObject?.scale = SCNVector3Make(Float(gesture.scale*CGFloat((currentScale?.x)!)), Float(gesture.scale*CGFloat((currentScale?.y)!)), Float(gesture.scale*CGFloat((currentScale?.z)!)))
+//            trackedObject?.transform = trackedObject?.transform * matrix
+            
+        default:
+            // Clear the current position tracking.
+            currentTrackingPosition = nil
+            trackedObject = nil
+        }
+    }
+    
     @objc
     func didTap(_ gesture: UITapGestureRecognizer) {
         sceneVC?.endEditing()
@@ -84,7 +113,11 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("tap text3DNode to fall down")
-                
+                if (selectedNode?.isStanding)! {
+//                    selectedNode?.eulerAngles.x += Float(Double.pi/2)
+                } else {
+//                    selectedNode?.eulerAngles.x -= Float(Double.pi/2)
+                }
                 selectedNode?.isStanding = !(selectedNode?.isStanding)!
             } else {
                 print("tap emojiNode do nothing")
