@@ -32,7 +32,9 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         if let planeAnchor = anchor as? ARPlaneAnchor {
             let node = SCNNode()
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z), chamferRadius: 0)
-            node.geometry?.materials.first?.diffuse.contents = UIColor.white
+//            node.geometry?.materials.first?.diffuse.contents = UIColor.white
+            node.geometry?.materials.first?.diffuse.contents = self.sceneView.snapshot()
+            node.geometry?.materials.first?.lightingModel = .constant
             return node
         }
         return nil
