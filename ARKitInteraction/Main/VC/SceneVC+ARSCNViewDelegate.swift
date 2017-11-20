@@ -33,9 +33,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             let node = SCNNode()
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z), chamferRadius: 0)
 //            node.geometry?.materials.first?.diffuse.contents = UIColor.white
-            node.geometry?.materials.first?.diffuse.contents = self.sceneView.snapshot()
-            node.geometry?.materials.first?.lightingModel = .constant
-            return node
+//            node.geometry?.materials.first?.diffuse.contents = self.sceneView.snapshot()
+//            node.geometry?.materials.first?.lightingModel = .constant
+//            node.geometry?.materials.first?.diffuse.contents = UIColor.white
+//            node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+//            return node
         }
         return nil
     }

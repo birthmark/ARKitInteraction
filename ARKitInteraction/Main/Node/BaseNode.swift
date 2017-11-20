@@ -41,10 +41,9 @@ class BaseNode: SCNReferenceNode {
         let cameraWorldPosition = cameraTransform.translation
         var positionOffsetFromCamera = newPosition - cameraWorldPosition
         
-        // Limit the distance of the object from the camera to a maximum of 10 meters.
-        if simd_length(positionOffsetFromCamera) > 10 {
+        if simd_length(positionOffsetFromCamera) > 10.50 {
             positionOffsetFromCamera = simd_normalize(positionOffsetFromCamera)
-            positionOffsetFromCamera *= 10
+            positionOffsetFromCamera *= 10.50
         }
         
         /*
@@ -66,6 +65,18 @@ class BaseNode: SCNReferenceNode {
         } else {
             simdPosition = cameraWorldPosition + positionOffsetFromCamera
         }
+    }
+    
+    func setNodePosition(_ newPosition: float3, relativeTo cameraTransform: matrix_float4x4) {
+        let cameraWorldPosition = cameraTransform.translation
+        var positionOffsetFromCamera = newPosition - cameraWorldPosition
+        
+        if simd_length(positionOffsetFromCamera) > 0.50 {
+            positionOffsetFromCamera = simd_normalize(positionOffsetFromCamera)
+            positionOffsetFromCamera *= 0.50
+        }
+        
+        simdPosition = cameraWorldPosition + positionOffsetFromCamera
     }
     
     /// - Tag: AdjustOntoPlaneAnchor

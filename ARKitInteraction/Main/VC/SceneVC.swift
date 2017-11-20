@@ -98,10 +98,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         // setup light
         let spotLight = SCNNode()
-        spotLight.position = SCNVector3Make(-0.5, 10.2, -0.8)
+        spotLight.position = SCNVector3Make(-0.5, 10000.2, -500.8)
         spotLight.light = SCNLight()
         spotLight.light?.type = .directional
         spotLight.light?.castsShadow = true
+        spotLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        spotLight.light?.shadowMode = .deferred
         self.sceneView.scene.rootNode.addChildNode(spotLight)
         
         
@@ -437,7 +439,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         }
         
         nodeGestureHandler!.selectedNode = node
-        node.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
+        node.setNodePosition(focusSquarePosition, relativeTo: cameraTransform)
         updateQueue.async {
             self.sceneView.scene.rootNode.addChildNode(node)
         }
