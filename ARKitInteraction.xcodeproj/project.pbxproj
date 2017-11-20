@@ -13,7 +13,7 @@
 		2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */; };
 		2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB801FBAD150008D69D9 /* Text3DNode.swift */; };
 		2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB821FBAD162008D69D9 /* EmojiNode.swift */; };
-		2834E02C1FBEF02200F55859 /* Lanting_GBK.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */; };
+		2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */; };
 		288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */; };
 		288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */; };
 		288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */; };
@@ -63,6 +63,7 @@
 		2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneVC.swift; sourceTree = "<group>"; };
 		2810DB801FBAD150008D69D9 /* Text3DNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text3DNode.swift; sourceTree = "<group>"; };
 		2810DB821FBAD162008D69D9 /* EmojiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNode.swift; sourceTree = "<group>"; };
+		2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lanting_GBK_II.ttf; sourceTree = "<group>"; };
 		288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */,
 				28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */,
 				288C3E5D1FBC40BB00DD0916 /* rustediron-streaks-albedo.png */,
 				288C3E601FBC40BC00DD0916 /* rustediron-streaks-metal.png */,
@@ -334,7 +336,7 @@
 				288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */,
 				288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */,
 				288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */,
-				2834E02C1FBEF02200F55859 /* Lanting_GBK.ttf in Resources */,
+				2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */,
 				288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

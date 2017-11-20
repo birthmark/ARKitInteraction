@@ -34,7 +34,7 @@
 	<string>Save photos of your AR experience</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lanting_GBK.ttf</string>
+		<string>Lanting_GBK_II.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
