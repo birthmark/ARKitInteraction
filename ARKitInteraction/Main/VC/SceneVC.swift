@@ -260,6 +260,9 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         node.setText(text: "双击修改")
         self.placeNode(node)
         NodeManager.sharedInstance.addNode(node: node)
+        
+        let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
+        node.eulerAngles.y += cameraAngle!
     }
     
     @objc func captureVideo() {
@@ -451,6 +454,9 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         NodeManager.sharedInstance.loadNode(object, loadedHandler: { [unowned self] loadedNode in
             DispatchQueue.main.async {
                 self.placeNode(loadedNode)
+                
+                let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
+                loadedNode.eulerAngles.y += cameraAngle!
             }
         })
     }
