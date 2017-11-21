@@ -36,6 +36,8 @@ class StatusVC: BaseVC {
     var messagePanel: UIVisualEffectView!
     var messageLabel: UILabel!
     var btnRestartExperience: UIButton!
+    var btnFlash: UIButton!
+    var isFlashOpen: Bool!
 
     // MARK: - Properties
     
@@ -52,6 +54,8 @@ class StatusVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.isFlashOpen = false;
+        
         self.setupViews()
         self.setupListeners()
     }
@@ -64,8 +68,16 @@ class StatusVC: BaseVC {
         self.btnRestartExperience.centerY = 40;
         
         //
+        btnFlash = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
+        self.view.addSubview(self.btnFlash!)
+        self.btnFlash.setImage(UIImage.init(named: "flashlight_off"), for: [])
+        self.btnFlash.centerX = self.view.width/2;
+        self.btnFlash.centerY = 40;
+        
+        //
         self.messagePanel = UIVisualEffectView.init(frame: CGRect.init(x: 12, y: 0, width: self.view.width-36-45, height: 60))
         self.view.addSubview(self.messagePanel)
+        self.messagePanel.isUserInteractionEnabled = false
         
         self.messageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 20, width: self.messagePanel.width, height: self.messagePanel.height-20))
         self.messagePanel.contentView.addSubview(self.messageLabel)
@@ -76,6 +88,7 @@ class StatusVC: BaseVC {
     func setupListeners() {
         //按钮添加事件，方法要加@objc声明
         self.btnRestartExperience.addTarget(self, action:#selector(StatusVC.restartExperience(_:)), for: UIControlEvents.touchUpInside)
+        self.btnFlash.addTarget(self, action:#selector(StatusVC.flashAction(_:)), for: UIControlEvents.touchUpInside)
     }
     // MARK: - Message Handling
 	
@@ -140,10 +153,39 @@ class StatusVC: BaseVC {
         timers[.trackingStateEscalation] = timer
     }
     
+    @objc func flashAction(_ sender: UIButton) {
+        self.isFlashOpen = !self.isFlashOpen
+        print("flashAction")
+        
+        let device: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
+        if (device.hasTorch) {
+            
+            do {
+                try device.lockForConfiguration()
+                
+                if (self.isFlashOpen) {
+                    device.torchMode = .on
+                    self.btnFlash.setImage(UIImage.init(named: "flashlight_on"), for: [])
+                } else {
+                    device.torchMode = .off
+                    self.btnFlash.setImage(UIImage.init(named: "flashlight_off"), for: [])
+                }
+                device.unlockForConfiguration()
+            } catch let err as Error!{
+                print("打开闪光灯失败！", err)
+            }
+        }
+    }
+    
     @objc func restartExperience(_ sender: UIButton) {
         restartExperienceHandler()
+        resetFlash()
     }
 	
+    func resetFlash() {
+        self.isFlashOpen = true
+        flashAction(btnFlash)
+    }
 	// MARK: - Panel Visibility
     
 	private func setMessageHidden(_ hide: Bool, animated: Bool) {

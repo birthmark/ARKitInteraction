@@ -330,6 +330,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         // Start the `ARSession`.
         resetTracking()
+        statusVC.resetFlash()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -423,6 +424,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
 
     //重置
     func restartExperience() {
+        print("restartExperience")
         guard isRestartAvailable, !NodeManager.sharedInstance.isLoading! else { return }
         isRestartAvailable = false
         statusVC.cancelAllScheduledMessages()

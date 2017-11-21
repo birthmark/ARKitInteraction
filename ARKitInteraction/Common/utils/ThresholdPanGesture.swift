@@ -35,10 +35,10 @@ class ThresholdPanGesture: UIPanGestureRecognizer {
     /// Returns the threshold value that should be used dependent on the number of touches.
     private static func threshold(forTouchCount count: Int) -> CGFloat {
         switch count {
-        case 1: return 30
+        case 1: return 10
             
         // Use a higher threshold for gestures using more than 1 finger. This gives other gestures priority.
-        default: return 60
+        default: return 20
         }
     }
     
