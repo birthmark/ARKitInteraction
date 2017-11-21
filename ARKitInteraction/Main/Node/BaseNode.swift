@@ -71,9 +71,9 @@ class BaseNode: SCNReferenceNode {
         let cameraWorldPosition = cameraTransform.translation
         var positionOffsetFromCamera = newPosition - cameraWorldPosition
         
-        if simd_length(positionOffsetFromCamera) > 0.50 {
+        if simd_length(positionOffsetFromCamera) > 10.50 {
             positionOffsetFromCamera = simd_normalize(positionOffsetFromCamera)
-            positionOffsetFromCamera *= 0.50
+            positionOffsetFromCamera *= 10.50
         }
         
         simdPosition = cameraWorldPosition + positionOffsetFromCamera
