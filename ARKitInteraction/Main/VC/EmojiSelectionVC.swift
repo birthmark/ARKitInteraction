@@ -95,7 +95,11 @@ class EmojiSelectionVC: UITableViewController {
             fatalError("Expected `\(ObjectCell.self)` type for reuseIdentifier \(ObjectCell.reuseIdentifier). Check the configuration in Main.storyboard.")
         }
         
-        cell.modelName = arrEmojiConfigVOs[indexPath.row].modelName
+        if let icon = arrEmojiConfigVOs[indexPath.row].icon, !icon.isEmpty {
+            cell.modelName = icon
+        } else {
+            cell.modelName = arrEmojiConfigVOs[indexPath.row].modelName
+        }
         cell.accessoryType = .none
 
         return cell

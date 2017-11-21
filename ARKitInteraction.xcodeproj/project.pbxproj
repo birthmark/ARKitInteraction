@@ -204,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				2810DB791FBAC89C008D69D9 /* BaseVC.swift */,
-				2834E0411FC4056500F55859 /* AppDef.swift */,
 			);
 			path = AppRoot;
 			sourceTree = "<group>";
@@ -272,6 +271,7 @@
 				2810DB761FBAC7A8008D69D9 /* Common */,
 				2810DB771FBAC7AE008D69D9 /* AppRoot */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
+				2834E0411FC4056500F55859 /* AppDef.swift */,
 				1488324C1EFC3ED00043E0AB /* Resources */,
 			);
 			path = ARKitInteraction;
@@ -580,7 +580,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuotian.arkitinteraction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
