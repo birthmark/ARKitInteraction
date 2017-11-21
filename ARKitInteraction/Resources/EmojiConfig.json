@@ -1,4 +1,6 @@
 {
+    "comment":"注释：urlString是相对于Models.scnassets的路径, icon是图标的名字",
+ 
     "emojiData": [
                   {
                       "urlString": "candle/candle.scn",

@@ -23,6 +23,7 @@ class NodeManager: NSObject {
         loadEmojiConfigs()
     }
     
+    //从文件目录Models.scnassets加载
     func loadEmojiFromAssets() {
         let modelsURL = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
         
@@ -41,21 +42,24 @@ class NodeManager: NSObject {
     
     //从配置文件加载
     func loadEmojiConfigs() {
-        let path = Bundle.main.path(forResource:"EmojiConfig", ofType: "json")
-        
-        do{
-            let content:NSString = try NSString.init(contentsOfFile: path!, encoding: String.Encoding.utf8.rawValue)
-            if let config = EmojiConfig.deserialize(from: content as String) {
-                arrEmojiConfigVOs = config.emojiData
-            
-                for item in arrEmojiConfigVOs! {
-                    item.url = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
-                    item.url?.appendPathComponent(item.urlString!)
+        if let path = Bundle.main.path(forResource:"EmojiConfig", ofType: "json") {
+            do {
+                let content: NSString = try NSString.init(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue)
+                if let config = EmojiConfig.deserialize(from: content as String) {
+                    arrEmojiConfigVOs = config.emojiData
+                
+                    //设置全路径
+                    for item in arrEmojiConfigVOs! {
+                        item.url = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
+                        item.url?.appendPathComponent(item.urlString!)
+                    }
                 }
+                
+            } catch let err as Error!{
+                print("读取本地数据出现错误！", err)
             }
-            
-        }catch let err as Error!{
-            print("读取本地数据出现错误！",err)
+        } else {
+            print("读取本地数据出现错误！")
         }
     }
     
