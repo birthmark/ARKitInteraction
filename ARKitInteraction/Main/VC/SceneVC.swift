@@ -98,7 +98,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         // setup light
         let spotLight = SCNNode()
-        spotLight.position = SCNVector3Make(-0.5, 10000.2, -500.8)
+        spotLight.position = SCNVector3Make(LIGNT_X, LIGNT_Y, LIGNT_Z)
         spotLight.light = SCNLight()
         spotLight.light?.type = .directional
         spotLight.light?.castsShadow = true

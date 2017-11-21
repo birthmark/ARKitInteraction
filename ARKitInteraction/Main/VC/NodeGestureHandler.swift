@@ -79,7 +79,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     @objc
     func didPinch(_ gesture: UIPinchGestureRecognizer) {
         sceneVC?.endEditing()
-        print("pinch: \(gesture.scale)")
+//        print("pinch: \(gesture.scale)")
         
         switch gesture.state {
         case .began:

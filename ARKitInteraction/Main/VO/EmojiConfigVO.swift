@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import HandyJSON
 
-class EmojiConfigVO: NSObject {
+class EmojiConfigVO: HandyJSON {
 
+    var urlString: String?
     var url: URL?
+    var icon: String?
+    
+    required init() {
+    }
     
     /// The model name derived from the `referenceURL`.
     var modelName: String {

@@ -24,10 +24,10 @@ class Text3DNode: BaseNode {
         if let textNode: SCNText = self.geometry as? SCNText {
             textNode.string = text;
         } else {
-            let textNode = SCNText.init(string: text, extrusionDepth: 0.12)
+            let textNode = SCNText.init(string: text, extrusionDepth: FONT_THICKNESS)
             textNode.firstMaterial?.diffuse.contents = UIColor.blue
-            textNode.font = UIFont.appLanTingFont(fontSize: 0.5)
-            let material = SCNMaterial.material(named: "rustediron-streaks")
+            textNode.font = UIFont.appLanTingFont(fontSize: FONT_SIZE)
+            let material = SCNMaterial.material(named: FONT_METERIAL_NAME)
             textNode.materials = [material]
             self.geometry = textNode
             self.eulerAngles.y = 0

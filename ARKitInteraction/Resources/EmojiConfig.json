@@ -1,0 +1,32 @@
+{
+    "emojiData": [
+                  {
+                      "urlString": "candle/candle.scn",
+                      "icon": "candle"
+                  },
+                  {
+                      "urlString": "chair/chair.scn",
+                      "icon": "chair"
+                  },
+                  {
+                      "urlString": "cup/cup.scn",
+                      "icon": "cup"
+                  },
+                  {
+                      "urlString": "eye/whiteeye.dae",
+                      "icon": ""
+                  },
+                  {
+                      "urlString": "lamp/lamp.scn",
+                      "icon": "lamp"
+                  },
+                  {
+                      "urlString": "vase/vase.scn",
+                      "icon": "vase"
+                  },
+                  {
+                      "urlString": "wolf/Wolf_dae.dae",
+                      "icon": ""
+                  }
+                  ]
+}

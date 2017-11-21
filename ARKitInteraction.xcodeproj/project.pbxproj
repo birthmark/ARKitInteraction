@@ -14,6 +14,9 @@
 		2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB801FBAD150008D69D9 /* Text3DNode.swift */; };
 		2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2810DB821FBAD162008D69D9 /* EmojiNode.swift */; };
 		2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */; };
+		2834E0421FC4056500F55859 /* AppDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E0411FC4056500F55859 /* AppDef.swift */; };
+		2834E0441FC417A600F55859 /* EmojiConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 2834E0431FC40C1500F55859 /* EmojiConfig.json */; };
+		2834E0461FC4190200F55859 /* EmojiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E0451FC4190200F55859 /* EmojiConfig.swift */; };
 		288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */; };
 		288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */; };
 		288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */; };
@@ -33,6 +36,7 @@
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C0B9581E9C6B1F003FCA0C /* Utilities.swift */; };
+		57368650130C1430CD4B5116 /* Pods_ARKitInteraction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ADA52602FA601257C9BCE39 /* Pods_ARKitInteraction.framework */; };
 		C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* StatusVC.swift */; };
 		C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */; };
 		C46356671EF9CC500080C8D9 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356661EF9CC480080C8D9 /* ARView.swift */; };
@@ -64,6 +68,9 @@
 		2810DB801FBAD150008D69D9 /* Text3DNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text3DNode.swift; sourceTree = "<group>"; };
 		2810DB821FBAD162008D69D9 /* EmojiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiNode.swift; sourceTree = "<group>"; };
 		2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lanting_GBK_II.ttf; sourceTree = "<group>"; };
+		2834E0411FC4056500F55859 /* AppDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDef.swift; sourceTree = "<group>"; };
+		2834E0431FC40C1500F55859 /* EmojiConfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmojiConfig.json; sourceTree = "<group>"; };
+		2834E0451FC4190200F55859 /* EmojiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiConfig.swift; sourceTree = "<group>"; };
 		288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -85,6 +92,9 @@
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3929C49E1E89EE4400E00B60 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		39C0B9581E9C6B1F003FCA0C /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		63EE9AF1ADC92AFF7B1466DD /* Pods-ARKitInteraction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitInteraction.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction.release.xcconfig"; sourceTree = "<group>"; };
+		6ADA52602FA601257C9BCE39 /* Pods_ARKitInteraction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARKitInteraction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD096B314F840A1A5EE1A77B /* Pods-ARKitInteraction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitInteraction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction.debug.xcconfig"; sourceTree = "<group>"; };
 		C41366B81EB80DD400EC054A /* StatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVC.swift; sourceTree = "<group>"; };
 		C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquareNode.swift; sourceTree = "<group>"; };
 		C46356661EF9CC480080C8D9 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
@@ -101,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				288C3E581FBB066000DD0916 /* ARVideoKit.framework in Frameworks */,
+				57368650130C1430CD4B5116 /* Pods_ARKitInteraction.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +130,7 @@
 				3929C49E1E89EE4400E00B60 /* Models.scnassets */,
 				3929C4921E89EC2C00E00B60 /* Assets.xcassets */,
 				3929C4971E89EC2C00E00B60 /* Info.plist */,
+				2834E0431FC40C1500F55859 /* EmojiConfig.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -151,6 +163,7 @@
 			children = (
 				288C3E651FBD6F6D00DD0916 /* EmojiConfigVO.swift */,
 				288C3E671FBD6F7C00DD0916 /* NodeManager.swift */,
+				2834E0451FC4190200F55859 /* EmojiConfig.swift */,
 			);
 			path = VO;
 			sourceTree = "<group>";
@@ -191,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				2810DB791FBAC89C008D69D9 /* BaseVC.swift */,
+				2834E0411FC4056500F55859 /* AppDef.swift */,
 			);
 			path = AppRoot;
 			sourceTree = "<group>";
@@ -238,6 +252,8 @@
 				3929C48A1E89EC2C00E00B60 /* ARKitInteraction */,
 				3929C4891E89EC2C00E00B60 /* Products */,
 				CA0ADFFA247BCD89BEF87B81 /* LICENSE */,
+				9BD1046C1555781BB1E1D5C4 /* Pods */,
+				5C019B9F65809DFD486D53E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,6 +277,23 @@
 			path = ARKitInteraction;
 			sourceTree = "<group>";
 		};
+		5C019B9F65809DFD486D53E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6ADA52602FA601257C9BCE39 /* Pods_ARKitInteraction.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BD1046C1555781BB1E1D5C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD096B314F840A1A5EE1A77B /* Pods-ARKitInteraction.debug.xcconfig */,
+				63EE9AF1ADC92AFF7B1466DD /* Pods-ARKitInteraction.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CA0ADFFA247BCD89BEF87B81 /* LICENSE */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,10 +309,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3929C49A1E89EC2C00E00B60 /* Build configuration list for PBXNativeTarget "ARKitInteraction" */;
 			buildPhases = (
+				85D6FE049D862F58A1651F3B /* [CP] Check Pods Manifest.lock */,
 				3929C4841E89EC2C00E00B60 /* Sources */,
 				3929C4851E89EC2C00E00B60 /* Frameworks */,
 				3929C4861E89EC2C00E00B60 /* Resources */,
 				288C3E5A1FBB066000DD0916 /* Embed Frameworks */,
+				E61750C16CFE5D5D22157883 /* [CP] Embed Pods Frameworks */,
+				F3E531CAEBBC5219089FB1E2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -337,11 +373,60 @@
 				288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */,
 				288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */,
 				2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */,
+				2834E0441FC417A600F55859 /* EmojiConfig.json in Resources */,
 				288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		85D6FE049D862F58A1651F3B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E61750C16CFE5D5D22157883 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3E531CAEBBC5219089FB1E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3929C4841E89EC2C00E00B60 /* Sources */ = {
@@ -354,6 +439,7 @@
 				288C3E681FBD6F7C00DD0916 /* NodeManager.swift in Sources */,
 				288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */,
 				2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */,
+				2834E0421FC4056500F55859 /* AppDef.swift in Sources */,
 				C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */,
@@ -369,6 +455,7 @@
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
 				28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */,
+				2834E0461FC4190200F55859 /* EmojiConfig.swift in Sources */,
 				288C3E5C1FBC406700DD0916 /* Materials+Extension.swift in Sources */,
 				28AC26611FBEB1E800D20AF3 /* InputPanelView.swift in Sources */,
 				2810DB811FBAD150008D69D9 /* Text3DNode.swift in Sources */,
@@ -475,6 +562,7 @@
 		};
 		3929C49B1E89EC2C00E00B60 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD096B314F840A1A5EE1A77B /* Pods-ARKitInteraction.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -492,6 +580,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitInteraction/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuotian.arkitinteraction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -502,6 +591,7 @@
 		};
 		3929C49C1E89EC2C00E00B60 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63EE9AF1ADC92AFF7B1466DD /* Pods-ARKitInteraction.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

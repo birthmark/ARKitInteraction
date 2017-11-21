@@ -19,15 +19,16 @@ class NodeManager: NSObject {
     private override init() {
         super.init()
         isLoading = false
-        arrEmojiConfigVOs = loadEmojiConfigs()
+//        loadEmojiFromAssets()
+        loadEmojiConfigs()
     }
     
-    private func loadEmojiConfigs() -> Array<EmojiConfigVO> {
+    func loadEmojiFromAssets() {
         let modelsURL = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
         
         let fileEnumerator = FileManager().enumerator(at: modelsURL, includingPropertiesForKeys: [])!
         
-        return fileEnumerator.flatMap { element in
+        arrEmojiConfigVOs = fileEnumerator.flatMap { element in
             let url = element as! URL
             
             guard url.pathExtension == "scn" || url.pathExtension == "dae" else { return nil }
@@ -35,6 +36,26 @@ class NodeManager: NSObject {
             let emojiVO: EmojiConfigVO = EmojiConfigVO()
             emojiVO.url = url
             return emojiVO
+        }
+    }
+    
+    //从配置文件加载
+    func loadEmojiConfigs() {
+        let path = Bundle.main.path(forResource:"EmojiConfig", ofType: "json")
+        
+        do{
+            let content:NSString = try NSString.init(contentsOfFile: path!, encoding: String.Encoding.utf8.rawValue)
+            if let config = EmojiConfig.deserialize(from: content as String) {
+                arrEmojiConfigVOs = config.emojiData
+            
+                for item in arrEmojiConfigVOs! {
+                    item.url = Bundle.main.url(forResource: "Models.scnassets", withExtension: nil)!
+                    item.url?.appendPathComponent(item.urlString!)
+                }
+            }
+            
+        }catch let err as Error!{
+            print("读取本地数据出现错误！",err)
         }
     }
     
