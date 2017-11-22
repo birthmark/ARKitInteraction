@@ -26,6 +26,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     var btnDelete: DeleteButton!
     
     var isMovingToWindow: Bool!
+    var isFrontCemare: Bool!
     
     // MARK: - UI Elements
     
@@ -70,6 +71,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.view.backgroundColor = UIColor.white
         self.isCapturing = false
         self.isMovingToWindow = true
+        self.isFrontCemare = true
         
         self.setupViews()
         self.setupListener()
@@ -365,10 +367,15 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     
     /// Creates a new AR configuration to run on the `session`.
     func resetTracking() {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])        
-        statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
+//        if (self.isFrontCemare) {
+//            let configuration = ARFaceTrackingConfiguration()
+//            session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+//        } else {
+            let configuration = ARWorldTrackingConfiguration()
+            configuration.planeDetection = .horizontal
+            session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
+//        }
     }
     
     func stopTracking() {
