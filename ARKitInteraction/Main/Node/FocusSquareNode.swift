@@ -150,6 +150,12 @@ class FocusSquareNode: SCNNode {
     // MARK: - Appearance
     
     /// Hides the focus square.
+    func hideImmediately() {
+        guard action(forKey: "hide") == nil else { return }
+        displayNodeHierarchyOnTop(false)
+        runAction(.fadeOut(duration: 0.3), forKey: "hide")
+    }
+    
     func hide() {
         guard action(forKey: "hide") == nil else { return }
         

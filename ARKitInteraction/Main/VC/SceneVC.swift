@@ -19,7 +19,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     var sceneView: ARView!
     var btnAddEmoji: UIButton!
     var recorder: RecordAR!
-    var btnVideoCapture: UIButton!
+    var btnVideoCapture: CaptureButton!
     var btn3DText: UIButton!
     var isCapturing: Bool!
     var inputBar: InputPanelView!
@@ -27,6 +27,9 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     
     var isMovingToWindow: Bool!
     var isFrontCemare: Bool!
+    var captureTimer: Timer!
+    var counter: Int!
+    var step: Int = 100//毫秒
     
     // MARK: - UI Elements
     
@@ -72,6 +75,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.isCapturing = false
         self.isMovingToWindow = true
         self.isFrontCemare = true
+        self.counter = 0
         
         self.setupViews()
         self.setupListener()
@@ -126,7 +130,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         // Hook up status view controller callback(s).
         statusVC.restartExperienceHandler = { [unowned self] in
             self.endEditing()
-            self.restartExperience()
+            NodeManager.sharedInstance.removeAllNodes()
+//            self.restartExperience()
         }
     }
     
@@ -156,10 +161,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.sceneView.autoenablesDefaultLighting = true
         
         //
-        self.btnVideoCapture = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
+        self.btnVideoCapture = CaptureButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
         self.view.addSubview(self.btnVideoCapture)
-        self.btnVideoCapture.setTitle("拍摄", for: .normal)
-        self.btnVideoCapture.backgroundColor = UIColor.color(hexValue: 0x000000, alpha: 0.2)
         self.btnVideoCapture.centerX = self.view.width/2;
         self.btnVideoCapture.bottom = self.view.height-20;
         
@@ -198,7 +201,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     
     func setupListener() {
         self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
-        self.btnVideoCapture.addTarget(self, action: #selector(captureVideo), for: UIControlEvents.touchUpInside)
+        self.btnVideoCapture.addTarget(self, action: #selector(startCaptureVideo), for: UIControlEvents.touchDown)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchCancel)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchUpInside)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchUpOutside)
         self.btn3DText.addTarget(self, action: #selector(text3D), for: UIControlEvents.touchUpInside)
         self.btnDelete.addTarget(self, action: #selector(deleteNode), for: UIControlEvents.touchUpInside)
         
@@ -279,44 +285,103 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     @objc func text3D() {
         endEditing()
         
-        let node: Text3DNode = Text3DNode()
-        node.scale = SCNVector3Make(0.2, 0.2, 0.2)
-        node.setText(text: "双击修改")
-        self.placeNode(node)
-        NodeManager.sharedInstance.addNode(node: node)
-        
-        let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
-        node.eulerAngles.y += cameraAngle!
-    }
-    
-    @objc func captureVideo() {
-        endEditing()
-        
-        if (self.isCapturing) {
-            self.btnVideoCapture.setTitle("拍摄中", for: .normal)
-            self.recorder.stop({ (url) in
-                print("url: "+url.path)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let node: Text3DNode = Text3DNode()
+            node.scale = SCNVector3Make(0.2, 0.2, 0.2)
+            node.setText(text: "双击修改")
+            
+            DispatchQueue.main.sync {[unowned self] in
+                self.placeNode(node)
+                NodeManager.sharedInstance.addNode(node: node)
                 
-                do {
-                let fileAttributes: NSDictionary = try FileManager.default.attributesOfItem(atPath: url.path) as NSDictionary
-                    let length: CUnsignedLongLong = fileAttributes.fileSize();
-                    let ff: Float = Float(length)/1024.0/1024.0;
-                    print("lenth: "+String(ff)+"M")
-                    
-                    DispatchQueue.main.async {
-                        let playerVC: MPMoviePlayerViewController = MPMoviePlayerViewController(contentURL: url)
-                        self.present(playerVC, animated: true, completion: nil)
-                    }
-                
-                } catch {}
-                
-            })
-        } else {
-            self.btnVideoCapture.setTitle("停止", for: .normal)
-            self.recorder.record()
+                let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
+                node.eulerAngles.y += cameraAngle!
+            }
         }
         
-        self.isCapturing = !self.isCapturing
+        
+    }
+    
+    @objc func startCaptureVideo() {
+        endEditing()
+        
+        if (!self.isCapturing) {
+            self.isCapturing = true
+            focusSquare.hideImmediately()
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                let center = self.btnVideoCapture.center
+                self.btnVideoCapture.size = CGSize.init(width: 110, height: 110)
+                self.btnVideoCapture.center = center
+            }, completion: { (finish) in
+                if (self.isCapturing) {//
+                    self.recorder.record()
+                    self.captureTimer = Timer.scheduledTimer(withTimeInterval: Double(self.step)/1000.0, repeats: true, block: { [weak self] _ in
+                        self?.counter! += (self?.step)!
+                        self?.btnVideoCapture.setProgress(progress: Double((self?.counter)!) / 10000)
+                        
+                        if ((self?.counter)! >= 10000) {
+                            self?.stopCaptureVideo()
+                        }
+                        
+                    })
+                }
+            })
+        }
+    }
+    
+    @objc func stopCaptureVideo() {
+        if (self.isCapturing) {
+            //防止多次连续点击
+            self.btnVideoCapture.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.0, execute: { [unowned self] in
+                self.btnVideoCapture.isUserInteractionEnabled = true
+            })
+            
+            if (self.captureTimer) != nil {
+                self.captureTimer.invalidate()
+            }
+            
+            self.isCapturing = false
+            self.btnVideoCapture.setProgress(progress: 0.0)
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                let center = self.btnVideoCapture.center
+                self.btnVideoCapture.size = CGSize.init(width: 80, height: 80)
+                self.btnVideoCapture.center = center
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5, execute: { [unowned self] in
+                self.doStopCapterVideo()
+            })
+        }
+    }
+    
+    private func doStopCapterVideo() {
+        self.recorder.stop({ (url) in
+            print("url: "+url.path)
+            if (self.counter > 1000) {//1秒之内忽略
+                do {
+                    let fileAttributes: NSDictionary = try FileManager.default.attributesOfItem(atPath: url.path) as NSDictionary
+                    let length: CUnsignedLongLong = fileAttributes.fileSize();
+                    let ff: Float = Float(length)/1024.0/1024.0;
+                    print("video file lenth: "+String(ff)+"M")
+                    
+                    DispatchQueue.main.async {
+                        self.didFinishCapture(url: url)
+                    }
+                    
+                } catch {}
+            }
+            
+            self.counter = 0
+        })
+    }
+    
+    //录制成功
+    func didFinishCapture(url: URL) {
+        let playerVC: MPMoviePlayerViewController = MPMoviePlayerViewController(contentURL: url)
+        self.present(playerVC, animated: true, completion: nil)
     }
     
     @objc func showEmojiSelectionVC() {
@@ -390,7 +455,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
-        if isObjectVisible! {
+        if isObjectVisible! || isCapturing {
             focusSquare.hide()
         } else {
             focusSquare.unhide()
