@@ -287,7 +287,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         
         DispatchQueue.global(qos: .userInitiated).async {
             let node: Text3DNode = Text3DNode()
-            node.scale = SCNVector3Make(0.2, 0.2, 0.2)
+            node.scale = SCNVector3Make(1.0, 1.0, 1.0)
             node.setText(text: "双击修改")
             
             DispatchQueue.main.sync {[unowned self] in

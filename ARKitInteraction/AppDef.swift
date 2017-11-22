@@ -19,8 +19,8 @@ let LIGNT_X = Float(-0.5)
 let LIGNT_Y = Float(10000.2)
 let LIGNT_Z = Float(-500.8)
 
-let FONT_SIZE = CGFloat(1.0)
-let FONT_THICKNESS = CGFloat(0.24)
+let FONT_SIZE = CGFloat(0.5)
+let FONT_THICKNESS = CGFloat(0.12)
 let FONT_METERIAL_NAME = "rustediron-streaks"
 
 #if DEBUG
