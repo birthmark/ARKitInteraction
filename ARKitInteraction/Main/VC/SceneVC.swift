@@ -25,6 +25,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     var inputBar: InputPanelView!
     var btnDelete: DeleteButton!
     
+    var isMovingToWindow: Bool!
+    
     // MARK: - UI Elements
     
     var focusSquare = FocusSquareNode()
@@ -66,7 +68,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         super.viewDidLoad()
         self.hideNavigationBar()
         self.view.backgroundColor = UIColor.white
-        self.isCapturing = false;
+        self.isCapturing = false
+        self.isMovingToWindow = true
         
         self.setupViews()
         self.setupListener()
@@ -123,6 +126,25 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
             self.endEditing()
             self.restartExperience()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        if (self.isMovingToWindow) {
+//            self.isMovingToWindow = false
+            // Start the `ARSession`.
+            resetTracking()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //todo
+        stopTracking()
     }
     
     func setupViews() {
@@ -322,23 +344,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         return .none
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-        // Start the `ARSession`.
-        resetTracking()
-        statusVC.resetFlash()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        session.pause()
-    }
-    
     // MARK: - Scene content setup
     
     func setupCamera() {
@@ -364,6 +369,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         configuration.planeDetection = .horizontal
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])        
         statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
+    }
+    
+    func stopTracking() {
+        session.pause()
+        statusVC.resetFlash()
     }
     
     // MARK: - Focus Square
