@@ -13,7 +13,7 @@ let SCREEN_WIDTH = UIScreen().bounds.size.width
 let SCREEN_HEIGHT = UIScreen().bounds.size.height
 
 let MAX_DISTANCE = Float(10.0)
-let TARGET_DISTANCE = Float(10.0)//0.5
+let TARGET_DISTANCE = Float(0.5)//0.5
 
 let LIGNT_X = Float(-0.5)
 let LIGNT_Y = Float(10000.2)
