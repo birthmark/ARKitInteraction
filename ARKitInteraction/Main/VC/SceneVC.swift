@@ -29,7 +29,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     var isFrontCemare: Bool!
     var captureTimer: Timer!
     var counter: Int!
-    var step: Int = 100//毫秒
+    var step: Int = 20//毫秒
     
     // MARK: - UI Elements
     
