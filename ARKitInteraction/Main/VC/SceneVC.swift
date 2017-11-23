@@ -12,7 +12,7 @@ import SceneKit
 import ARVideoKit
 import MediaPlayer
 
-class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDelegate,UIGestureRecognizerDelegate {
+class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionViewDelegate,UIGestureRecognizerDelegate {
 
     // MARK: IBOutlets
     
@@ -200,7 +200,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
     }
     
     func setupListener() {
-        self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionVC), for: UIControlEvents.touchUpInside)
+        self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionView), for: UIControlEvents.touchUpInside)
         self.btnVideoCapture.addTarget(self, action: #selector(startCaptureVideo), for: UIControlEvents.touchDown)
         self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchCancel)
         self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchUpInside)
@@ -384,28 +384,46 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         self.present(playerVC, animated: true, completion: nil)
     }
     
-    @objc func showEmojiSelectionVC() {
+    @objc func showEmojiSelectionView() {
         endEditing()
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
         guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
         
         statusVC.cancelScheduledMessage(for: .contentPlacement)
-
-        let selectionVC: EmojiSelectionVC = EmojiSelectionVC();
-        selectionVC.preferredContentSize = CGSize(width: 100, height: 100);
-        selectionVC.modalPresentationStyle = .popover;
         
-        if let popoverController = selectionVC.popoverPresentationController {
-            popoverController.delegate = self
-            popoverController.sourceView = self.btnAddEmoji
-            popoverController.sourceRect = self.btnAddEmoji.bounds
-        }
+        let view: EmojiSelectionView = EmojiSelectionView.init(frame: self.view.bounds)
+        view.top = self.view.height
+        self.view.addSubview(view)
+        view.delegate = self
+        view.setConfigs(configs: NodeManager.sharedInstance.arrEmojiConfigVOs!)
         
-        selectionVC.arrEmojiConfigVOs = NodeManager.sharedInstance.arrEmojiConfigVOs!
-        selectionVC.delegate = self
-        
-        self.present(selectionVC, animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            view.top = 0
+        })
     }
+    
+//    @objc func showEmojiSelectionVC() {
+//        endEditing()
+//        // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
+//        guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
+//
+//        statusVC.cancelScheduledMessage(for: .contentPlacement)
+//
+//        let selectionVC: EmojiSelectionVC = EmojiSelectionVC();
+//        selectionVC.preferredContentSize = CGSize(width: 100, height: 100);
+//        selectionVC.modalPresentationStyle = .popover;
+//
+//        if let popoverController = selectionVC.popoverPresentationController {
+//            popoverController.delegate = self
+//            popoverController.sourceView = self.btnAddEmoji
+//            popoverController.sourceRect = self.btnAddEmoji.bounds
+//        }
+//
+//        selectionVC.arrEmojiConfigVOs = NodeManager.sharedInstance.arrEmojiConfigVOs!
+//        selectionVC.delegate = self
+//
+//        self.present(selectionVC, animated: true, completion: nil)
+//    }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -532,9 +550,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionDe
         }
     }
 
-    // MARK: - VirtualObjectSelectionViewControllerDelegate
-    func emojiSelectionVC(_: EmojiSelectionVC, didSelectObject object: EmojiConfigVO) {
+    // MARK: -
+    func emojiSelectionView(_ view: EmojiSelectionView, didSelectAt index: Int) {
         //加载模型
+        let object = NodeManager.sharedInstance.arrEmojiConfigVOs![index]
         NodeManager.sharedInstance.loadNode(object, loadedHandler: { [unowned self] loadedNode in
             DispatchQueue.main.async {
                 self.placeNode(loadedNode)

@@ -113,14 +113,17 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("tap text3DNode to fall down")
+                var angle = CGFloat(Double.pi/2)
                 if (selectedNode?.isStanding)! {
 //                    selectedNode?.eulerAngles.x += Float(Double.pi/2)
-                    selectedNode?.runAction(.rotateBy(x: CGFloat(Double.pi/2), y: 0, z: 0, duration: 1.0), forKey: "rotate")
                 } else {
 //                    selectedNode?.eulerAngles.x -= Float(Double.pi/2)
-                    selectedNode?.runAction(.rotateBy(x: CGFloat(-Double.pi/2), y: 0, z: 0, duration: 1.0), forKey: "rotate")
+                    angle *= -1
                 }
-
+                
+                let action: SCNAction = .rotateBy(x: angle, y: 0, z: 0, duration: 1.0)
+                action.timingFunction = timingFunc
+                selectedNode?.runAction(action, forKey: "rotate")
                 selectedNode?.isStanding = !(selectedNode?.isStanding)!
             } else {
                 print("tap emojiNode do nothing")
@@ -130,6 +133,10 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             // Teleport the object to whereever the user touched the screen.
             //            translate(object, basedOn: touchLocation, infinitePlane: false)
         }
+    }
+    
+    func timingFunc(time: Float) -> Float {
+        return time*time*time
     }
     
     @objc

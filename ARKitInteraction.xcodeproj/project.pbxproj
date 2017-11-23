@@ -18,6 +18,8 @@
 		2834E0441FC417A600F55859 /* EmojiConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 2834E0431FC40C1500F55859 /* EmojiConfig.json */; };
 		2834E0461FC4190200F55859 /* EmojiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E0451FC4190200F55859 /* EmojiConfig.swift */; };
 		2834E04A1FC55B1A00F55859 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E0491FC55B1A00F55859 /* CaptureButton.swift */; };
+		2834E04C1FC6760A00F55859 /* EmojiSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E04B1FC6760A00F55859 /* EmojiSelectionView.swift */; };
+		2834E04E1FC6939100F55859 /* EmojiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834E04D1FC6939100F55859 /* EmojiButton.swift */; };
 		288C3E4E1FBAEAE400DD0916 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */; };
 		288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */; };
 		288C3E521FBAEE8300DD0916 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */; };
@@ -73,6 +75,8 @@
 		2834E0431FC40C1500F55859 /* EmojiConfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmojiConfig.json; sourceTree = "<group>"; };
 		2834E0451FC4190200F55859 /* EmojiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiConfig.swift; sourceTree = "<group>"; };
 		2834E0491FC55B1A00F55859 /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
+		2834E04B1FC6760A00F55859 /* EmojiSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionView.swift; sourceTree = "<group>"; };
+		2834E04D1FC6939100F55859 /* EmojiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiButton.swift; sourceTree = "<group>"; };
 		288C3E4D1FBAEAE400DD0916 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		288C3E4F1FBAEB3500DD0916 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		288C3E511FBAEE8300DD0916 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */,
 				28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */,
 				2834E0491FC55B1A00F55859 /* CaptureButton.swift */,
+				2834E04B1FC6760A00F55859 /* EmojiSelectionView.swift */,
+				2834E04D1FC6939100F55859 /* EmojiButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -452,9 +458,11 @@
 				C46356671EF9CC500080C8D9 /* ARView.swift in Sources */,
 				2810DB831FBAD162008D69D9 /* EmojiNode.swift in Sources */,
 				148832411EFC3B250043E0AB /* FocusSquare+Segment.swift in Sources */,
+				2834E04C1FC6760A00F55859 /* EmojiSelectionView.swift in Sources */,
 				2810DB7A1FBAC89C008D69D9 /* BaseVC.swift in Sources */,
 				288C3E661FBD6F6D00DD0916 /* EmojiConfigVO.swift in Sources */,
 				C8D71A001F3B7D3D0086AD64 /* BaseNode.swift in Sources */,
+				2834E04E1FC6939100F55859 /* EmojiButton.swift in Sources */,
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
 				28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */,

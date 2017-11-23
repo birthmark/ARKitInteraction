@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-let SCREEN_WIDTH = UIScreen().bounds.size.width
-let SCREEN_HEIGHT = UIScreen().bounds.size.height
+let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 let MAX_DISTANCE = Float(10.0)
 let TARGET_DISTANCE = Float(0.5)//0.5
