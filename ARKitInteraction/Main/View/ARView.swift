@@ -82,16 +82,18 @@ class ARView: ARSCNView {
          1. Always do a hit test against exisiting plane anchors first. (If any
             such anchors exist & only within their extents.)
         */
-        let planeHitTestResults = hitTest(position, types: .existingPlaneUsingExtent)
         
-        if let result = planeHitTestResults.first {
-            let planeHitTestPosition = result.worldTransform.translation
-            let planeAnchor = result.anchor
+        if (PLACE_NODE_ON_EXISTING_PLANE) {
+            let planeHitTestResults = hitTest(position, types: .existingPlaneUsingExtent)
             
-            // Return immediately - this is the best possible outcome.
-            return (planeHitTestPosition, planeAnchor as? ARPlaneAnchor, true)
+            if let result = planeHitTestResults.first {
+                let planeHitTestPosition = result.worldTransform.translation
+                let planeAnchor = result.anchor
+                
+                // Return immediately - this is the best possible outcome.
+                return (planeHitTestPosition, planeAnchor as? ARPlaneAnchor, true)
+            }
         }
-        
         /*
          2. Collect more information about the environment by hit testing against
             the feature point cloud, but do not return the result yet.

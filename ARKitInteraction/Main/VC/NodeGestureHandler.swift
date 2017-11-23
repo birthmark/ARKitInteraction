@@ -13,7 +13,6 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
     
     /// Developer setting to translate assuming the detected plane extends infinitely.
     let translateAssumingInfinitePlane = true
-    
     /// The scene view to hit test against when moving virtual content.
     let sceneView: ARView
     weak var sceneVC: SceneVC?

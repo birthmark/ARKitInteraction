@@ -105,16 +105,23 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         setupCamera()
         sceneView.scene.rootNode.addChildNode(focusSquare)
         
-        // setup light
-        let spotLight = SCNNode()
-        spotLight.position = SCNVector3Make(LIGNT_X, LIGNT_Y, LIGNT_Z)
-        spotLight.light = SCNLight()
-        spotLight.light?.type = .directional
-        spotLight.light?.castsShadow = true
-        spotLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
-        spotLight.light?.shadowMode = .deferred
-        self.sceneView.scene.rootNode.addChildNode(spotLight)
+        // setup sun light
+        let sunLight = SCNNode()
+        sunLight.position = SCNVector3Make(LIGNT_X, LIGNT_Y, LIGNT_Z)
+        sunLight.light = SCNLight()
+        sunLight.light?.type = .directional
+        sunLight.rotation = SCNVector4Make(1, 0, 0, -Float(Double.pi/4))
+        sunLight.light?.castsShadow = true
+        sunLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+        sunLight.light?.shadowMode = .deferred
+        self.sceneView.scene.rootNode.addChildNode(sunLight)
         
+        // setup ambient light
+        let ambientLight = SCNNode()
+        ambientLight.light = SCNLight()
+        ambientLight.light?.type = .ambient
+        ambientLight.light?.color = UIColor.color(hexValue: 0x000000, alpha: 0.5)
+        self.sceneView.scene.rootNode.addChildNode(ambientLight)
         
         /*
          The `sceneView.automaticallyUpdatesLighting` option creates an

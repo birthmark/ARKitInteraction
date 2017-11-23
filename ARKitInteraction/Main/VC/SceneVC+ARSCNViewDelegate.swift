@@ -31,13 +31,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         print("node for anchor")
         if let planeAnchor = anchor as? ARPlaneAnchor {
             let node = SCNNode()
-            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z), chamferRadius: 0)
-//            node.geometry?.materials.first?.diffuse.contents = UIColor.white
-//            node.geometry?.materials.first?.diffuse.contents = self.sceneView.snapshot()
-//            node.geometry?.materials.first?.lightingModel = .constant
-//            node.geometry?.materials.first?.diffuse.contents = UIColor.white
-//            node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-//            return node
+            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*20), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*20), chamferRadius: 0)
+            node.geometry?.materials.first?.lightingModel = .constant
+            node.geometry?.materials.first?.diffuse.contents = UIColor.white
+            node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+            return node
         }
         return nil
     }
@@ -49,7 +47,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             self.statusVC.cancelScheduledMessage(for: .planeEstimation)
             self.statusVC.showMessage("SURFACE DETECTED")
             if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
-                self.statusVC.scheduleMessage("TAP + TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
+                self.statusVC.scheduleMessage("NOW TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
             }
         }
         updateQueue.async {
