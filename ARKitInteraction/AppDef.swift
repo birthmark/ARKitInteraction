@@ -26,6 +26,9 @@ let FONT_METERIAL_NAME = "rustediron-streaks"
 //拖动的时候是否自动落到平面上，此处最好为true
 let PLACE_NODE_ON_EXISTING_PLANE = true
 
+//显示探测到的平面
+let SHOW_DETECTED_PLANE = false
+
 #if DEBUG
 #else
 #endif

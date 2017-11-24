@@ -123,6 +123,18 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         ambientLight.light?.color = UIColor.color(hexValue: 0x000000, alpha: 0.5)
         self.sceneView.scene.rootNode.addChildNode(ambientLight)
         
+        //加默认的平面？？
+//        let planeNode = SCNNode()
+//        planeNode.geometry = SCNBox(width: CGFloat(100), height: CGFloat(100), length: CGFloat(0.1), chamferRadius: 0)
+//        planeNode.geometry?.materials.first?.lightingModel = .constant
+//        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
+//        planeNode.position = SCNVector3Make(0, 0, 0)
+//        planeNode.rotation = SCNVector4Make(1, 0, 0, Float(-Double.pi/2))
+////        if (!SHOW_DETECTED_PLANE) {
+////            planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+////        }
+//        self.sceneView.scene.rootNode.addChildNode(planeNode)
+        
         /*
          The `sceneView.automaticallyUpdatesLighting` option creates an
          ambient light source and modulates its intensity. This sample app
