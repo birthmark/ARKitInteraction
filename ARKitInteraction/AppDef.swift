@@ -15,20 +15,20 @@ let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 let MAX_DISTANCE = Float(10.0)
 let TARGET_DISTANCE = Float(0.5)//0.5 这个不大合理，为什么要放在0.5米处而不是放在平面上？
 
-let LIGNT_X = Float(1000)
-let LIGNT_Y = Float(-100)
-let LIGNT_Z = Float(-100)
-
 let FONT_SIZE = CGFloat(0.5)
 let FONT_THICKNESS = CGFloat(0.12)
 let FONT_METERIAL_NAME = "rustediron-streaks"
 
-//拖动的时候是否自动落到平面上，此处最好为true
-let PLACE_NODE_ON_EXISTING_PLANE = true
+//平行光角度，默认是射向Z轴负方向
+let LIGTH_ROTATE_X = -Float(Double.pi/3)
+let LIGTH_ROTATE_Y = -Float(Double.pi/4)
 
-//显示探测到的平面
-let SHOW_DETECTED_PLANE = true
-let PLANE_SCALE = Float(20)
+//拖动的时候是否自动落到平面上，此处最好为true
+let PLACE_NODE_ON_EXISTING_PLANE = false
+
+//显示投影平面
+let SHOW_SHADOW_PLANE = false
+let PLANE_SCALE = Float(100)
 
 #if DEBUG
 #else

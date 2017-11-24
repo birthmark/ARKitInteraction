@@ -28,16 +28,16 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        print("node for anchor")
+        
         if let planeAnchor = anchor as? ARPlaneAnchor {
+            print("planeAnchor x: \(planeAnchor.center.x) y: \(planeAnchor.center.y) z: \(planeAnchor.center.z)")
             let node = SCNNode()
-            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*PLANE_SCALE), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*PLANE_SCALE), chamferRadius: 0)
+            
+            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*0.01), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*0.01), chamferRadius: 0)
             node.geometry?.materials.first?.lightingModel = .constant
             node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
+            node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             
-            if (!SHOW_DETECTED_PLANE) {
-                node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-            }
             return node
         }
         return nil

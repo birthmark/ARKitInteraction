@@ -13,6 +13,7 @@ class BaseNode: SCNReferenceNode {
     
     var isSelected: Bool?
     var isStanding: Bool? = true
+    var handler: (_ height: Float) -> Void = {_ in }
 
     /// The model name derived from the `referenceURL`.
     var modelName: String {
@@ -64,6 +65,9 @@ class BaseNode: SCNReferenceNode {
             simdPosition = cameraWorldPosition + averagedDistancePosition
         } else {
             simdPosition = cameraWorldPosition + positionOffsetFromCamera
+            print("setPosition x:\(simdPosition.x) y:\(simdPosition.y) z:\(simdPosition.z) ")
+            print("setPosition x:\(simdPosition.x) y:\(simdPosition.y-pivotHeight()) z:\(simdPosition.z) ")
+            self.handler(simdPosition.y-pivotHeight())
         }
     }
     
@@ -77,6 +81,9 @@ class BaseNode: SCNReferenceNode {
         }
         
         simdPosition = cameraWorldPosition + positionOffsetFromCamera
+        print("setNodePosition x:\(simdPosition.x) y:\(simdPosition.y) z:\(simdPosition.z) ")
+        print("setNodePosition x:\(simdPosition.x) y:\(simdPosition.y-pivotHeight()) z:\(simdPosition.z) ")
+        self.handler(simdPosition.y-pivotHeight())
     }
     
     /// - Tag: AdjustOntoPlaneAnchor
@@ -118,6 +125,12 @@ class BaseNode: SCNReferenceNode {
         let dy = min.y + 0.5 * (max.y - min.y)
         let dz = min.z + 0.5 * (max.z - min.z)
         pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+    }
+    
+    func pivotHeight() -> Float {
+        let (min, max) = boundingBox
+        let dy = min.y + 0.5 * (max.y - min.y)
+        return dy
     }
 }
 

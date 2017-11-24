@@ -43,4 +43,8 @@ class Text3DNode: BaseNode {
         let dz = min.z + 0.5 * (max.z - min.z)
         pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
     }
+    
+    override func pivotHeight() -> Float {
+        return 0;
+    }
 }

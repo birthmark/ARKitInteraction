@@ -31,6 +31,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     var counter: Int!
     var step: Int = 20//毫秒
     
+    var planeNode: SCNNode!
+    
     // MARK: - UI Elements
     
     var focusSquare = FocusSquareNode()
@@ -107,10 +109,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         
         // setup sun light
         let sunLight = SCNNode()
-        sunLight.position = SCNVector3Make(LIGNT_X, LIGNT_Y, LIGNT_Z)
         sunLight.light = SCNLight()
         sunLight.light?.type = .directional
-        sunLight.rotation = SCNVector4Make(1, 0, 0, -Float(Double.pi/4))
+        sunLight.eulerAngles.x = LIGTH_ROTATE_X
+        sunLight.eulerAngles.y = LIGTH_ROTATE_Y
         sunLight.light?.castsShadow = true
         sunLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         sunLight.light?.shadowMode = .deferred
@@ -124,16 +126,15 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.sceneView.scene.rootNode.addChildNode(ambientLight)
         
         //加默认的平面？？
-//        let planeNode = SCNNode()
-//        planeNode.geometry = SCNBox(width: CGFloat(100), height: CGFloat(100), length: CGFloat(0.1), chamferRadius: 0)
-//        planeNode.geometry?.materials.first?.lightingModel = .constant
-//        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
-//        planeNode.position = SCNVector3Make(0, 0, 0)
-//        planeNode.rotation = SCNVector4Make(1, 0, 0, Float(-Double.pi/2))
-////        if (!SHOW_DETECTED_PLANE) {
-////            planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-////        }
-//        self.sceneView.scene.rootNode.addChildNode(planeNode)
+        planeNode = SCNNode()
+        planeNode.geometry = SCNBox(width: CGFloat(100), height: CGFloat(0.01), length: CGFloat(100), chamferRadius: 0)
+        planeNode.geometry?.materials.first?.lightingModel = .constant
+        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
+        planeNode.position = SCNVector3Make(0, -1.0, 0)
+        if (!SHOW_SHADOW_PLANE) {
+            planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+        }
+        self.sceneView.scene.rootNode.addChildNode(planeNode)
         
         /*
          The `sceneView.automaticallyUpdatesLighting` option creates an
@@ -308,6 +309,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             let node: Text3DNode = Text3DNode()
             node.scale = SCNVector3Make(1.0, 1.0, 1.0)
             node.setText(text: "双击修改")
+            node.handler = self.nodeHeight(_:)
             
             DispatchQueue.main.sync {[unowned self] in
                 self.placeNode(node)
@@ -317,8 +319,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 node.eulerAngles.y += cameraAngle!
             }
         }
-        
-        
+    }
+    
+    func nodeHeight(_ height: Float) {
+        print("node height: \(height)")
+        planeNode.position = SCNVector3Make(planeNode.position.x, Float.minimum(planeNode.position.y, height), planeNode.position.z)
     }
     
     @objc func startCaptureVideo() {
@@ -563,6 +568,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         }
         
         nodeGestureHandler!.selectedNode = node
+        node.handler = self.nodeHeight(_:)
         node.setNodePosition(focusSquarePosition, relativeTo: cameraTransform)
         updateQueue.async {
             self.sceneView.scene.rootNode.addChildNode(node)
