@@ -27,7 +27,8 @@ let FONT_METERIAL_NAME = "rustediron-streaks"
 let PLACE_NODE_ON_EXISTING_PLANE = true
 
 //显示探测到的平面
-let SHOW_DETECTED_PLANE = false
+let SHOW_DETECTED_PLANE = true
+let PLANE_SCALE = Float(20)
 
 #if DEBUG
 #else

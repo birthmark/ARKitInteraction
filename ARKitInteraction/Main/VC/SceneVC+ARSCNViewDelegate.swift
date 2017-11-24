@@ -31,7 +31,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         print("node for anchor")
         if let planeAnchor = anchor as? ARPlaneAnchor {
             let node = SCNNode()
-            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z), chamferRadius: 0)
+            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*PLANE_SCALE), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*PLANE_SCALE), chamferRadius: 0)
             node.geometry?.materials.first?.lightingModel = .constant
             node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
             
