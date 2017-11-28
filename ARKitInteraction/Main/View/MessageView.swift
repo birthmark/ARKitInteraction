@@ -14,6 +14,7 @@ class MessageView: UIView {
     var label: UILabel?
     var timeInterval: Int?
     var timer: Timer?
+    var isShowingStickingMsg: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,8 +31,36 @@ class MessageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setMessag(message: String) -> Void {
+    //不自动消失的message
+    func setStickingMessage(message: String) {
+        isShowingStickingMsg = true
         
+        label?.text = message;
+        label?.sizeToFit()
+        
+        layoutSubview()
+        
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 1.0
+        }
+    }
+    
+    func hideStickingMessage() {
+        if (isShowingStickingMsg) {
+            isShowingStickingMsg = false
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.alpha = 0.0
+            })
+        }
+    }
+    
+    func setMessag(message: String) {
+        if isShowingStickingMsg {
+            return
+        }
+        
+        print("setMessag")
         if (timer != nil) {
             timer?.invalidate()
         }

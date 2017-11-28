@@ -49,10 +49,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         print("did add node for anchor")
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         DispatchQueue.main.async {
-            self.msgView.setMessag(message: "SURFACE DETECTED")
-            if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
-                self.msgView.setMessag(message: "NOW TO PLACE AN OBJECT")
-            }
+//            self.msgView.setMessag(message: "SURFACE DETECTED")
+//            if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
+//                self.msgView.setMessag(message: "NOW TO PLACE AN OBJECT")
+//            }
+//            self.msgView.hideStickingMessage()
         }
         updateQueue.async {
             for object in NodeManager.sharedInstance.arrLoadedNodes! {
@@ -87,16 +88,17 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         let errorMessage = messages.flatMap({ $0 }).joined(separator: "\n")
         
         DispatchQueue.main.async {
-            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+//            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+            self.msgView.setMessag(message: "光线条件不佳，不能使用 AR")
         }
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
-        self.msgView.setMessag(message: "SESSION INTERRUPTED")
+//        self.msgView.setMessag(message: "SESSION INTERRUPTED")
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
-        self.msgView.setMessag(message: "RESETTING SESSION")
+//        self.msgView.setMessag(message: "RESETTING SESSION")
         
         restartExperience()
     }

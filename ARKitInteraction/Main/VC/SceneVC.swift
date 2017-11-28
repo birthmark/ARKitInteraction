@@ -154,6 +154,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
 //            self.isMovingToWindow = false
             // Start the `ARSession`.
             resetTracking()
+            self.msgView.setStickingMessage(message: "初始化黑科技")
         }
     }
     
@@ -521,7 +522,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-            self.msgView.setMessag(message: "FIND A SURFACE TO PLACE AN OBJECT")
+//            self.msgView.setMessag(message: "FIND A SURFACE TO PLACE AN OBJECT")
 //        }
     }
     
@@ -587,9 +588,13 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 self.focusSquare.state = .featuresDetected(anchorPosition: worldPosition, camera: camera)
             }
         }
-        btnAddEmoji.isHidden = false
-        btnVideoCapture.isHidden = false
-        btn3DText.isHidden = false
+        
+        DispatchQueue.main.async {
+            self.btnAddEmoji.isHidden = false
+            self.btnVideoCapture.isHidden = false
+            self.btn3DText.isHidden = false
+            self.msgView.hideStickingMessage()
+        }
     }
     
     // MARK: - Error handling
