@@ -3,32 +3,23 @@
  
     "emojiData": [
                   {
-                      "urlString": "candle/candle.scn",
-                      "icon": "candle"
+                  "urlString": "爱心/爱心.dae",
+                  "icon": "爱心"
                   },
                   {
-                      "urlString": "chair/chair.scn",
-                      "icon": "chair"
+                  "urlString": "白眼/白眼01.dae",
+                  "icon": ""
                   },
                   {
-                      "urlString": "cup/cup.scn",
-                      "icon": "cup"
+                  "urlString": "思考/思考.dae",
+                  "icon": "思考"
                   },
                   {
-                      "urlString": "eye/whiteeye.dae",
-                      "icon": ""
-                  },
-                  {
-                      "urlString": "lamp/lamp.scn",
-                      "icon": "lamp"
-                  },
-                  {
-                      "urlString": "vase/vase.scn",
-                      "icon": "vase"
-                  },
-                  {
-                      "urlString": "wolf/Wolf_dae.dae",
-                      "icon": ""
+                  "urlString": "喜欢/喜欢.dae",
+                  "icon": "喜欢"
+                  },{
+                  "urlString": "kiss/KISS.dae",
+                  "icon": "KISS"
                   }
                   ]
 }

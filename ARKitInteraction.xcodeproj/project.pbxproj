@@ -35,6 +35,10 @@
 		288C3E681FBD6F7C00DD0916 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C3E671FBD6F7C00DD0916 /* NodeManager.swift */; };
 		28AC26611FBEB1E800D20AF3 /* InputPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */; };
 		28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */; };
+		28ADE8431FCD553000CD250D /* 喜欢.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE83F1FCD553000CD250D /* 喜欢.png */; };
+		28ADE8441FCD553000CD250D /* KISS.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8401FCD553000CD250D /* KISS.png */; };
+		28ADE8451FCD553000CD250D /* 爱心.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8411FCD553000CD250D /* 爱心.png */; };
+		28ADE8461FCD553000CD250D /* 思考.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8421FCD553000CD250D /* 思考.png */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -92,6 +96,10 @@
 		28AC26601FBEB1E800D20AF3 /* InputPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPanelView.swift; sourceTree = "<group>"; };
 		28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lanting_GBK.ttf; sourceTree = "<group>"; };
 		28AC26631FBECDBB00D20AF3 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		28ADE83F1FCD553000CD250D /* 喜欢.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "喜欢.png"; sourceTree = "<group>"; };
+		28ADE8401FCD553000CD250D /* KISS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KISS.png; sourceTree = "<group>"; };
+		28ADE8411FCD553000CD250D /* 爱心.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "爱心.png"; sourceTree = "<group>"; };
+		28ADE8421FCD553000CD250D /* 思考.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "思考.png"; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +135,7 @@
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				28ADE83E1FCD551D00CD250D /* icons */,
 				2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */,
 				28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */,
 				288C3E5D1FBC40BB00DD0916 /* rustediron-streaks-albedo.png */,
@@ -254,6 +263,17 @@
 			path = ARRecord;
 			sourceTree = "<group>";
 		};
+		28ADE83E1FCD551D00CD250D /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				28ADE8411FCD553000CD250D /* 爱心.png */,
+				28ADE8421FCD553000CD250D /* 思考.png */,
+				28ADE83F1FCD553000CD250D /* 喜欢.png */,
+				28ADE8401FCD553000CD250D /* KISS.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 		3929C47F1E89EC2C00E00B60 = {
 			isa = PBXGroup;
 			children = (
@@ -377,12 +397,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
+				28ADE8431FCD553000CD250D /* 喜欢.png in Resources */,
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
 				288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */,
 				288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */,
+				28ADE8461FCD553000CD250D /* 思考.png in Resources */,
+				28ADE8451FCD553000CD250D /* 爱心.png in Resources */,
 				288C3E631FBC40BC00DD0916 /* rustediron-streaks-roughness.png in Resources */,
 				2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */,
 				2834E0441FC417A600F55859 /* EmojiConfig.json in Resources */,
+				28ADE8441FCD553000CD250D /* KISS.png in Resources */,
 				288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
