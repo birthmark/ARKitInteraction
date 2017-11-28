@@ -91,7 +91,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         }
         
         nodeGestureHandler?.longPressHandler = {[unowned self](node: BaseNode, point: CGPoint) in
-            self.btnDelete.center = CGPoint.init(x: max(18, point.x-50), y: max(18,point.y-50))
+            self.btnDelete.center = CGPoint.init(x: max(18, point.x), y: max(18,point.y))
             self.btnDelete.node = node
             
             UIView.animate(withDuration: 0.3, animations: {
@@ -150,6 +150,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         // Hook up status view controller callback(s).
         statusVC.restartExperienceHandler = { [unowned self] in
             self.endEditing()
+            self.hideDeleteButton()
             NodeManager.sharedInstance.removeAllNodes()
 //            self.restartExperience()
         }
@@ -490,6 +491,26 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         statusVC.resetFlash()
     }
     
+    //
+    func updateDeleteButton() {
+        if (self.btnDelete.alpha > 0) {
+            
+            let boundingBox = true
+            if (boundingBox) {
+                let (min, max) = (self.btnDelete.node?.boundingBox)!
+                //中心点坐标=位置加上boundingBox的高度一半，乘以缩放系数(位置在模型的底部中心点)
+                var pos = self.btnDelete.node?.position
+                let scale = self.btnDelete.node?.scale
+                pos?.y += (max.y-min.y)*(scale?.y)!/2
+                
+                let position = self.sceneView.projectPoint(pos!)
+                self.btnDelete.center = CGPoint.init(x: Int(position.x), y: Int(position.y))
+            } else {
+                let position = self.sceneView.projectPoint((self.btnDelete.node?.position)!)
+                self.btnDelete.center = CGPoint.init(x: Int(position.x), y: Int(position.y))
+            }
+        }
+    }
     // MARK: - Focus Square
     
     func updateFocusSquare() {
@@ -551,6 +572,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         print("restartExperience")
         guard isRestartAvailable, !NodeManager.sharedInstance.isLoading! else { return }
         isRestartAvailable = false
+        hideDeleteButton()
         statusVC.cancelAllScheduledMessages()
         NodeManager.sharedInstance.removeAllNodes()
         resetTracking()

@@ -30,6 +30,9 @@ let PLACE_NODE_ON_EXISTING_PLANE = false
 let SHOW_SHADOW_PLANE = false
 let PLANE_SCALE = Float(100)
 
+let maxBoxSize = Float(10.0)//最大长边10m
+let minBoxSize = Float(0.05)//最小短边5cm
+
 #if DEBUG
 #else
 #endif

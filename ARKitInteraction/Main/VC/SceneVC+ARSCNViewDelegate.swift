@@ -12,9 +12,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     // MARK: - ARSCNViewDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
         DispatchQueue.main.async {
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
+            self.updateDeleteButton()
         }
         
         // If light estimation is enabled, update the intensity of the model's lights and the environment map

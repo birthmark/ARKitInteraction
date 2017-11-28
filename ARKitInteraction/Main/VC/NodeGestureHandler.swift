@@ -90,8 +90,24 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             
         case .changed:
             guard let object = trackedObject else { return }
-            let matrix: SCNMatrix4 = SCNMatrix4MakeScale(Float(gesture.scale), Float(gesture.scale), Float(gesture.scale))
-            trackedObject?.scale = SCNVector3Make(Float(gesture.scale*CGFloat((currentScale?.x)!)), Float(gesture.scale*CGFloat((currentScale?.y)!)), Float(gesture.scale*CGFloat((currentScale?.z)!)))
+            let (min, max) = (trackedObject?.boundingBox)!
+            let minDistance = Float.minimum(Float.minimum(max.x-min.x, max.y-min.y), max.z-min.z)//最小边
+            let maxDistance = Float.maximum(Float.maximum(max.x-min.x, max.y-min.y), max.z-min.z)//最大边
+        
+            let minScale = minBoxSize / minDistance
+            let maxScale = maxBoxSize / maxDistance
+            
+            var scale = gesture.scale
+            
+            if (scale * CGFloat((currentScale?.x)!) < CGFloat(minScale)) {
+                scale = CGFloat(minScale) / CGFloat((currentScale?.x)!)
+            }
+            
+            if (scale * CGFloat((currentScale?.x)!) > CGFloat(maxScale)) {
+                scale = CGFloat(maxScale) / CGFloat((currentScale?.x)!)
+            }
+            trackedObject?.scale = SCNVector3Make(Float(scale*CGFloat((currentScale?.x)!)), Float(scale*CGFloat((currentScale?.y)!)), Float(scale*CGFloat((currentScale?.z)!)))
+//            let matrix: SCNMatrix4 = SCNMatrix4MakeScale(Float(scale), Float(scale), Float(scale))
 //            trackedObject?.transform = trackedObject?.transform * matrix
             
         default:
