@@ -504,7 +504,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 pos?.y += (max.y-min.y)*(scale?.y)!/2
                 
                 let position = self.sceneView.projectPoint(pos!)
-                self.btnDelete.center = CGPoint.init(x: Int(position.x), y: Int(position.y))
+                
+//                if abs(Float(self.btnDelete.center.x) - position.x) > 5 || abs(Float(self.btnDelete.center.y) - position.y) > 5 {
+                    self.btnDelete.center = CGPoint.init(x: Int(position.x), y: Int(position.y))
+//                }
             } else {
                 let position = self.sceneView.projectPoint((self.btnDelete.node?.position)!)
                 self.btnDelete.center = CGPoint.init(x: Int(position.x), y: Int(position.y))

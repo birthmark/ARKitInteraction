@@ -61,7 +61,7 @@ class StatusVC: BaseVC {
     }
     
     func setupViews() {
-        self.btnRestartExperience = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
+        self.btnRestartExperience = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnRestartExperience!)
         self.btnRestartExperience.setImage(UIImage.init(named: "restart"), for: [])
         self.btnRestartExperience.right = self.view.width-8;
