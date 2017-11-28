@@ -49,10 +49,9 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         print("did add node for anchor")
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         DispatchQueue.main.async {
-            self.statusVC.cancelScheduledMessage(for: .planeEstimation)
-            self.statusVC.showMessage("SURFACE DETECTED")
+            self.msgView.setMessag(message: "SURFACE DETECTED")
             if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
-                self.statusVC.scheduleMessage("NOW TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .contentPlacement)
+                self.msgView.setMessag(message: "NOW TO PLACE AN OBJECT")
             }
         }
         updateQueue.async {
@@ -72,14 +71,6 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        statusVC.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
-        
-        switch camera.trackingState {
-        case .notAvailable, .limited:
-            statusVC.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
-        case .normal:
-            statusVC.cancelScheduledMessage(for: .trackingStateEscalation)
-        }
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
@@ -101,14 +92,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
-        statusVC.showMessage("""
-        SESSION INTERRUPTED
-        The session will be reset after the interruption has ended.
-        """, autoHide: false)
+        self.msgView.setMessag(message: "SESSION INTERRUPTED")
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
-        statusVC.showMessage("RESETTING SESSION")
+        self.msgView.setMessag(message: "RESETTING SESSION")
         
         restartExperience()
     }

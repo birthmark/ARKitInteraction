@@ -33,19 +33,15 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     var planeNode: SCNNode!
     
+    var btnReset: UIButton!
+    var btnCamera: UIButton!
+    var btnSetting: UIButton!
+    var btnNext: UIButton!
+    var msgView: MessageView!
+    
     // MARK: - UI Elements
     
     var focusSquare = FocusSquareNode()
-    
-    /// The view controller that displays the status and "restart experience" UI.
-    lazy var statusVC: StatusVC = {
-        var VC: StatusVC = StatusVC()
-        VC.view.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: 60)
-        self.view.addSubview(VC.view)
-//        VC.view.backgroundColor = UIColor.red
-        self.addChildViewController(VC)
-        return VC
-    }()
     
     // MARK: - ARKit Configuration Properties
     
@@ -146,14 +142,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         if let environmentMap = UIImage(named: "Models.scnassets/sharedImages/environment_blur.exr") {
             sceneView.scene.lightingEnvironment.contents = environmentMap
         }
-        
-        // Hook up status view controller callback(s).
-        statusVC.restartExperienceHandler = { [unowned self] in
-            self.endEditing()
-            self.hideDeleteButton()
-            NodeManager.sharedInstance.removeAllNodes()
-//            self.restartExperience()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -180,6 +168,32 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.sceneView.frame = self.view.bounds
         self.view.addSubview(self.sceneView)
         self.sceneView.autoenablesDefaultLighting = true
+        
+        self.btnSetting = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
+        self.view.addSubview(self.btnSetting!)
+        self.btnSetting.setImage(UIImage.init(named: "setting"), for: [])
+        self.btnSetting.left = 20;
+        self.btnSetting.centerY = 40;
+        
+        self.btnNext = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
+        self.view.addSubview(self.btnNext!)
+        self.btnNext.setImage(UIImage.init(named: "next"), for: [])
+        self.btnNext.right = self.view.width-20;
+        self.btnNext.centerY = 40;
+        
+        //
+        self.btnReset = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
+        self.view.addSubview(self.btnReset!)
+        self.btnReset.setImage(UIImage.init(named: "restart"), for: [])
+        self.btnReset.centerX = self.view.width/2+16+9;
+        self.btnReset.centerY = 40;
+        
+        //
+        self.btnCamera = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
+        self.view.addSubview(self.btnCamera!)
+        self.btnCamera.setImage(UIImage.init(named: "camera"), for: [])
+        self.btnCamera.centerX = self.view.width/2-16-9;
+        self.btnCamera.centerY = 40;
         
         //
         self.btnVideoCapture = CaptureButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
@@ -218,20 +232,47 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         
         self.inputBar.bottom = self.view.height
         self.inputBar.alpha = 0.0
+        
+        self.msgView = MessageView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.width, height: 22))
+        self.view.addSubview(self.msgView)
+        self.msgView.isUserInteractionEnabled = false
+        self.msgView.bottom = self.btnVideoCapture.top-30
+        self.msgView.alpha = 1.0
     }
     
     func setupListener() {
-        self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionView), for: UIControlEvents.touchUpInside)
-        self.btnVideoCapture.addTarget(self, action: #selector(startCaptureVideo), for: UIControlEvents.touchDown)
-        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchCancel)
-        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchUpInside)
-        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: UIControlEvents.touchUpOutside)
-        self.btn3DText.addTarget(self, action: #selector(text3D), for: UIControlEvents.touchUpInside)
-        self.btnDelete.addTarget(self, action: #selector(deleteNode), for: UIControlEvents.touchUpInside)
+        self.btnSetting.addTarget(self, action: #selector(settingsAction), for: .touchUpInside)
+        self.btnCamera.addTarget(self, action: #selector(cameraAction), for: .touchUpInside)
+        self.btnReset.addTarget(self, action: #selector(resetAction), for: .touchUpInside)
+        self.btnNext.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+        
+        self.btnAddEmoji.addTarget(self, action: #selector(showEmojiSelectionView), for: .touchUpInside)
+        self.btnVideoCapture.addTarget(self, action: #selector(startCaptureVideo), for: .touchDown)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: .touchCancel)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: .touchUpInside)
+        self.btnVideoCapture.addTarget(self, action: #selector(stopCaptureVideo), for: .touchUpOutside)
+        self.btn3DText.addTarget(self, action: #selector(text3D), for: .touchUpInside)
+        self.btnDelete.addTarget(self, action: #selector(deleteNode), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(note:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHidden(note:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func settingsAction() {
+        print("todo settingsAction")
+        self.msgView.setMessag(message: "settingsAction")
+    }
+    @objc func cameraAction() {
+        print("todo cameraAction")
+        self.msgView.setMessag(message: "cameraAction")
+    }
+    @objc func resetAction() {
+        self.restartExperience()
+    }
+    @objc func nextAction() {
+        print("todo nextAction")
+        self.msgView.setMessag(message: "nextAction")
     }
     
     @objc func keyboardWillShow(note: NSNotification) {
@@ -414,8 +455,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
         guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
         
-        statusVC.cancelScheduledMessage(for: .contentPlacement)
-        
         let view: EmojiSelectionView = EmojiSelectionView.init(frame: self.view.bounds)
         view.top = self.view.height
         self.view.addSubview(view)
@@ -482,13 +521,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-            statusVC.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 3.5, messageType: .planeEstimation)
+            self.msgView.setMessag(message: "FIND A SURFACE TO PLACE AN OBJECT")
 //        }
     }
     
     func stopTracking() {
         session.pause()
-        statusVC.resetFlash()
     }
     
     //
@@ -525,7 +563,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             focusSquare.hide()
         } else {
             focusSquare.unhide()
-            statusVC.scheduleMessage("TRY MOVING LEFT OR RIGHT", inSeconds: 5.0, messageType: .focusSquare)
         }
         
         // We should always have a valid world position unless the sceen is just being initialized.
@@ -553,7 +590,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         btnAddEmoji.isHidden = false
         btnVideoCapture.isHidden = false
         btn3DText.isHidden = false
-        statusVC.cancelScheduledMessage(for: .focusSquare)
     }
     
     // MARK: - Error handling
@@ -576,10 +612,9 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         guard isRestartAvailable, !NodeManager.sharedInstance.isLoading! else { return }
         isRestartAvailable = false
         hideDeleteButton()
-        statusVC.cancelAllScheduledMessages()
         NodeManager.sharedInstance.removeAllNodes()
         resetTracking()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.isRestartAvailable = true
         }
     }
@@ -588,7 +623,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     func placeNode(_ node: BaseNode) {
         guard let cameraTransform = session.currentFrame?.camera.transform,
             let focusSquarePosition = focusSquare.lastPosition else {
-                statusVC.showMessage("CANNOT PLACE OBJECT\nTry moving left or right.")
                 return
         }
         

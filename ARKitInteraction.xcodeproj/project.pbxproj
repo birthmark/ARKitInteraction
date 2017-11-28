@@ -39,12 +39,12 @@
 		28ADE8441FCD553000CD250D /* KISS.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8401FCD553000CD250D /* KISS.png */; };
 		28ADE8451FCD553000CD250D /* 爱心.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8411FCD553000CD250D /* 爱心.png */; };
 		28ADE8461FCD553000CD250D /* 思考.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8421FCD553000CD250D /* 思考.png */; };
+		28ADE8481FCD5F9A00CD250D /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ADE8471FCD5F9A00CD250D /* MessageView.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C0B9581E9C6B1F003FCA0C /* Utilities.swift */; };
 		57368650130C1430CD4B5116 /* Pods_ARKitInteraction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ADA52602FA601257C9BCE39 /* Pods_ARKitInteraction.framework */; };
-		C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41366B81EB80DD400EC054A /* StatusVC.swift */; };
 		C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */; };
 		C46356671EF9CC500080C8D9 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46356661EF9CC480080C8D9 /* ARView.swift */; };
 		C812D8681F47628300344E73 /* ThresholdPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812D8671F47628300344E73 /* ThresholdPanGesture.swift */; };
@@ -100,6 +100,7 @@
 		28ADE8401FCD553000CD250D /* KISS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KISS.png; sourceTree = "<group>"; };
 		28ADE8411FCD553000CD250D /* 爱心.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "爱心.png"; sourceTree = "<group>"; };
 		28ADE8421FCD553000CD250D /* 思考.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "思考.png"; sourceTree = "<group>"; };
+		28ADE8471FCD5F9A00CD250D /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,7 +110,6 @@
 		63EE9AF1ADC92AFF7B1466DD /* Pods-ARKitInteraction.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitInteraction.release.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction.release.xcconfig"; sourceTree = "<group>"; };
 		6ADA52602FA601257C9BCE39 /* Pods_ARKitInteraction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARKitInteraction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD096B314F840A1A5EE1A77B /* Pods-ARKitInteraction.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitInteraction.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARKitInteraction/Pods-ARKitInteraction.debug.xcconfig"; sourceTree = "<group>"; };
-		C41366B81EB80DD400EC054A /* StatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusVC.swift; sourceTree = "<group>"; };
 		C42A71BC1E9C0AF200944367 /* FocusSquareNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquareNode.swift; sourceTree = "<group>"; };
 		C46356661EF9CC480080C8D9 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		C812D8671F47628300344E73 /* ThresholdPanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPanGesture.swift; sourceTree = "<group>"; };
@@ -192,6 +192,7 @@
 				2834E0491FC55B1A00F55859 /* CaptureButton.swift */,
 				2834E04B1FC6760A00F55859 /* EmojiSelectionView.swift */,
 				2834E04D1FC6939100F55859 /* EmojiButton.swift */,
+				28ADE8471FCD5F9A00CD250D /* MessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,7 +203,6 @@
 				2810DB7B1FBAC91A008D69D9 /* SceneVC.swift */,
 				C8C12A701F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift */,
 				C8C2AC511F3A545C00E86BA3 /* NodeGestureHandler.swift */,
-				C41366B81EB80DD400EC054A /* StatusVC.swift */,
 				147062631F06FA790003EE03 /* EmojiSelectionVC.swift */,
 			);
 			path = VC;
@@ -473,7 +473,6 @@
 				288C3E571FBB064500DD0916 /* RecordARWrapper.swift in Sources */,
 				2810DB7C1FBAC91A008D69D9 /* SceneVC.swift in Sources */,
 				2834E0421FC4056500F55859 /* AppDef.swift in Sources */,
-				C41366B91EB80DD400EC054A /* StatusVC.swift in Sources */,
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */,
 				147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */,
@@ -490,6 +489,7 @@
 				C42A71BD1E9C0AF200944367 /* FocusSquareNode.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
 				28AC26641FBECDBB00D20AF3 /* DeleteButton.swift in Sources */,
+				28ADE8481FCD5F9A00CD250D /* MessageView.swift in Sources */,
 				2834E0461FC4190200F55859 /* EmojiConfig.swift in Sources */,
 				288C3E5C1FBC406700DD0916 /* Materials+Extension.swift in Sources */,
 				28AC26611FBEB1E800D20AF3 /* InputPanelView.swift in Sources */,
