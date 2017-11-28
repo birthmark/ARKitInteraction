@@ -13,7 +13,7 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 let MAX_DISTANCE = Float(10.0)
-let TARGET_DISTANCE = Float(0.5)//0.5 这个不大合理，为什么要放在0.5米处而不是放在平面上？
+let TARGET_DISTANCE = Float(0.5)//放在0.5米处
 
 let FONT_SIZE = CGFloat(0.5)
 let FONT_THICKNESS = CGFloat(0.12)
