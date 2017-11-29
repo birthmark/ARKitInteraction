@@ -20,6 +20,25 @@
                   },{
                   "urlString": "kiss/KISS.dae",
                   "icon": "KISS"
+                  },
+                  {
+                  "urlString": "爱心/爱心.dae",
+                  "icon": "爱心"
+                  },
+                  {
+                  "urlString": "白眼/白眼01.dae",
+                  "icon": ""
+                  },
+                  {
+                  "urlString": "思考/思考.dae",
+                  "icon": "思考"
+                  },
+                  {
+                  "urlString": "喜欢/喜欢.dae",
+                  "icon": "喜欢"
+                  },{
+                  "urlString": "kiss/KISS.dae",
+                  "icon": "KISS"
                   }
                   ]
 }

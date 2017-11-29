@@ -89,11 +89,14 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             }
             
         case .changed:
-            guard let object = trackedObject else { return }
+            guard trackedObject != nil else { return }
             let (min, max) = (trackedObject?.boundingBox)!
-            let minDistance = Float.minimum(Float.minimum(max.x-min.x, max.y-min.y), max.z-min.z)//最小边
+            var minDistance = Float.minimum(Float.minimum(max.x-min.x, max.y-min.y), max.z-min.z)//最小边
             let maxDistance = Float.maximum(Float.maximum(max.x-min.x, max.y-min.y), max.z-min.z)//最大边
         
+            if let _: Text3DNode = trackedObject as? Text3DNode   {//文字用高度判定
+                minDistance = max.y - min.y
+            }
             let minScale = minBoxSize / minDistance
             let maxScale = maxBoxSize / maxDistance
             
