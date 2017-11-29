@@ -70,17 +70,32 @@ class AlertDeleteView: UIView {
         self.btnConfirm?.bottom = (self.btnCancel?.bottom)!
     }
     
+    func showAnimation() {
+        self.contentView?.top = -(self.contentView?.height)!
+        UIView.animate(withDuration: 0.3) {
+            self.contentView?.top = 0
+        }
+    }
+    
     private func setupListeners() {
         self.btnCancel?.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         self.btnConfirm?.addTarget(self, action: #selector(confirmAction), for: .touchUpInside)
     }
     
     @objc func cancelAction() {
-        self.removeFromSuperview()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.contentView?.top = -(self.contentView?.height)!
+        }) { (flag) in
+            self.removeFromSuperview()
+        }
     }
     
     @objc func confirmAction() {
         self.handler()
-        self.removeFromSuperview()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.contentView?.top = -(self.contentView?.height)!
+        }) { (flag) in
+            self.removeFromSuperview()
+        }
     }
 }

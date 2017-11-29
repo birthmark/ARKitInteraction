@@ -64,7 +64,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         return sceneView.session
     }
     
-    // MARK: - View Controller Life Cycle
+//    // MARK: - View Controller Life Cycle
+    override var prefersStatusBarHidden: Bool{
+        get {
+            return true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,8 +143,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
          instead modulates a global lighting environment map for use with
          physically based materials, so disable automatic lighting.
          */
-        sceneView.automaticallyUpdatesLighting = true
-        if let environmentMap = UIImage(named: "Models.scnassets/sharedImages/environment_blur.exr") {
+        sceneView.automaticallyUpdatesLighting = false
+        if let environmentMap = UIImage(named: "Models.scnassets/sharedImages/environment_blur.jpg") {
             sceneView.scene.lightingEnvironment.contents = environmentMap
         }
     }
@@ -310,6 +315,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         alertView.handler = {
             self.restartExperience()
         }
+        alertView.showAnimation()
     }
     
     @objc func nextAction() {
