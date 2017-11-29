@@ -22,12 +22,12 @@
                   "icon": "KISS"
                   },
                   {
-                  "urlString": "爱心/爱心.dae",
-                  "icon": "爱心"
+                  "urlString": "candle/candle.scn",
+                  "icon": "candle"
                   },
                   {
-                  "urlString": "白眼/白眼01.dae",
-                  "icon": ""
+                  "urlString": "chair/chair.scn",
+                  "icon": "chair"
                   },
                   {
                   "urlString": "思考/思考.dae",

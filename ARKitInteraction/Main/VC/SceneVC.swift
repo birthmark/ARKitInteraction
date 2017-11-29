@@ -114,7 +114,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         sunLight.light?.shadowMode = .deferred
         self.sceneView.scene.rootNode.addChildNode(sunLight)
         
-        // setup ambient light
+//        // setup ambient light
         let ambientLight = SCNNode()
         ambientLight.light = SCNLight()
         ambientLight.light?.type = .ambient
@@ -123,7 +123,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         
         //加默认的平面？？
         planeNode = SCNNode()
-        planeNode.geometry = SCNBox(width: CGFloat(100), height: CGFloat(0.01), length: CGFloat(100), chamferRadius: 0)
+        planeNode.geometry = SCNBox(width: CGFloat(10), height: CGFloat(0.01), length: CGFloat(10), chamferRadius: 0)
         planeNode.geometry?.materials.first?.lightingModel = .constant//todo
         planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0x000000)
         planeNode.position = SCNVector3Make(0, -1.0, 0)
@@ -138,7 +138,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
          instead modulates a global lighting environment map for use with
          physically based materials, so disable automatic lighting.
          */
-        sceneView.automaticallyUpdatesLighting = false
+        sceneView.automaticallyUpdatesLighting = true
         if let environmentMap = UIImage(named: "Models.scnassets/sharedImages/environment_blur.exr") {
             sceneView.scene.lightingEnvironment.contents = environmentMap
         }
@@ -188,6 +188,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.btnReset.setImage(UIImage.init(named: "restart"), for: [])
         self.btnReset.centerX = self.view.width/2+16+9;
         self.btnReset.centerY = 40;
+        self.btnReset.isUserInteractionEnabled = false
         
         //
         self.btnCamera = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
@@ -208,6 +209,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnAddEmoji)
         self.btnAddEmoji.centerY = self.btnVideoCapture.centerY
         self.btnAddEmoji.left = self.btnVideoCapture.right+57
+        self.btnAddEmoji.alpha = 0.5
+        self.btnAddEmoji.isUserInteractionEnabled = false
         
         //
         self.btn3DText = UIButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
@@ -215,6 +218,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.btn3DText.setImage(UIImage.init(named: "letter_3d"), for: [])
         self.btn3DText.centerY = self.btnVideoCapture.centerY
         self.btn3DText.right = self.btnVideoCapture.left-57
+        self.btn3DText.alpha = 0.5
+        self.btn3DText.isUserInteractionEnabled = false
         
         //
         self.btnDelete = DeleteButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
@@ -509,6 +514,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         camera.exposureOffset = -1
         camera.minimumExposure = -1
         camera.maximumExposure = 3
+        camera.automaticallyAdjustsZRange = true
         
         autoFocus()
     }
@@ -596,9 +602,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 self.focusSquare.state = .initializing
                 self.sceneView.pointOfView?.addChildNode(self.focusSquare)
             }
-            btnAddEmoji.isHidden = true
-            btnVideoCapture.isHidden = true
-            btn3DText.isHidden = true
             return
         }
         
@@ -614,9 +617,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         }
         
         DispatchQueue.main.async {
-            self.btnAddEmoji.isHidden = false
-            self.btnVideoCapture.isHidden = false
-            self.btn3DText.isHidden = false
+            self.btnAddEmoji.alpha = 1.0
+            self.btnAddEmoji.isUserInteractionEnabled = true
+            self.btn3DText.alpha = 1.0
+            self.btn3DText.isUserInteractionEnabled = true
+            self.btnReset.isUserInteractionEnabled = true
             self.msgView.hideStickingMessage()
         }
     }

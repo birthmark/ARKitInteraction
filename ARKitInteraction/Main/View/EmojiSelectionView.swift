@@ -38,18 +38,17 @@ class EmojiSelectionView: UIView {
         scrollView = UIScrollView.init(frame: self.bounds)
         self.addSubview(scrollView!)
         
-        bkMask = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.width, height: 128))
+        bkMask = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.width, height: 60))
         bkMask?.isUserInteractionEnabled = false
         
-        let gradientLayer = CAGradientLayer.init()
-        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: self.width, height: 128)
-        gradientLayer.colors = [UIColor.color(hexValue: 0x000000, alpha: 0.0).cgColor,
-                                UIColor.color(hexValue: 0x000000, alpha: 0.8).cgColor,
-                                UIColor.color(hexValue: 0x000000, alpha: 0.8).cgColor]
-        gradientLayer.locations = [0.0, 0.5, 1.0]
-        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
-        bkMask?.layer.addSublayer(gradientLayer)
+//        let gradientLayer = CAGradientLayer.init()
+//        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: self.width, height: 60)
+//        gradientLayer.colors = [UIColor.color(hexValue: 0x000000, alpha: 0.0).cgColor,
+//                                UIColor.color(hexValue: 0x000000, alpha: 1.0).cgColor]
+//        gradientLayer.locations = [0.0, 1.0]
+//        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+//        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
+//        bkMask?.layer.addSublayer(gradientLayer)
         self.addSubview(bkMask!)
         
         btnClose = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
@@ -110,8 +109,8 @@ class EmojiSelectionView: UIView {
         self.scrollView?.frame = self.bounds
         scrollView?.height = self.height-68
         self.bkMask?.centerX = self.width/2;
-        self.bkMask?.bottom = self.height
+        self.bkMask?.bottom = self.height-68
         self.btnClose?.centerX = self.width/2
-        self.btnClose?.bottom = self.height-25
+        self.btnClose?.centerY = (self.bkMask?.bottom)! + (self.height-(self.bkMask?.bottom)!)/2
     }
 }
