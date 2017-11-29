@@ -291,13 +291,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 self.btnReset.isHidden = true
                 self.resetTracking()
             } else {
+                self.msgView.setMessag(message: "该设备不支持此功能")
                 self.isFrontCemare = false
-                self.btn3DText.alpha = 1.0
-                self.btnAddEmoji.alpha = 1.0
-                self.btnReset.isHidden = false
-                self.btnCamera.centerX = self.view.width/2-16-9
-                self.btnReset.centerX = self.view.width/2+16+9;
-                self.resetTracking()
             }
         } else {
             self.btn3DText.alpha = 1.0
@@ -595,9 +590,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 NodeManager.sharedInstance.removeAllNodes()
                 let configuration = ARFaceTrackingConfiguration()
                 session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-            } else {
-                self.msgView.setMessag(message: "该设备不支持此功能")
-                self.isFrontCemare = false
             }
         } else {
             let configuration = ARWorldTrackingConfiguration()
@@ -641,7 +633,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
-        if isObjectVisible! || isCapturing || self.isFrontCemare {
+        if isObjectVisible! || isCapturing || self.isFrontCemare || !showFocusSquare {
             focusSquare.hide()
         } else {
             focusSquare.unhide()
@@ -651,13 +643,17 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         guard let (worldPosition, planeAnchor, _) = sceneView.worldPosition(fromScreenPosition: screenCenter, objectPosition: focusSquare.lastPosition) else {
             updateQueue.async {
                 self.focusSquare.state = .initializing
-                self.sceneView.pointOfView?.addChildNode(self.focusSquare)
+                if showFocusSquare {
+                    self.sceneView.pointOfView?.addChildNode(self.focusSquare)
+                }
             }
             return
         }
         
         updateQueue.async {
-            self.sceneView.scene.rootNode.addChildNode(self.focusSquare)
+            if showFocusSquare {
+                self.sceneView.scene.rootNode.addChildNode(self.focusSquare)
+            }
             let camera = self.session.currentFrame?.camera
             
             if let planeAnchor = planeAnchor {
