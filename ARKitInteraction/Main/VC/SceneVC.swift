@@ -509,8 +509,31 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         camera.exposureOffset = -1
         camera.minimumExposure = -1
         camera.maximumExposure = 3
+        
+        autoFocus()
     }
     
+    func autoFocus() {
+        let device: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
+        let focusMode = device.focusMode
+        
+        if (focusMode == .locked) {
+            print("foocusMode locked!")
+            if (device.isFocusModeSupported(.continuousAutoFocus)) {
+                
+                do {
+                    try device.lockForConfiguration()
+                    print("设置自动对焦")
+                    device.focusMode = .continuousAutoFocus
+                    device.unlockForConfiguration()
+                } catch let err as Error!{
+                    print("自动对焦失败！", err)
+                }
+            } else {
+                print("不支持自动对焦！")
+            }
+        }
+    }
     // MARK: - Session management
     
     /// Creates a new AR configuration to run on the `session`.
@@ -523,6 +546,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
 //            self.msgView.setMessag(message: "FIND A SURFACE TO PLACE AN OBJECT")
+            self.autoFocus()
 //        }
     }
     
