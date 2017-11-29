@@ -129,7 +129,11 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         if let tappedObject = sceneView.selectNode(at: touchLocation) {
             // Select a new object.
             selectedNode = tappedObject
-            if selectedNode as? Text3DNode != nil {
+            if let textNode = selectedNode as? Text3DNode {
+                if textNode.isAnimating {
+                    return
+                }
+                
                 print("tap text3DNode to fall down")
                 var angle = CGFloat(Double.pi/2)
                 if (selectedNode?.isStanding)! {
@@ -139,10 +143,16 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
                     angle *= -1
                 }
                 
+                textNode.isAnimating = true
                 let action: SCNAction = .rotateBy(x: angle, y: 0, z: 0, duration: 1.0)
                 action.timingFunction = timingFunc
                 selectedNode?.runAction(action, forKey: "rotate")
                 selectedNode?.isStanding = !(selectedNode?.isStanding)!
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.0, execute: {
+                    textNode.isAnimating = false
+                })
+                
             } else {
                 print("tap emojiNode do nothing")
             }

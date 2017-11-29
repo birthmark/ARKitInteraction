@@ -44,6 +44,7 @@
 		28ADE8761FCD7B2400CD250D /* text-texture-roughness.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8721FCD7B2400CD250D /* text-texture-roughness.png */; };
 		28ADE8771FCD7B2400CD250D /* text-texture-diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8731FCD7B2400CD250D /* text-texture-diffuse.png */; };
 		28ADE8781FCD7B2400CD250D /* text-texture-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8741FCD7B2400CD250D /* text-texture-normal.png */; };
+		28ADE87B1FCEA12100CD250D /* AlertDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ADE87A1FCEA12100CD250D /* AlertDeleteView.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -109,6 +110,7 @@
 		28ADE8721FCD7B2400CD250D /* text-texture-roughness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-roughness.png"; sourceTree = "<group>"; };
 		28ADE8731FCD7B2400CD250D /* text-texture-diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-diffuse.png"; sourceTree = "<group>"; };
 		28ADE8741FCD7B2400CD250D /* text-texture-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-normal.png"; sourceTree = "<group>"; };
+		28ADE87A1FCEA12100CD250D /* AlertDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDeleteView.swift; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				2834E04B1FC6760A00F55859 /* EmojiSelectionView.swift */,
 				2834E04D1FC6939100F55859 /* EmojiButton.swift */,
 				28ADE8471FCD5F9A00CD250D /* MessageView.swift */,
+				28ADE87A1FCEA12100CD250D /* AlertDeleteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				39C0B95A1E9C6B1F003FCA0C /* Utilities.swift in Sources */,
 				288C3E501FBAEB3500DD0916 /* UIView+Layout.swift in Sources */,
 				147062641F06FA790003EE03 /* EmojiSelectionVC.swift in Sources */,
+				28ADE87B1FCEA12100CD250D /* AlertDeleteView.swift in Sources */,
 				C8C12A711F29277B00B011FE /* SceneVC+ARSCNViewDelegate.swift in Sources */,
 				C8C2AC521F3A545C00E86BA3 /* NodeGestureHandler.swift in Sources */,
 				C46356671EF9CC500080C8D9 /* ARView.swift in Sources */,

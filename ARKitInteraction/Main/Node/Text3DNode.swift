@@ -11,6 +11,7 @@ import ARKit
 
 class Text3DNode: BaseNode {
     
+    var isAnimating: Bool = false
     var text: String?
     override var modelName: String {
         return "3D文字";

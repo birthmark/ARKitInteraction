@@ -12,6 +12,10 @@ import UIKit
 let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
+let iPhoneX = SCREEN_WIDTH == 375 && SCREEN_HEIGHT == 812
+let iPhoneX_T = CGFloat(iPhoneX ? 44 : 20)
+let iPhoneX_B = CGFloat(iPhoneX ? 34 : 0)
+
 let MAX_DISTANCE = Float(10.0)
 let TARGET_DISTANCE = Float(0.5)//放在0.5米处
 

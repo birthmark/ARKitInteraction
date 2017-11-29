@@ -72,7 +72,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.backgroundColor = UIColor.white
         self.isCapturing = false
         self.isMovingToWindow = true
-        self.isFrontCemare = true
+        self.isFrontCemare = false
         self.counter = 0
         
         self.setupViews()
@@ -153,8 +153,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         if (self.isMovingToWindow) {
 //            self.isMovingToWindow = false
             // Start the `ARSession`.
+            if !self.isFrontCemare {
+                self.msgView.setStickingMessage(message: "初始化黑科技")
+            }
+            
             resetTracking()
-            self.msgView.setStickingMessage(message: "初始化黑科技")
         }
     }
     
@@ -167,6 +170,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     func setupViews() {
         self.sceneView = ARView()
         self.sceneView.frame = self.view.bounds
+        if (iPhoneX) {
+            self.sceneView.top = iPhoneX_T
+            self.sceneView.height = self.view.height - iPhoneX_T - iPhoneX_B
+        }
         self.view.addSubview(self.sceneView)
         self.sceneView.autoenablesDefaultLighting = true
         
@@ -174,34 +181,34 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnSetting!)
         self.btnSetting.setImage(UIImage.init(named: "setting"), for: [])
         self.btnSetting.left = 20;
-        self.btnSetting.centerY = 40;
+        self.btnSetting.centerY = CGFloat(20+iPhoneX_T);
         
         self.btnNext = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnNext!)
         self.btnNext.setImage(UIImage.init(named: "next"), for: [])
         self.btnNext.right = self.view.width-20;
-        self.btnNext.centerY = 40;
+        self.btnNext.centerY = CGFloat(20+iPhoneX_T);
         
         //
         self.btnReset = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnReset!)
         self.btnReset.setImage(UIImage.init(named: "restart"), for: [])
-        self.btnReset.centerX = self.view.width/2+16+9;
-        self.btnReset.centerY = 40;
+        self.btnReset.centerX = self.view.width/2+16+9
+        self.btnReset.centerY = CGFloat(20+iPhoneX_T);
         self.btnReset.isUserInteractionEnabled = false
         
         //
         self.btnCamera = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnCamera!)
         self.btnCamera.setImage(UIImage.init(named: "camera"), for: [])
-        self.btnCamera.centerX = self.view.width/2-16-9;
-        self.btnCamera.centerY = 40;
+        self.btnCamera.centerX = self.view.width/2-16-9
+        self.btnCamera.centerY = CGFloat(20+iPhoneX_T);
         
         //
         self.btnVideoCapture = CaptureButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
         self.view.addSubview(self.btnVideoCapture)
         self.btnVideoCapture.centerX = self.view.width/2;
-        self.btnVideoCapture.bottom = self.view.height-20;
+        self.btnVideoCapture.bottom = self.view.height-20-CGFloat(iPhoneX_B);
         
         //
         self.btnAddEmoji = UIButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
@@ -210,7 +217,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.btnAddEmoji.centerY = self.btnVideoCapture.centerY
         self.btnAddEmoji.left = self.btnVideoCapture.right+57
         self.btnAddEmoji.alpha = 0.5
-        self.btnAddEmoji.isUserInteractionEnabled = false
         
         //
         self.btn3DText = UIButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
@@ -219,7 +225,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.btn3DText.centerY = self.btnVideoCapture.centerY
         self.btn3DText.right = self.btnVideoCapture.left-57
         self.btn3DText.alpha = 0.5
-        self.btn3DText.isUserInteractionEnabled = false
         
         //
         self.btnDelete = DeleteButton(frame: CGRect.init(x: 0, y: 0, width: 36, height: 36));
@@ -271,11 +276,42 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     @objc func cameraAction() {
         print("todo cameraAction")
-        self.msgView.setMessag(message: "cameraAction")
+        self.isFrontCemare = !self.isFrontCemare
+        
+        if self.isFrontCemare {
+            if iPhoneX {
+                self.btn3DText.alpha = 0.5
+                self.btnAddEmoji.alpha = 0.5
+                self.btnCamera.centerX = self.view.width/2
+                self.btnReset.isHidden = true
+                self.resetTracking()
+            } else {
+                self.isFrontCemare = false
+                self.btn3DText.alpha = 1.0
+                self.btnAddEmoji.alpha = 1.0
+                self.btnReset.isHidden = false
+                self.btnCamera.centerX = self.view.width/2-16-9
+                self.btnReset.centerX = self.view.width/2+16+9;
+                self.resetTracking()
+            }
+        } else {
+            self.btn3DText.alpha = 1.0
+            self.btnAddEmoji.alpha = 1.0
+            self.btnReset.isHidden = false
+            self.btnCamera.centerX = self.view.width/2-16-9
+            self.btnReset.centerX = self.view.width/2+16+9;
+            self.resetTracking()
+        }
     }
+    
     @objc func resetAction() {
-        self.restartExperience()
+        let alertView = AlertDeleteView.init(frame: self.view.bounds)
+        self.view.addSubview(alertView)
+        alertView.handler = {
+            self.restartExperience()
+        }
     }
+    
     @objc func nextAction() {
         print("todo nextAction")
         self.msgView.setMessag(message: "nextAction")
@@ -353,18 +389,20 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     @objc func text3D() {
         endEditing()
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            let node: Text3DNode = Text3DNode()
-            node.scale = SCNVector3Make(1.0, 1.0, 1.0)
-            node.setText(text: "双击修改")
-            node.handler = self.nodeHeight(_:)
-            
-            DispatchQueue.main.sync {[unowned self] in
-                self.placeNode(node)
-                NodeManager.sharedInstance.addNode(node: node)
+        if self.btn3DText.alpha > 0.5 {
+            DispatchQueue.global(qos: .userInitiated).async {
+                let node: Text3DNode = Text3DNode()
+                node.scale = SCNVector3Make(1.0, 1.0, 1.0)
+                node.setText(text: "双击修改")
+                node.handler = self.nodeHeight(_:)
                 
-                let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
-                node.eulerAngles.y += cameraAngle!
+                DispatchQueue.main.sync {[unowned self] in
+                    self.placeNode(node)
+                    NodeManager.sharedInstance.addNode(node: node)
+                    
+                    let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
+                    node.eulerAngles.y += cameraAngle!
+                }
             }
         }
     }
@@ -457,19 +495,22 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     @objc func showEmojiSelectionView() {
-        endEditing()
-        // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
-        guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
         
-        let view: EmojiSelectionView = EmojiSelectionView.init(frame: self.view.bounds)
-        view.top = self.view.height
-        self.view.addSubview(view)
-        view.delegate = self
-        view.setConfigs(configs: NodeManager.sharedInstance.arrEmojiConfigVOs!)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            view.top = 0
-        })
+        if self.btnAddEmoji.alpha > 0.5 {
+            endEditing()
+            // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
+            guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
+            
+            let view: EmojiSelectionView = EmojiSelectionView.init(frame: self.view.bounds)
+            view.top = self.view.height
+            self.view.addSubview(view)
+            view.delegate = self
+            view.setConfigs(configs: NodeManager.sharedInstance.arrEmojiConfigVOs!)
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                view.top = 0
+            })
+        }
     }
     
 //    @objc func showEmojiSelectionVC() {
@@ -520,23 +561,21 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     func autoFocus() {
+        return
+        
         let device: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
         let focusMode = device.focusMode
         
         if (focusMode == .locked) {
-            print("foocusMode locked!")
             if (device.isFocusModeSupported(.continuousAutoFocus)) {
                 
                 do {
                     try device.lockForConfiguration()
-                    print("设置自动对焦")
                     device.focusMode = .continuousAutoFocus
                     device.unlockForConfiguration()
                 } catch let err as Error!{
                     print("自动对焦失败！", err)
                 }
-            } else {
-                print("不支持自动对焦！")
             }
         }
     }
@@ -544,16 +583,22 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     /// Creates a new AR configuration to run on the `session`.
     func resetTracking() {
-//        if (self.isFrontCemare) {
-//            let configuration = ARFaceTrackingConfiguration()
-//            session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-//        } else {
+        if (self.isFrontCemare) {
+            if iPhoneX {
+                self.msgView.hideStickingMessage()
+                NodeManager.sharedInstance.removeAllNodes()
+                let configuration = ARFaceTrackingConfiguration()
+                session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            } else {
+                self.msgView.setMessag(message: "该设备不支持此功能")
+                self.isFrontCemare = false
+            }
+        } else {
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-//            self.msgView.setMessag(message: "FIND A SURFACE TO PLACE AN OBJECT")
             self.autoFocus()
-//        }
+        }
     }
     
     func stopTracking() {
@@ -590,7 +635,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }
         
-        if isObjectVisible! || isCapturing {
+        if isObjectVisible! || isCapturing || self.isFrontCemare {
             focusSquare.hide()
         } else {
             focusSquare.unhide()
@@ -617,10 +662,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         }
         
         DispatchQueue.main.async {
-            self.btnAddEmoji.alpha = 1.0
-            self.btnAddEmoji.isUserInteractionEnabled = true
-            self.btn3DText.alpha = 1.0
-            self.btn3DText.isUserInteractionEnabled = true
+            if !self.isFrontCemare {
+                self.btnAddEmoji.alpha = 1.0
+                self.btn3DText.alpha = 1.0
+            }
             self.btnReset.isUserInteractionEnabled = true
             self.msgView.hideStickingMessage()
         }
