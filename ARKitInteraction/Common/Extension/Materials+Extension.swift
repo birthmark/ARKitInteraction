@@ -13,9 +13,9 @@ extension SCNMaterial {
     static func material(named name: String) -> SCNMaterial {
         let mat = SCNMaterial()
         mat.lightingModel = .physicallyBased
-        mat.diffuse.contents = UIImage(named: "\(name)-albedo")
+        mat.diffuse.contents = UIImage(named: "\(name)-diffuse")
         mat.roughness.contents = UIImage(named: "\(name)-roughness")
-        mat.metalness.contents = UIImage(named: "\(name)-metal")
+        mat.metalness.contents = UIImage(named: "\(name)-metalness")
         mat.normal.contents = UIImage(named: "\(name)-normal")
         mat.diffuse.wrapS = .repeat
         mat.diffuse.wrapT = .repeat

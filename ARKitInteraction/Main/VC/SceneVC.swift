@@ -118,14 +118,14 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         let ambientLight = SCNNode()
         ambientLight.light = SCNLight()
         ambientLight.light?.type = .ambient
-        ambientLight.light?.color = UIColor.color(hexValue: 0x000000, alpha: 0.5)
+        ambientLight.light?.color = UIColor.init(red: 0.15, green: 0.25, blue: 0.15, alpha: 1.0)
         self.sceneView.scene.rootNode.addChildNode(ambientLight)
         
         //加默认的平面？？
         planeNode = SCNNode()
         planeNode.geometry = SCNBox(width: CGFloat(100), height: CGFloat(0.01), length: CGFloat(100), chamferRadius: 0)
-        planeNode.geometry?.materials.first?.lightingModel = .constant
-        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
+        planeNode.geometry?.materials.first?.lightingModel = .constant//todo
+        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0x000000)
         planeNode.position = SCNVector3Make(0, -1.0, 0)
         if (!SHOW_SHADOW_PLANE) {
             planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)

@@ -17,7 +17,7 @@ let TARGET_DISTANCE = Float(0.5)//放在0.5米处
 
 let FONT_SIZE = CGFloat(0.5)
 let FONT_THICKNESS_SCALE = CGFloat(0.24)
-let FONT_METERIAL_NAME = "rustediron-streaks"
+let FONT_METERIAL_NAME = "text-texture"//rustediron-streaks
 
 //平行光角度，默认是射向Z轴负方向
 let LIGTH_ROTATE_X = -Float(Double.pi/3)

@@ -37,7 +37,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*0.01), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*0.01), chamferRadius: 0)
             node.geometry?.materials.first?.lightingModel = .constant
-            node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.1)
+            node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.0)
             node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             
             return node
@@ -66,7 +66,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         updateQueue.async {
             for object in NodeManager.sharedInstance.arrLoadedNodes! {
-                object.adjustOntoPlaneAnchor(planeAnchor, using: node)
+//                object.adjustOntoPlaneAnchor(planeAnchor, using: node)//不更新 防抖动?
             }
         }
     }

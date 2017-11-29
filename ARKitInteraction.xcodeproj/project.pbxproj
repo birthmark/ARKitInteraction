@@ -40,6 +40,10 @@
 		28ADE8451FCD553000CD250D /* 爱心.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8411FCD553000CD250D /* 爱心.png */; };
 		28ADE8461FCD553000CD250D /* 思考.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8421FCD553000CD250D /* 思考.png */; };
 		28ADE8481FCD5F9A00CD250D /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ADE8471FCD5F9A00CD250D /* MessageView.swift */; };
+		28ADE8751FCD7B2400CD250D /* text-texture-metalness.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8711FCD7B2300CD250D /* text-texture-metalness.png */; };
+		28ADE8761FCD7B2400CD250D /* text-texture-roughness.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8721FCD7B2400CD250D /* text-texture-roughness.png */; };
+		28ADE8771FCD7B2400CD250D /* text-texture-diffuse.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8731FCD7B2400CD250D /* text-texture-diffuse.png */; };
+		28ADE8781FCD7B2400CD250D /* text-texture-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 28ADE8741FCD7B2400CD250D /* text-texture-normal.png */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -101,6 +105,10 @@
 		28ADE8411FCD553000CD250D /* 爱心.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "爱心.png"; sourceTree = "<group>"; };
 		28ADE8421FCD553000CD250D /* 思考.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "思考.png"; sourceTree = "<group>"; };
 		28ADE8471FCD5F9A00CD250D /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		28ADE8711FCD7B2300CD250D /* text-texture-metalness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-metalness.png"; sourceTree = "<group>"; };
+		28ADE8721FCD7B2400CD250D /* text-texture-roughness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-roughness.png"; sourceTree = "<group>"; };
+		28ADE8731FCD7B2400CD250D /* text-texture-diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-diffuse.png"; sourceTree = "<group>"; };
+		28ADE8741FCD7B2400CD250D /* text-texture-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text-texture-normal.png"; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* ARKitInteraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitInteraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +143,10 @@
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				28ADE8731FCD7B2400CD250D /* text-texture-diffuse.png */,
+				28ADE8711FCD7B2300CD250D /* text-texture-metalness.png */,
+				28ADE8741FCD7B2400CD250D /* text-texture-normal.png */,
+				28ADE8721FCD7B2400CD250D /* text-texture-roughness.png */,
 				28ADE83E1FCD551D00CD250D /* icons */,
 				2834E02E1FC2AFA200F55859 /* Lanting_GBK_II.ttf */,
 				28AC26621FBEC40000D20AF3 /* Lanting_GBK.ttf */,
@@ -397,7 +409,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */,
+				28ADE8771FCD7B2400CD250D /* text-texture-diffuse.png in Resources */,
 				28ADE8431FCD553000CD250D /* 喜欢.png in Resources */,
+				28ADE8781FCD7B2400CD250D /* text-texture-normal.png in Resources */,
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
 				288C3E641FBC40BC00DD0916 /* rustediron-streaks-metal.png in Resources */,
 				288C3E611FBC40BC00DD0916 /* rustediron-streaks-albedo.png in Resources */,
@@ -407,6 +421,8 @@
 				2834E02F1FC2AFC200F55859 /* Lanting_GBK_II.ttf in Resources */,
 				2834E0441FC417A600F55859 /* EmojiConfig.json in Resources */,
 				28ADE8441FCD553000CD250D /* KISS.png in Resources */,
+				28ADE8761FCD7B2400CD250D /* text-texture-roughness.png in Resources */,
+				28ADE8751FCD7B2400CD250D /* text-texture-metalness.png in Resources */,
 				288C3E621FBC40BC00DD0916 /* rustediron-streaks-normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
