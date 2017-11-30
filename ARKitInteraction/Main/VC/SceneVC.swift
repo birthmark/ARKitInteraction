@@ -594,6 +594,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                         if !self.btnReset.isUserInteractionEnabled {
                             self.msgView.hideStickingMessage()
                             self.msgView.setMessage(message: "黑科技初始化失败，点上方重置按钮也许有用")
+                            self.btnReset.isUserInteractionEnabled = true
                         }
                     })
                 }
