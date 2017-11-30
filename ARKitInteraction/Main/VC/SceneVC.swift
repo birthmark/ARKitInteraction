@@ -561,8 +561,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     func autoFocus() {
-        return
-        
         let device: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
         let focusMode = device.focusMode
         
