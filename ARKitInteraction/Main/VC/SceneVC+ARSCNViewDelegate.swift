@@ -14,6 +14,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
         DispatchQueue.main.async {
+            self.isSessionOpen = true
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
             self.updateDeleteButton()
@@ -90,12 +91,13 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.async {
 //            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
-            self.msgView.setMessag(message: "光线条件不佳，不能使用 AR")
+            self.msgView.setMessage(message: "黑科技初始化失败，点上方重置按钮也许有用")
         }
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
 //        self.msgView.setMessag(message: "SESSION INTERRUPTED")
+        self.isSessionOpen = false
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {

@@ -55,12 +55,12 @@ class MessageView: UIView {
         }
     }
     
-    func setMessag(message: String) {
+    func setMessage(message: String) {
         if isShowingStickingMsg {
             return
         }
         
-        print("setMessag")
+        print("setMessage")
         if (timer != nil) {
             timer?.invalidate()
         }

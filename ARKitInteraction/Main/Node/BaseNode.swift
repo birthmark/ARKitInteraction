@@ -65,11 +65,18 @@ class BaseNode: SCNReferenceNode {
             simdPosition = cameraWorldPosition + averagedDistancePosition
         } else {
             simdPosition = cameraWorldPosition + positionOffsetFromCamera
-            print("setPosition x:\(simdPosition.x) y:\(simdPosition.y) z:\(simdPosition.z) ")
-            print("setPosition x:\(simdPosition.x) y:\(simdPosition.y-pivotHeight()) z:\(simdPosition.z) ")
             self.handler(simdPosition.y-pivotHeight())
         }
     }
+    
+    func setPanPosition(_ newPosition: float3, relativeTo cameraTransform: matrix_float4x4) {
+        let cameraWorldPosition = cameraTransform.translation
+        let positionOffsetFromCamera = newPosition - cameraWorldPosition
+        
+        simdPosition = cameraWorldPosition + positionOffsetFromCamera
+        self.handler(simdPosition.y-pivotHeight())
+    }
+    
     
     func setNodePosition(_ newPosition: float3, relativeTo cameraTransform: matrix_float4x4) {
         let cameraWorldPosition = cameraTransform.translation
@@ -81,8 +88,6 @@ class BaseNode: SCNReferenceNode {
         }
         
         simdPosition = cameraWorldPosition + positionOffsetFromCamera
-        print("setNodePosition x:\(simdPosition.x) y:\(simdPosition.y) z:\(simdPosition.z) ")
-        print("setNodePosition x:\(simdPosition.x) y:\(simdPosition.y-pivotHeight()) z:\(simdPosition.z) ")
         self.handler(simdPosition.y-pivotHeight())
     }
     

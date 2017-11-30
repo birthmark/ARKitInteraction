@@ -39,6 +39,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     var btnNext: UIButton!
     var msgView: MessageView!
     
+    var isSessionOpen: Bool = false
+    
     // MARK: - UI Elements
     
     var focusSquare = FocusSquareNode()
@@ -158,9 +160,6 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         if (self.isMovingToWindow) {
 //            self.isMovingToWindow = false
             // Start the `ARSession`.
-            if !self.isFrontCemare {
-                self.msgView.setStickingMessage(message: "初始化黑科技")
-            }
             
             resetTracking()
         }
@@ -277,7 +276,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     @objc func settingsAction() {
         print("todo settingsAction")
-        self.msgView.setMessag(message: "settingsAction")
+        self.msgView.setMessage(message: "settingsAction")
     }
     @objc func cameraAction() {
         print("todo cameraAction")
@@ -291,7 +290,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 self.btnReset.isHidden = true
                 self.resetTracking()
             } else {
-                self.msgView.setMessag(message: "该设备不支持此功能")
+                self.msgView.setMessage(message: "该设备不支持此功能")
                 self.isFrontCemare = false
             }
         } else {
@@ -315,7 +314,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     @objc func nextAction() {
         print("todo nextAction")
-        self.msgView.setMessag(message: "nextAction")
+        self.msgView.setMessage(message: "nextAction")
     }
     
     @objc func keyboardWillShow(note: NSNotification) {
@@ -409,7 +408,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     func nodeHeight(_ height: Float) {
-        print("node height: \(height)")
+//        print("node height: \(height)")
         planeNode.position = SCNVector3Make(planeNode.position.x, Float.minimum(planeNode.position.y, height), planeNode.position.z)
     }
     
@@ -584,6 +583,23 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     /// Creates a new AR configuration to run on the `session`.
     func resetTracking() {
+        if !self.isSessionOpen {
+            isFrontCemare = false
+            self.msgView.setStickingMessage(message: "初始化黑科技")
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3.0, execute: {
+                if !self.btnReset.isUserInteractionEnabled {
+                    self.msgView.setStickingMessage(message: "举起手机四周看看，或找个明亮点的地方")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+10.0, execute: {
+                        if !self.btnReset.isUserInteractionEnabled {
+                            self.msgView.hideStickingMessage()
+                            self.msgView.setMessage(message: "黑科技初始化失败，点上方重置按钮也许有用")
+                        }
+                    })
+                }
+            })
+        }
+        
         if (self.isFrontCemare) {
             if iPhoneX {
                 self.msgView.hideStickingMessage()
@@ -629,6 +645,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     // MARK: - Focus Square
     
     func updateFocusSquare() {
+        
         let isObjectVisible = NodeManager.sharedInstance.arrLoadedNodes?.contains { object in
             return sceneView.isNode(object, insideFrustumOf: sceneView.pointOfView!)
         }

@@ -302,7 +302,9 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
          */
 //        object.setPosition(position, relativeTo: cameraTransform, smoothMovement: !isOnPlane)
         
-        object.setPosition(position, relativeTo: cameraTransform, smoothMovement: false)
+        if isOnPlane {
+            object.setPanPosition(position, relativeTo: cameraTransform)
+        }
     }
 }
 
