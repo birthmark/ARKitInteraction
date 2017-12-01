@@ -54,7 +54,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         doubleTapGesture.numberOfTouchesRequired = 1;
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
-        longPressGesture.minimumPressDuration = 1.5;
+//        longPressGesture.minimumPressDuration = 1.5;
         
         let pinchGesture = UIPinchGestureRecognizer(target: self, action:#selector(didPinch(_:)))
         
