@@ -91,10 +91,10 @@ class AlertDeleteView: UIView {
     }
     
     @objc func confirmAction() {
-        self.handler()
         UIView.animate(withDuration: 0.3, animations: {
             self.contentView?.top = -(self.contentView?.height)!
         }) { (flag) in
+            self.handler()
             self.removeFromSuperview()
         }
     }

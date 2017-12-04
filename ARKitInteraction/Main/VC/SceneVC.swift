@@ -308,6 +308,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         let alertView = AlertDeleteView.init(frame: self.view.bounds)
         self.view.addSubview(alertView)
         alertView.handler = {
+            self.sceneView.session.pause()
+            self.isSessionOpen = false
+            self.btnReset.isUserInteractionEnabled = false
+            self.btn3DText.alpha = 0.5
+            self.btnAddEmoji.alpha = 0.5
+            
             self.restartExperience()
         }
         alertView.showAnimation()
@@ -686,7 +692,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 self.btn3DText.alpha = 1.0
             }
             self.btnReset.isUserInteractionEnabled = true
-            self.msgView.hideStickingMessage()
+            
+            if (self.isSessionOpen) {
+                self.msgView.hideStickingMessage()
+            }
         }
     }
     

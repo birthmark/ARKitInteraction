@@ -14,6 +14,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
         DispatchQueue.main.async {
+            
             self.isSessionOpen = true
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
@@ -51,6 +52,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         print("did add node for anchor")
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         DispatchQueue.main.async {
+            
 //            self.msgView.setMessag(message: "SURFACE DETECTED")
 //            if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
 //                self.msgView.setMessag(message: "NOW TO PLACE AN OBJECT")
@@ -91,6 +93,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.async {
 //            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+            self.isSessionOpen = false
             self.msgView.setMessage(message: "黑科技初始化失败，点上方重置按钮也许有用")
         }
     }
