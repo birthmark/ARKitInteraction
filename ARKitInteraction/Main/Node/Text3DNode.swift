@@ -27,6 +27,7 @@ class Text3DNode: BaseNode {
         } else {
             let textNode = SCNText.init(string: text, extrusionDepth: FONT_SIZE*FONT_THICKNESS_SCALE)
             textNode.firstMaterial?.diffuse.contents = UIColor.blue
+            textNode.flatness = 0.0001
             textNode.font = UIFont.appLanTingFont(fontSize: FONT_SIZE)
             let material = SCNMaterial.material(named: FONT_METERIAL_NAME)
             textNode.materials = [material]
