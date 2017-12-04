@@ -12,29 +12,20 @@ public extension UIFont{
     
     class func appLightFont(fontSize size:CGFloat)->UIFont{
 
-        var font = UIFont(name:"PingFangSC-Light",size:size);
-        if font == nil {
-            font = UIFont.systemFont(ofSize: size);
-        }
-        return font!;
+        let font = UIFont.systemFont(ofSize: size);
+        return font;
     }
     
     class func appNormalFont(fontSize size:CGFloat)->UIFont{
         
-        var font = UIFont(name:"PingFangSC-Regular",size:size);
-        if font == nil {
-            font = UIFont.systemFont(ofSize: size);
-        }
-        return font!;
+        let font = UIFont.systemFont(ofSize: size);
+        return font;
     }
     
     class func appBoldFont(fontSize size:CGFloat)->UIFont{
         
-        var font = UIFont(name:"PingFangSC-Medium",size:size);
-        if font == nil {
-            font = UIFont.boldSystemFont(ofSize: size)
-        }
-        return font!;
+        let font = UIFont.boldSystemFont(ofSize: size)
+        return font;
     }
     
     class func appLanTingFont(fontSize size:CGFloat)->UIFont{
