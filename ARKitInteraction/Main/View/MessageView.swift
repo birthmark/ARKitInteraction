@@ -10,7 +10,7 @@ import UIKit
 
 class MessageView: UIView {
 
-    let messageDuration = 3.0
+    static var messageDuration = 3.0
     var label: UILabel?
     var timeInterval: Int?
     var timer: Timer?
@@ -55,7 +55,7 @@ class MessageView: UIView {
         }
     }
     
-    func setMessage(message: String) {
+    func setMessage(message: String, interval time:Double = MessageView.messageDuration) {
         if isShowingStickingMsg {
             return
         }
@@ -65,7 +65,7 @@ class MessageView: UIView {
             timer?.invalidate()
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: messageDuration, repeats: false, block: { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: time, repeats: false, block: { [weak self] _ in
             print("Timer affire")
             UIView.animate(withDuration: 0.3, animations: {
                 self?.alpha = 0.0

@@ -24,7 +24,7 @@ public extension UIFont{
     
     class func appBoldFont(fontSize size:CGFloat)->UIFont{
         
-        let font = UIFont.boldSystemFont(ofSize: size)
+        let font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
         return font;
     }
     

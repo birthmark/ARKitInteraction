@@ -19,13 +19,13 @@ let iPhoneX_B = CGFloat(iPhoneX ? 34 : 0)
 let MAX_DISTANCE = Float(10.0)
 let TARGET_DISTANCE = Float(0.5)//放在0.5米处
 
-let FONT_SIZE = CGFloat(0.5)
+let FONT_SIZE = CGFloat(0.1)
 let FONT_THICKNESS_SCALE = CGFloat(0.24)
 let FONT_METERIAL_NAME = "text-texture"//rustediron-streaks
 
 //平行光角度，默认是射向Z轴负方向
-let LIGTH_ROTATE_X = -Float(Double.pi/3)
-let LIGTH_ROTATE_Y = -Float(Double.pi/4)
+let LIGTH_ROTATE_X = -Float(Double.pi/2+0.12)
+let LIGTH_ROTATE_Y = Float(0.0)//-Float(Double.pi/4)
 
 //拖动的时候是否自动落到平面上，此处最好为true
 let PLACE_NODE_ON_EXISTING_PLANE = false

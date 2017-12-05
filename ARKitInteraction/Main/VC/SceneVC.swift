@@ -20,6 +20,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     var btnAddEmoji: UIButton!
     var recorder: RecordAR!
     var btnVideoCapture: CaptureButton!
+    var startTime: NSDate!
+    
     var btn3DText: UIButton!
     var isCapturing: Bool!
     var inputBar: InputPanelView!
@@ -39,7 +41,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     var btnNext: UIButton!
     var msgView: MessageView!
     
-    var isSessionOpen: Bool = false
+    var isPlaneDetected: Bool = false//探测到平面
+    var isFunctionButtonClicked = false
+    var hasAddTextOrEmoji = false
+    var isAnyActionClicked = false
     
     // MARK: - UI Elements
     
@@ -119,6 +124,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         sunLight.light?.castsShadow = true
         sunLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         sunLight.light?.shadowMode = .deferred
+        //add
+        sunLight.light?.intensity = 0
+        sunLight.light?.shadowRadius = 20
+//        sunLight.light?.shadowMapSize = CGSize(width: 4000, height: 4000)
+//        sunLight.light?.shadowSampleCount = 8
+        sunLight.light?.orthographicScale = 20
         
         self.sceneView.scene.rootNode.addChildNode(sunLight)
         
@@ -159,10 +170,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         UIApplication.shared.isIdleTimerDisabled = true
         
         if (self.isMovingToWindow) {
-//            self.isMovingToWindow = false
+            self.isMovingToWindow = false
             // Start the `ARSession`.
             
             resetTracking()
+        } else {
+            resetAction()
         }
     }
     
@@ -186,20 +199,20 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnSetting!)
         self.btnSetting.setImage(UIImage.init(named: "setting"), for: [])
         self.btnSetting.left = 20;
-        self.btnSetting.centerY = CGFloat(20+iPhoneX_T);
+        self.btnSetting.centerY = CGFloat(0+iPhoneX_T);
         
         self.btnNext = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnNext!)
         self.btnNext.setImage(UIImage.init(named: "next"), for: [])
         self.btnNext.right = self.view.width-20;
-        self.btnNext.centerY = CGFloat(20+iPhoneX_T);
+        self.btnNext.centerY = CGFloat(0+iPhoneX_T);
         
         //
         self.btnReset = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnReset!)
         self.btnReset.setImage(UIImage.init(named: "restart"), for: [])
         self.btnReset.centerX = self.view.width/2+16+9
-        self.btnReset.centerY = CGFloat(20+iPhoneX_T);
+        self.btnReset.centerY = CGFloat(0+iPhoneX_T);
         self.btnReset.isUserInteractionEnabled = false
         
         //
@@ -207,7 +220,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnCamera!)
         self.btnCamera.setImage(UIImage.init(named: "camera"), for: [])
         self.btnCamera.centerX = self.view.width/2-16-9
-        self.btnCamera.centerY = CGFloat(20+iPhoneX_T);
+        self.btnCamera.centerY = CGFloat(0+iPhoneX_T);
         
         //
         self.btnVideoCapture = CaptureButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
@@ -281,6 +294,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     @objc func cameraAction() {
         print("todo cameraAction")
+        anyAction()
         self.isFrontCemare = !self.isFrontCemare
         
         if self.isFrontCemare {
@@ -305,16 +319,20 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     @objc func resetAction() {
+        anyAction()
         let alertView = AlertDeleteView.init(frame: self.view.bounds)
         self.view.addSubview(alertView)
         alertView.handler = {
             self.sceneView.session.pause()
-            self.isSessionOpen = false
-            self.btnReset.isUserInteractionEnabled = false
+            self.isPlaneDetected = false
+            self.isFunctionButtonClicked = false
+            self.isAnyActionClicked = false
+            self.hasAddTextOrEmoji = false
             self.btn3DText.alpha = 0.5
             self.btnAddEmoji.alpha = 0.5
             
             self.restartExperience()
+            self.btnReset.isUserInteractionEnabled = false
         }
         alertView.showAnimation()
     }
@@ -366,6 +384,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         NotificationCenter.default.removeObserver(self)
     }
     
+    func anyAction() {
+        if (self.hasAddTextOrEmoji) {
+            self.isAnyActionClicked = true
+        }
+    }
+    
     func endEditing() {
         self.view.endEditing(true)
         
@@ -397,6 +421,9 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         endEditing()
         
         if self.btn3DText.alpha > 0.5 {
+            self.isFunctionButtonClicked = true
+            anyAction()
+            self.hasAddTextOrEmoji = true
             DispatchQueue.global(qos: .userInitiated).async {
                 let node: Text3DNode = Text3DNode()
                 node.scale = SCNVector3Make(1.0, 1.0, 1.0)
@@ -409,6 +436,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                     
                     let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
                     node.eulerAngles.y += cameraAngle!
+                    
+                    DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now()+5.0) {
+                        if (!self.isAnyActionClicked) {
+                            self.msgView.setMessage(message: "「长按删除物体」")
+                        }
+                    }
                 }
             }
         }
@@ -421,8 +454,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     @objc func startCaptureVideo() {
         endEditing()
+        anyAction()
         
         if (!self.isCapturing) {
+            startTime = NSDate()
             self.isCapturing = true
             focusSquare.hideImmediately()
             
@@ -450,6 +485,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     @objc func stopCaptureVideo() {
         if (self.isCapturing) {
+            
+            let stopTime = NSDate()
+            if (stopTime.timeIntervalSince(startTime as Date) < 0.3) {
+                self.msgView.setMessage(message: "「长按拍摄我的一天」", interval: 1.5);
+            }
+            
             //防止多次连续点击
             self.btnVideoCapture.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.0, execute: { [unowned self] in
@@ -507,6 +548,10 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         
         if self.btnAddEmoji.alpha > 0.5 {
             endEditing()
+            self.isFunctionButtonClicked = true
+            anyAction()
+            self.hasAddTextOrEmoji = true
+            
             // Ensure adding objects is an available action and we are not loading another object (to avoid concurrent modifications of the scene).
             guard !btnAddEmoji.isHidden && !NodeManager.sharedInstance.isLoading! else { return }
             
@@ -590,7 +635,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     
     /// Creates a new AR configuration to run on the `session`.
     func resetTracking() {
-        if !self.isSessionOpen {
+        if !self.isPlaneDetected {
             isFrontCemare = false
             self.msgView.setStickingMessage(message: "初始化黑科技")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3.0, execute: {
@@ -620,6 +665,16 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
             self.autoFocus()
+        }
+    }
+    
+    func planeDetected() {
+        self.isPlaneDetected = true
+        
+        DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now()+5.0) {
+            if (!self.isFunctionButtonClicked) {
+                self.msgView.setMessage(message: "点击「字」试试看")
+            }
         }
     }
     
@@ -689,13 +744,14 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         }
         
         DispatchQueue.main.async {
-            if !self.isFrontCemare {
-                self.btnAddEmoji.alpha = 1.0
-                self.btn3DText.alpha = 1.0
-            }
-            self.btnReset.isUserInteractionEnabled = true
-            
-            if (self.isSessionOpen) {
+            if (self.isPlaneDetected) {
+                
+                if !self.isFrontCemare {
+                    self.btnAddEmoji.alpha = 1.0
+                    self.btn3DText.alpha = 1.0
+                }
+                
+                self.btnReset.isUserInteractionEnabled = true
                 self.msgView.hideStickingMessage()
             }
         }
@@ -753,6 +809,12 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 
                 let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles.y
                 loadedNode.eulerAngles.y += cameraAngle!
+                
+                DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now()+5.0) {
+                    if (!self.isAnyActionClicked) {
+                        self.msgView.setMessage(message: "「长按删除物体」")
+                    }
+                }
             }
         })
     }

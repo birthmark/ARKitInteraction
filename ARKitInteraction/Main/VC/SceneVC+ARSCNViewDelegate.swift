@@ -15,7 +15,6 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.async {
             
-            self.isSessionOpen = true
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
             self.updateDeleteButton()
@@ -35,7 +34,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            print("planeAnchor x: \(planeAnchor.center.x) y: \(planeAnchor.center.y) z: \(planeAnchor.center.z)")
+            print("planeAnchor detected x: \(planeAnchor.center.x) y: \(planeAnchor.center.y) z: \(planeAnchor.center.z)")
             let node = SCNNode()
             
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*0.01), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*0.01), chamferRadius: 0)
@@ -49,9 +48,11 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        print("did add node for anchor")
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        print("did add plane")
         DispatchQueue.main.async {
+            self.planeDetected()
             
 //            self.msgView.setMessag(message: "SURFACE DETECTED")
 //            if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {
@@ -93,19 +94,19 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         
         DispatchQueue.main.async {
 //            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
-            self.isSessionOpen = false
+            self.isPlaneDetected = false
             self.msgView.setMessage(message: "黑科技初始化失败，点上方重置按钮也许有用")
         }
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
 //        self.msgView.setMessag(message: "SESSION INTERRUPTED")
-        self.isSessionOpen = false
+        self.isPlaneDetected = false
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
 //        self.msgView.setMessag(message: "RESETTING SESSION")
         
-        restartExperience()
+        resetAction()
     }
 }

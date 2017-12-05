@@ -84,6 +84,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         case .began:
             // Check for interaction with a new object.
             if let object = objectInteracting(with: gesture, in: sceneView) {
+                sceneVC?.anyAction()
                 trackedObject = object
                 currentScale = trackedObject?.scale
             }
@@ -128,6 +129,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         
         if let tappedObject = sceneView.selectNode(at: touchLocation) {
             // Select a new object.
+            sceneVC?.anyAction()
             selectedNode = tappedObject
             if let textNode = selectedNode as? Text3DNode {
                 if textNode.isAnimating {
@@ -173,6 +175,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         let touchLocation = gesture.location(in: sceneView)
         
         if let tappedObject = sceneView.selectNode(at: touchLocation) {
+            sceneVC?.anyAction()
             selectedNode = tappedObject
             if selectedNode as? Text3DNode != nil {
                 print("double tap text3DNode to change text")
@@ -192,6 +195,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         sceneVC?.view.endEditing(true)
         if(gesture.state == .began) {
             if let object = objectInteracting(with: gesture, in: sceneView) {
+                sceneVC?.anyAction()
                 selectedNode = object
                 print("LongPress Node to delete")
 //                NodeManager.sharedInstance.removeNode(node: selectedNode!)
@@ -209,6 +213,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
         case .began:
             // Check for interaction with a new object.
             if let object = objectInteracting(with: gesture, in: sceneView) {
+                sceneVC?.anyAction()
                 trackedObject = object
             }
             
@@ -261,6 +266,7 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
           To make rotation also work correctly when looking from below the object one would have to
           flip the sign of the angle depending on whether the object is above or below the camera...
          */
+        sceneVC?.anyAction()
         trackedObject?.eulerAngles.y -= Float(gesture.rotation)
         
         gesture.rotation = 0
