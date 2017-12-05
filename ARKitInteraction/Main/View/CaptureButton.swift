@@ -32,7 +32,7 @@ class CaptureButton: UIButton {
         yellowView?.backgroundColor = UIColor.color(hexValue: 0xfdf187)
         yellowView?.layer.cornerRadius = (yellowView?.width)!/2
         yellowView?.layer.masksToBounds = true
-        yellowView?.layer.borderWidth = 1
+        yellowView?.layer.borderWidth = 2
         yellowView?.layer.borderColor = UIColor.white.cgColor
         yellowView?.centerX = self.width/2
         yellowView?.centerY = self.height/2
@@ -44,9 +44,22 @@ class CaptureButton: UIButton {
         yellowView?.centerY = self.height/2
     }
     
+    func resizeYellowCircle() {
+        yellowView?.size = CGSize.init(width: 50, height: 50)
+        yellowView?.layer.cornerRadius = (yellowView?.width)!/2
+        yellowView?.centerX = self.width/2
+        yellowView?.centerY = self.height/2
+    }
+    
+    func resetYellowCircle() {
+        yellowView?.size = CGSize.init(width: 60, height: 60)
+        yellowView?.layer.cornerRadius = (yellowView?.width)!/2
+        yellowView?.centerX = self.width/2
+        yellowView?.centerY = self.height/2
+    }
+    
     func setProgress(progress: Double) {
         self.progress = progress
-        
         self.setNeedsDisplay()
     }
     
@@ -55,10 +68,10 @@ class CaptureButton: UIButton {
         UIColor.color(hexValue: 0xffffff, alpha: 0.4).setFill()
         circlePath.fill()
         
-        let path: UIBezierPath = UIBezierPath.init(arcCenter: CGPoint(x:self.width/2,y:self.height/2), radius: self.width/2-1, startAngle: CGFloat(-Double.pi/2), endAngle: CGFloat(self.progress*Double.pi*2-Double.pi/2), clockwise: true)
+        let path: UIBezierPath = UIBezierPath.init(arcCenter: CGPoint(x:self.width/2,y:self.height/2), radius: self.width/2-2.5, startAngle: CGFloat(-Double.pi/2), endAngle: CGFloat(self.progress*Double.pi*2-Double.pi/2), clockwise: true)
         UIColor.color(hexValue: 0xfdf187).setStroke()
         path.lineCapStyle = .round
-        path.lineWidth = 2
+        path.lineWidth = 4
         path.stroke()
     }
 }

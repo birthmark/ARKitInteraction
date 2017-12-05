@@ -430,6 +430,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 let center = self.btnVideoCapture.center
                 self.btnVideoCapture.size = CGSize.init(width: 110, height: 110)
                 self.btnVideoCapture.center = center
+                self.btnVideoCapture.resizeYellowCircle()
             }, completion: { (finish) in
                 if (self.isCapturing) {//
                     self.recorder.record()
@@ -466,6 +467,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 let center = self.btnVideoCapture.center
                 self.btnVideoCapture.size = CGSize.init(width: 80, height: 80)
                 self.btnVideoCapture.center = center
+                self.btnVideoCapture.resetYellowCircle()
             })
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5, execute: { [unowned self] in
