@@ -431,7 +431,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             self.hasAddTextOrEmoji = true
             DispatchQueue.global(qos: .userInitiated).async {
                 let node: Text3DNode = Text3DNode()
-                node.scale = SCNVector3Make(1.0, 1.0, 1.0)
+                node.scale = SCNVector3Make(0.15, 0.15, 0.15)
                 node.setText(text: "双击修改")
                 node.handler = self.nodeHeight(_:)
                 
