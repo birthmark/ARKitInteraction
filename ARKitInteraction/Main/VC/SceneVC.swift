@@ -125,11 +125,11 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         sunLight.light?.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         sunLight.light?.shadowMode = .deferred
         //add
-        sunLight.light?.intensity = 0
-        sunLight.light?.shadowRadius = 20
+//        sunLight.light?.intensity = 0
+//        sunLight.light?.shadowRadius = 20
 //        sunLight.light?.shadowMapSize = CGSize(width: 4000, height: 4000)
 //        sunLight.light?.shadowSampleCount = 8
-        sunLight.light?.orthographicScale = 20
+//        sunLight.light?.orthographicScale = 20
         
         self.sceneView.scene.rootNode.addChildNode(sunLight)
         
@@ -175,14 +175,15 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             
             resetTracking()
         } else {
-            resetAction()
+//            resetAction()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //todo
-        stopTracking()
+//        todo
+//        stopTracking()
+        
     }
     
     func setupViews() {
@@ -199,20 +200,20 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnSetting!)
         self.btnSetting.setImage(UIImage.init(named: "setting"), for: [])
         self.btnSetting.left = 20;
-        self.btnSetting.centerY = CGFloat(0+iPhoneX_T);
+        self.btnSetting.centerY = CGFloat(10+iPhoneX_T);
         
         self.btnNext = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnNext!)
         self.btnNext.setImage(UIImage.init(named: "next"), for: [])
         self.btnNext.right = self.view.width-20;
-        self.btnNext.centerY = CGFloat(0+iPhoneX_T);
+        self.btnNext.centerY = CGFloat(10+iPhoneX_T);
         
         //
         self.btnReset = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
         self.view.addSubview(self.btnReset!)
         self.btnReset.setImage(UIImage.init(named: "restart"), for: [])
         self.btnReset.centerX = self.view.width/2+16+9
-        self.btnReset.centerY = CGFloat(0+iPhoneX_T);
+        self.btnReset.centerY = CGFloat(10+iPhoneX_T);
         self.btnReset.isUserInteractionEnabled = false
         
         //
@@ -220,7 +221,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         self.view.addSubview(self.btnCamera!)
         self.btnCamera.setImage(UIImage.init(named: "camera"), for: [])
         self.btnCamera.centerX = self.view.width/2-16-9
-        self.btnCamera.centerY = CGFloat(0+iPhoneX_T);
+        self.btnCamera.centerY = CGFloat(10+iPhoneX_T);
         
         //
         self.btnVideoCapture = CaptureButton.init(frame: CGRect.init(x: 0, y: 0, width: 80, height: 80))
@@ -455,6 +456,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     @objc func startCaptureVideo() {
         endEditing()
         anyAction()
+        self.isFunctionButtonClicked = true
         
         if (!self.isCapturing) {
             startTime = NSDate()

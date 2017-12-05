@@ -41,14 +41,14 @@ class EmojiSelectionView: UIView {
         bkMask = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.width, height: 60))
         bkMask?.isUserInteractionEnabled = false
         
-        let gradientLayer = CAGradientLayer.init()
-        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: self.width, height: 60)
-        gradientLayer.colors = [UIColor.color(hexValue: 0x000000, alpha: 0.0).cgColor,
-                                UIColor.color(hexValue: 0x000000, alpha: 0.5).cgColor]
-        gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
-        bkMask?.layer.addSublayer(gradientLayer)
+//        let gradientLayer = CAGradientLayer.init()
+//        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: self.width, height: 60)
+//        gradientLayer.colors = [UIColor.color(hexValue: 0x000000, alpha: 0.0).cgColor,
+//                                UIColor.color(hexValue: 0x000000, alpha: 0.5).cgColor]
+//        gradientLayer.locations = [0.0, 1.0]
+//        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+//        gradientLayer.endPoint = CGPoint.init(x: 0, y: 1)
+//        bkMask?.layer.addSublayer(gradientLayer)
         self.addSubview(bkMask!)
         
         btnClose = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 32, height: 32))
