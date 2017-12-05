@@ -107,6 +107,6 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
 //        self.msgView.setMessag(message: "RESETTING SESSION")
         
-        resetAction()
+        resetScene()
     }
 }

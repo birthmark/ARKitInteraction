@@ -324,18 +324,22 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         let alertView = AlertDeleteView.init(frame: self.view.bounds)
         self.view.addSubview(alertView)
         alertView.handler = {
-            self.sceneView.session.pause()
-            self.isPlaneDetected = false
-            self.isFunctionButtonClicked = false
-            self.isAnyActionClicked = false
-            self.hasAddTextOrEmoji = false
-            self.btn3DText.alpha = 0.5
-            self.btnAddEmoji.alpha = 0.5
-            
-            self.restartExperience()
-            self.btnReset.isUserInteractionEnabled = false
+            self.resetScene()
         }
         alertView.showAnimation()
+    }
+    
+    func resetScene() {
+        self.sceneView.session.pause()
+        self.isPlaneDetected = false
+        self.isFunctionButtonClicked = false
+        self.isAnyActionClicked = false
+        self.hasAddTextOrEmoji = false
+        self.btn3DText.alpha = 0.5
+        self.btnAddEmoji.alpha = 0.5
+        
+        self.restartExperience()
+        self.btnReset.isUserInteractionEnabled = false
     }
     
     @objc func nextAction() {
