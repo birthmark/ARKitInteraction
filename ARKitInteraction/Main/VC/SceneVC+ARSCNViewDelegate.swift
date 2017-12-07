@@ -14,7 +14,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
         DispatchQueue.main.async {
-            
+            self.planeDetected()
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
             self.updateDeleteButton()
@@ -52,7 +52,6 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
         
         print("did add plane")
         DispatchQueue.main.async {
-            self.planeDetected()
             
 //            self.msgView.setMessag(message: "SURFACE DETECTED")
 //            if (NodeManager.sharedInstance.arrLoadedNodes?.isEmpty)! {

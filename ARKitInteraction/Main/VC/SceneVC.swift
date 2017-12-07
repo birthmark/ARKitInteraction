@@ -675,11 +675,13 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     }
     
     func planeDetected() {
-        self.isPlaneDetected = true
-        
-        DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now()+5.0) {
-            if (!self.isFunctionButtonClicked) {
-                self.msgView.setMessage(message: "点击「字」试试看")
+        if !self.isPlaneDetected {
+            self.isPlaneDetected = true
+            
+            DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now()+5.0) {
+                if (!self.isFunctionButtonClicked) {
+                    self.msgView.setMessage(message: "点击「字」试试看")
+                }
             }
         }
     }
