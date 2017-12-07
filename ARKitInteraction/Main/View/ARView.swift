@@ -133,6 +133,60 @@ class ARView: ARSCNView {
         return nil
     }
 
+    func worldPosition3DText(fromScreenPosition position: CGPoint, objectPosition: float3?, infinitePlane: Bool = false) -> (position: float3, planeAnchor: ARPlaneAnchor?, isOnPlane: Bool)? {
+        /*
+         1. Always do a hit test against exisiting plane anchors first. (If any
+         such anchors exist & only within their extents.)
+         */
+        
+        let planeHitTestResults = hitTest(position, types: .existingPlaneUsingExtent)
+        
+        if let result = planeHitTestResults.first {
+            let planeHitTestPosition = result.worldTransform.translation
+            let planeAnchor = result.anchor
+            
+            // Return immediately - this is the best possible outcome.
+            return (planeHitTestPosition, planeAnchor as? ARPlaneAnchor, true)
+        }
+        /*
+         2. Collect more information about the environment by hit testing against
+         the feature point cloud, but do not return the result yet.
+         */
+        let featureHitTestResult = hitTestWithFeatures(position, coneOpeningAngleInDegrees: 18, minDistance: 0.2, maxDistance: 2.0).first
+        let featurePosition = featureHitTestResult?.position
+        
+        /*
+         3. If desired or necessary (no good feature hit test result): Hit test
+         against an infinite, horizontal plane (ignoring the real world).
+         */
+        if infinitePlane || featurePosition == nil {
+            if let objectPosition = objectPosition,
+                let pointOnInfinitePlane = hitTestWithInfiniteHorizontalPlane(position, objectPosition) {
+                return (pointOnInfinitePlane, nil, true)
+            }
+        }
+        
+        /*
+         4. If available, return the result of the hit test against high quality
+         features if the hit tests against infinite planes were skipped or no
+         infinite plane was hit.
+         */
+        if let featurePosition = featurePosition {
+            return (featurePosition, nil, false)
+        }
+        
+        /*
+         5. As a last resort, perform a second, unfiltered hit test against features.
+         If there are no features in the scene, the result returned here will be nil.
+         */
+        let unfilteredFeatureHitTestResults = hitTestWithFeatures(position)
+        if let result = unfilteredFeatureHitTestResults.first {
+            return (result.position, nil, false)
+        }
+        
+        return nil
+    }
+    
     // MARK: - Hit Tests
 
     func hitTestRayFromScreenPosition(_ point: CGPoint) -> HitTestRay? {

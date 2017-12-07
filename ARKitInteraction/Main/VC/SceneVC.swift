@@ -145,7 +145,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         planeNode.geometry = SCNBox(width: CGFloat(12), height: CGFloat(0.01), length: CGFloat(12), chamferRadius: 0)
         planeNode.geometry?.materials.first?.lightingModel = .lambert //todo
         planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0x000000)
-        planeNode.position = SCNVector3Make(0, -1.0, 0)
+        planeNode.position = SCNVector3Make(0, -0.5, 0)
         if (!SHOW_SHADOW_PLANE) {
             planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         }
@@ -431,7 +431,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
             self.hasAddTextOrEmoji = true
             DispatchQueue.global(qos: .userInitiated).async {
                 let node: Text3DNode = Text3DNode()
-                node.scale = SCNVector3Make(0.15, 0.15, 0.15)
+                node.scale = SCNVector3Make(0.3, 0.3, 0.3)
                 node.setText(text: "双击修改")
                 node.handler = self.nodeHeight(_:)
                 

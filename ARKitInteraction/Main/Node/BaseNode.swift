@@ -42,9 +42,9 @@ class BaseNode: SCNReferenceNode {
         let cameraWorldPosition = cameraTransform.translation
         var positionOffsetFromCamera = newPosition - cameraWorldPosition
         
-        if simd_length(positionOffsetFromCamera) > MAX_DISTANCE {
+        if simd_length(positionOffsetFromCamera) > 10.0 {
             positionOffsetFromCamera = simd_normalize(positionOffsetFromCamera)
-            positionOffsetFromCamera *= MAX_DISTANCE
+            positionOffsetFromCamera *= 10.0
         }
         
         /*
@@ -82,9 +82,15 @@ class BaseNode: SCNReferenceNode {
         let cameraWorldPosition = cameraTransform.translation
         var positionOffsetFromCamera = newPosition - cameraWorldPosition
         
-        if simd_length(positionOffsetFromCamera) > TARGET_DISTANCE {
+        var targetDistance = TARGET_DISTANCE;
+        
+        if self is Text3DNode {
+            targetDistance = 10.0
+        }
+        
+        if simd_length(positionOffsetFromCamera) > targetDistance {
             positionOffsetFromCamera = simd_normalize(positionOffsetFromCamera)
-            positionOffsetFromCamera *= TARGET_DISTANCE
+            positionOffsetFromCamera *= targetDistance
         }
         
         simdPosition = cameraWorldPosition + positionOffsetFromCamera

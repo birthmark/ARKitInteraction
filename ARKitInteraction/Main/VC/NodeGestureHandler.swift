@@ -103,14 +103,16 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
             
             var scale = gesture.scale
             
-            if (scale * CGFloat((currentScale?.x)!) < CGFloat(minScale)) {
-                scale = CGFloat(minScale) / CGFloat((currentScale?.x)!)
+            if (currentScale != nil) {
+                if (scale * CGFloat((currentScale?.x)!) < CGFloat(minScale)) {
+                    scale = CGFloat(minScale) / CGFloat((currentScale?.x)!)
+                }
+                
+                if (scale * CGFloat((currentScale?.x)!) > CGFloat(maxScale)) {
+                    scale = CGFloat(maxScale) / CGFloat((currentScale?.x)!)
+                }
+                trackedObject?.scale = SCNVector3Make(Float(scale*CGFloat((currentScale?.x)!)), Float(scale*CGFloat((currentScale?.y)!)), Float(scale*CGFloat((currentScale?.z)!)))
             }
-            
-            if (scale * CGFloat((currentScale?.x)!) > CGFloat(maxScale)) {
-                scale = CGFloat(maxScale) / CGFloat((currentScale?.x)!)
-            }
-            trackedObject?.scale = SCNVector3Make(Float(scale*CGFloat((currentScale?.x)!)), Float(scale*CGFloat((currentScale?.y)!)), Float(scale*CGFloat((currentScale?.z)!)))
 //            let matrix: SCNMatrix4 = SCNMatrix4MakeScale(Float(scale), Float(scale), Float(scale))
 //            trackedObject?.transform = trackedObject?.transform * matrix
             
@@ -297,19 +299,37 @@ class NodeGestureHandler: NSObject, UIGestureRecognizerDelegate {
 
     /// - Tag: DragVirtualObject
     private func translate(_ object: BaseNode, basedOn screenPos: CGPoint, infinitePlane: Bool) {
-        guard let cameraTransform = sceneView.session.currentFrame?.camera.transform,
-            let (position, _, isOnPlane) = sceneView.worldPosition(fromScreenPosition: screenPos,
-                                                                   objectPosition: object.simdPosition,
-                                                                   infinitePlane: infinitePlane) else { return }
         
-        /*
-         Plane hit test results are generally smooth. If we did *not* hit a plane,
-         smooth the movement to prevent large jumps.
-         */
-//        object.setPosition(position, relativeTo: cameraTransform, smoothMovement: !isOnPlane)
-        
-        if isOnPlane {
-            object.setPanPosition(position, relativeTo: cameraTransform)
+        if object is Text3DNode {
+            guard let cameraTransform = sceneView.session.currentFrame?.camera.transform,
+                let (position, _, isOnPlane) = sceneView.worldPosition3DText(fromScreenPosition: screenPos,
+                                                                       objectPosition: object.simdPosition,
+                                                                       infinitePlane: infinitePlane) else { return }
+            
+            /*
+             Plane hit test results are generally smooth. If we did *not* hit a plane,
+             smooth the movement to prevent large jumps.
+             */
+            //        object.setPosition(position, relativeTo: cameraTransform, smoothMovement: !isOnPlane)
+            
+            if isOnPlane {
+                object.setPosition(position, relativeTo: cameraTransform, smoothMovement: false)
+            }
+        } else {
+            guard let cameraTransform = sceneView.session.currentFrame?.camera.transform,
+                let (position, _, isOnPlane) = sceneView.worldPosition(fromScreenPosition: screenPos,
+                                                                       objectPosition: object.simdPosition,
+                                                                       infinitePlane: infinitePlane) else { return }
+            
+            /*
+             Plane hit test results are generally smooth. If we did *not* hit a plane,
+             smooth the movement to prevent large jumps.
+             */
+            //        object.setPosition(position, relativeTo: cameraTransform, smoothMovement: !isOnPlane)
+            
+            if isOnPlane {
+                object.setPanPosition(position, relativeTo: cameraTransform)
+            }
         }
     }
 }

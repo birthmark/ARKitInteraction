@@ -37,8 +37,8 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             print("planeAnchor detected x: \(planeAnchor.center.x) y: \(planeAnchor.center.y) z: \(planeAnchor.center.z)")
             let node = SCNNode()
             
-            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*0.01), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*0.01), chamferRadius: 0)
-            node.geometry?.materials.first?.lightingModel = .constant
+            node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*1), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*1), chamferRadius: 0)
+            node.geometry?.materials.first?.lightingModel = .lambert
             node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.0)
             node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             
