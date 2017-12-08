@@ -3,42 +3,45 @@
  
     "emojiData": [
                   {
-                  "urlString": "爱心/爱心.dae",
-                  "icon": "爱心"
+                  "urlString": "kiss/kiss.scn",
+                  "icon": "kiss"
                   },
                   {
-                  "urlString": "白眼/白眼01.dae",
-                  "icon": ""
+                  "urlString": "baiyan/baiyan.scn",
+                  "icon": "baiyan"
                   },
                   {
-                  "urlString": "思考/思考.dae",
-                  "icon": "思考"
+                  "urlString": "daku/daku.scn",
+                  "icon": "daku"
                   },
                   {
-                  "urlString": "喜欢/喜欢.dae",
-                  "icon": "喜欢"
-                  },{
-                  "urlString": "kiss/KISS.dae",
-                  "icon": "KISS"
+                  "urlString": "kaixin/kaixin.scn",
+                  "icon": "happy"
                   },
                   {
-                  "urlString": "candle/candle.scn",
-                  "icon": "candle"
+                  "urlString": "pibei/pibei.scn",
+                  "icon": "pibei"
                   },
                   {
-                  "urlString": "chair/chair.scn",
-                  "icon": "chair"
+                  "urlString": "potiweixiao/potiweixiao.scn",
+                  "icon": "potiweixiao"
                   },
                   {
-                  "urlString": "思考/思考.dae",
-                  "icon": "思考"
+                  "urlString": "aixin/aixin.scn",
+                  "icon": "aixin"
                   },
                   {
-                  "urlString": "喜欢/喜欢.dae",
-                  "icon": "喜欢"
-                  },{
-                  "urlString": "kiss/KISS.dae",
-                  "icon": "KISS"
+                  "urlString": "sikao/sikao.scn",
+                  "icon": "sikao"
+                  },
+                  {
+                  "urlString": "xihuan/xihuan.scn",
+                  "icon": "xihuan"
+                  },
+                  {
+                  "urlString": "youling/youling.scn",
+                  "icon": "youling"
                   }
+
                   ]
 }
