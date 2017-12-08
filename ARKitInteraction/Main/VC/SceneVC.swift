@@ -665,11 +665,13 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
                 NodeManager.sharedInstance.removeAllNodes()
                 let configuration = ARFaceTrackingConfiguration()
                 session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+                self.recorder.prepare(configuration)
             }
         } else {
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
             session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            self.recorder.prepare(configuration)
             self.autoFocus()
         }
     }
