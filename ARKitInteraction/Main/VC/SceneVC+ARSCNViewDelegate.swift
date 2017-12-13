@@ -42,6 +42,9 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             node.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0xffffff, alpha: 0.0)
             node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             
+            //更新平面位置
+            nodeHeight(planeAnchor.center.y)
+            
             return node
         }
         return nil
