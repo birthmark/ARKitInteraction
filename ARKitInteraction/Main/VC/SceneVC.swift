@@ -145,7 +145,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
         planeNode.geometry = SCNBox(width: CGFloat(12), height: CGFloat(0.01), length: CGFloat(12), chamferRadius: 0)
         planeNode.geometry?.materials.first?.lightingModel = .lambert //todo
         planeNode.geometry?.materials.first?.diffuse.contents = UIColor.color(hexValue: 0x000000)
-        planeNode.position = SCNVector3Make(0, -0.5, 0)
+        planeNode.position = SCNVector3Make(0, -0.1, 0)
         if (!SHOW_SHADOW_PLANE) {
             planeNode.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         }
