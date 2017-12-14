@@ -34,7 +34,8 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         
         if let planeAnchor = anchor as? ARPlaneAnchor {
-            print("planeAnchor detected x: \(planeAnchor.center.x) y: \(planeAnchor.center.y) z: \(planeAnchor.center.z)")
+            let offsetY = anchor.transform.translation.y+planeAnchor.center.y;
+            print("planeAnchor offsetY y: \(offsetY)")
             let node = SCNNode()
             
             node.geometry = SCNBox(width: CGFloat(planeAnchor.extent.x*1), height: CGFloat(planeAnchor.extent.y), length: CGFloat(planeAnchor.extent.z*1), chamferRadius: 0)
@@ -43,7 +44,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             node.geometry?.materials.first?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             
             //更新平面位置
-            nodeHeight(planeAnchor.center.y)
+            nodeHeight(offsetY)
             
             return node
         }
