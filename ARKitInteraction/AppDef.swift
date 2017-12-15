@@ -13,6 +13,11 @@ let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 let iPhoneX = SCREEN_WIDTH == 375 && SCREEN_HEIGHT == 812
+let iPhoneX_Navbar_Height = CGFloat(44)
+let iPhoneX_Toolbar_Height = CGFloat(34)
+let iPhoneX_E = CGFloat(67)
+let iPhoneX_T_Margin = CGFloat(iPhoneX ? 44+iPhoneX_E/2+30 : 30)
+let iPhoneX_B_Margin = CGFloat(iPhoneX ? 34+iPhoneX_E/2+30 : 30)
 let iPhoneX_T = CGFloat(iPhoneX ? 44 : 20)
 let iPhoneX_B = CGFloat(iPhoneX ? 34 : 0)
 

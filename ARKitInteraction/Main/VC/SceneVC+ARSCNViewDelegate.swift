@@ -18,7 +18,7 @@ extension SceneVC: ARSCNViewDelegate, ARSessionDelegate {
             self.nodeGestureHandler!.updateObjectToCurrentTrackingPosition()
             self.updateFocusSquare()
             self.updateDeleteButton()
-            self.autoFocus()
+//            self.autoFocus()
         }
         
         // If light estimation is enabled, update the intensity of the model's lights and the environment map
