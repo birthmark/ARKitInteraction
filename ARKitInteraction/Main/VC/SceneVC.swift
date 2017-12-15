@@ -81,7 +81,7 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideNavigationBar()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.black
         self.isCapturing = false
         self.isMovingToWindow = true
         self.isFrontCemare = false
