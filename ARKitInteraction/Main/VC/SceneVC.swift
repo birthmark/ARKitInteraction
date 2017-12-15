@@ -189,6 +189,8 @@ class SceneVC: BaseVC, UIPopoverPresentationControllerDelegate, EmojiSelectionVi
     func setupViews() {
         self.sceneView = ARView()
         self.sceneView.frame = self.view.bounds
+        self.sceneView.preferredFramesPerSecond = 30
+        
         if (iPhoneX) {
             self.sceneView.top = iPhoneX_Navbar_Height+iPhoneX_E/2
             self.sceneView.height = self.view.height - iPhoneX_Navbar_Height - iPhoneX_Toolbar_Height - iPhoneX_E
